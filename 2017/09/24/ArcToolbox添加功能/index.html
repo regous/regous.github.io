@@ -49,7 +49,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content=",ArcMap,ArcToolbox">
+    <meta name="keywords" content=",ArcToolbox,ArcMap">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -234,11 +234,11 @@
     <meta property="og:title" content="ArcToolbox添加功能 | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    <meta property="og:article:tag" content="ArcMap"> <meta property="og:article:tag" content="ArcToolbox"> 
+    <meta property="og:article:tag" content="ArcToolbox"> <meta property="og:article:tag" content="ArcMap"> 
 
     
         <meta property="article:published_time" content="Sun Sep 24 2017 14:57:32 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Sep 25 2017 10:47:46 GMT+0800" />
+        <meta property="article:modified_time" content="Sat Sep 30 2017 19:12:48 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2017/09/24/ArcToolbox添加功能/index.html",
     "headline": "ArcToolbox添加功能",
     "datePublished": "Sun Sep 24 2017 14:57:32 GMT+0800",
-    "dateModified": "Mon Sep 25 2017 10:47:46 GMT+0800",
+    "dateModified": "Sat Sep 30 2017 19:12:48 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +283,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",ArcMap,ArcToolbox",
+    "keywords": ",ArcToolbox,ArcMap",
     "description": "你好，明天",
 }
 </script>
@@ -547,7 +547,196 @@
 </code></pre>
 <p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_154559.jpg" alt=""></p>
 <p>在加法的例子中，使用 <strong>arcpy.SetParameter(3, res)</strong> 设置传出参数，注意这个语句的索引是 3 ，而在空间参考的例子中索引是 1。两个例子分别使用了 arcpy.GetParameterAsText 和 arcpy.GetParameter 来获取脚本的传入参数。在 ArcCatalog 界面上调用GP工具时，所有的参数都以字符串的方法展示给调用者。有些参数无法从字符串转化为对象（比如Spatial Reference），就要用 arcpy.GetParameter 来获取相关的参数。</p>
-<h2 id="AE实现GP工具"><a href="#AE实现GP工具" class="headerlink" title="AE实现GP工具"></a>AE实现GP工具</h2>
+<h2 id="AE实现GP工具"><a href="#AE实现GP工具" class="headerlink" title="AE实现GP工具"></a>AE实现GP工具</h2><p>先新建一个类库，设置为COM互操作注册。</p>
+<p>添加一个工具类，实现 <strong>IGPFunction2</strong> 接口</p>
+<pre class=" language-c#"><code class="language-c#">public class PlayFunction:IGPFunction2
+{        
+    public ESRI.ArcGIS.esriSystem.UID DialogCLSID
+    {
+        get { return null; }
+    }
+
+    public string DisplayName
+    {
+        get { return "浪"; }
+    }
+    public string Name
+    {
+        get { return "PlayFunction"; }
+    }
+
+    public void Execute(ESRI.ArcGIS.esriSystem.IArray paramvalues, ESRI.ArcGIS.esriSystem.ITrackCancel TrackCancel, IGPEnvironmentManager envMgr, ESRI.ArcGIS.Geodatabase.IGPMessages message)
+    {
+        System.Windows.Forms.MessageBox.Show("浪浪浪");
+    }
+
+    public ESRI.ArcGIS.esriSystem.IName FullName
+    {
+        get
+        {
+            ThePacificOcean aThePacificOcean = new ThePacificOcean();
+            return aThePacificOcean.CreateGPFunctionNames() as IName;
+        }
+    }
+
+    public dynamic GetRenderer(IGPParameter pParam)
+    {
+        return null;
+    }
+
+    public int HelpContext
+    {
+        get { return 0; }
+    }
+
+    public string HelpFile
+    {
+        get { return ""; }
+    }
+
+    public bool IsLicensed()
+    {
+        return true;
+    }
+
+    public string MetadataFile
+    {
+        get { return "PlayFunction.xml"; }
+    }
+
+    public ESRI.ArcGIS.esriSystem.IArray ParameterInfo
+    {
+        get
+        {
+            IArray pArray = new ArrayClass();
+            return pArray;
+        }
+    }
+
+    public void UpdateMessages(ESRI.ArcGIS.esriSystem.IArray paramvalues, IGPEnvironmentManager pEnvMgr, ESRI.ArcGIS.Geodatabase.IGPMessages Messages)
+    {
+
+    }
+
+    public void UpdateParameters(ESRI.ArcGIS.esriSystem.IArray paramvalues, IGPEnvironmentManager pEnvMgr)
+    {
+
+    }
+
+    public ESRI.ArcGIS.Geodatabase.IGPMessages Validate(ESRI.ArcGIS.esriSystem.IArray paramvalues, bool updateValues, IGPEnvironmentManager envMgr)
+    {
+        return null;
+    }
+}
+</code></pre>
+<p>麻雀虽小，五脏俱全，工具必需的属性都有了。</p>
+<p>再添加一个工具类，实现 <strong>IGPFunctionFactory</strong> 接口</p>
+<pre class=" language-c#"><code class="language-c#">[
+    Guid("182AB4E8-B408-466F-B5F9-9B9B58BDC782"),
+    ComVisible(true)
+]
+public class ThePacificOcean:IGPFunctionFactory
+{
+    // Register the Function Factory with the ESRI Geoprocessor Function Factory Component Category.
+    #region "Component Category Registration"
+    [ComRegisterFunction()]
+    static void Reg(string regKey)
+    {
+        GPFunctionFactories.Register(regKey);
+    }
+
+    [ComUnregisterFunction()]
+    static void Unreg(string regKey)
+    {
+        GPFunctionFactories.Unregister(regKey);
+    }
+    #endregion
+    #region IGPFunctionFactory Members
+    public string Alias
+    {
+        get { return "太平洋"; }
+    }
+
+    public UID CLSID
+    {
+        get
+        {
+            UID id = new UIDClass();
+            id.Value = this.GetType().GUID.ToString("B");
+            return id;
+        }
+    }
+
+    public IGPFunction GetFunction(string Name)
+    {
+        switch (Name)
+        {
+            case ("PlayFunction"):
+                IGPFunction gpFunction = new PlayFunction();
+                return gpFunction;
+        }
+
+        return null;
+    }
+
+    public IEnumGPEnvironment GetFunctionEnvironments()
+    {
+        return null;
+    }
+
+    public IGPName GetFunctionName(string Name)
+    {
+        IGPName gpName = new GPFunctionNameClass();
+
+        switch (Name)
+        {
+            case ("PlayFunction"):
+                return (IGPName)CreateGPFunctionNames();
+        }
+        return null;
+    }
+
+    public IEnumGPName GetFunctionNames()
+    {
+        IArray nameArray = new EnumGPNameClass();
+        nameArray.Add(CreateGPFunctionNames());
+        return (IEnumGPName)nameArray;
+    }
+
+    public string Name
+    {
+        get { return "The Pacific Ocean"; }
+    }
+    #endregion
+
+    #region 创建Function Name
+    public IGPFunctionName CreateGPFunctionNames()
+    {
+        PlayFunction aPlayFunction = new PlayFunction();
+        IGPFunctionName functionName = new GPFunctionNameClass();
+        IGPName name = functionName as IGPName;
+
+        name = (IGPName)functionName;
+        name.Category = "Happy Fun";
+        name.Description = "乘风破浪";
+        name.DisplayName = aPlayFunction.DisplayName;
+        name.Name = aPlayFunction.Name;
+        name.Factory = this;
+        return functionName;
+    }
+    #endregion
+}
+</code></pre>
+<p>编译，并使用regasm.exe注册动态库。</p>
+<p>在Toolbox上添加一个Tool命令</p>
+<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185655.jpg" alt=""></p>
+<p>选中刚刚编写的工具</p>
+<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185825.jpg" alt=""></p>
+<p>Tool添加完成</p>
+<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185959.jpg" alt=""></p>
+<p>点击调用，弹出提示框</p>
+<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_190951.jpg" alt=""></p>
+
         
     
 
@@ -581,7 +770,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2017/09/24/ArcMap-Network-Dataset的使用/" id="post_nav-older" class="next-content">
+        <a href="/2017/09/21/use_c-plusplus_implement_delegate_like_c-sharp/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -673,7 +862,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">8</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
