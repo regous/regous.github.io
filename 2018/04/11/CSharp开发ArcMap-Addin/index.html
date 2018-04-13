@@ -37,7 +37,7 @@
     
     <title>
         
-            C++调用GP工具 | 
+            C#开发ArcMap Add-in | 
         
         生命不息，折腾不止
     </title>
@@ -49,7 +49,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content=",C++,GP工具">
+    <meta name="keywords" content=",C#,ArcMap,Add-in">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,18 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="C++调用GP工具 | 生命不息，折腾不止">
+    <meta property="og:title" content="C#开发ArcMap Add-in | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    <meta property="og:article:tag" content="C++"> <meta property="og:article:tag" content="GP工具"> 
+    <meta property="og:article:tag" content="C#"> <meta property="og:article:tag" content="ArcMap"> <meta property="og:article:tag" content="Add-in"> 
 
     
-        <meta property="article:published_time" content="Tue Apr 10 2018 11:44:33 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Apr 10 2018 12:13:04 GMT+0800" />
+        <meta property="article:published_time" content="Wed Apr 11 2018 23:28:29 GMT+0800" />
+        <meta property="article:modified_time" content="Wed Apr 11 2018 23:36:23 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="C++调用GP工具 | 生命不息，折腾不止">
+    <meta name="twitter:title" content="C#开发ArcMap Add-in | 生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +250,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://ithinking.cc/2018/04/10/C-调用GP工具/index.html" />
+        <link rel="canonical" href="http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -262,10 +262,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://ithinking.cc/2018/04/10/C-调用GP工具/index.html",
-    "headline": "C++调用GP工具",
-    "datePublished": "Tue Apr 10 2018 11:44:33 GMT+0800",
-    "dateModified": "Tue Apr 10 2018 12:13:04 GMT+0800",
+    "mainEntityOfPage": "http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html",
+    "headline": "C#开发ArcMap Add-in",
+    "datePublished": "Wed Apr 11 2018 23:28:29 GMT+0800",
+    "dateModified": "Wed Apr 11 2018 23:36:23 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +283,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",C++,GP工具",
+    "keywords": ",C#,ArcMap,Add-in",
     "description": "你好，明天",
 }
 </script>
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-调用GP工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++调用GP工具</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-开发ArcMap-Add-in"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#开发ArcMap Add-in</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建工程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">新建工程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加一个命令"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">添加一个命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置工具条"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">配置工具条</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加可停靠窗体"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">添加可停靠窗体</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于注册"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">关于注册</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                C++调用GP工具
+                C#开发ArcMap Add-in
             </p>
         </div>
 
@@ -400,7 +400,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>风之痕</strong>
-        <span>4月 10, 2018</span>
+        <span>4月 11, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -424,7 +424,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/C/">C++</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/GP工具/">GP工具</a>
+        <a class="post_tag-link" href="/tags/Add-in/">Add-in</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/ArcMap/">ArcMap</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/C/">C#</a>
     </ul>
     
 
@@ -440,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C++调用GP工具&url=http://ithinking.cc/2018/04/10/C-调用GP工具/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C#开发ArcMap Add-in&url=http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -449,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++调用GP工具&url=http://ithinking.cc/2018/04/10/C-调用GP工具/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C#开发ArcMap Add-in&url=http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -458,7 +458,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/04/10/C-调用GP工具/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -467,7 +467,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/04/10/C-调用GP工具/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/04/11/CSharp开发ArcMap-Addin/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -491,52 +491,10 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-调用GP工具"><a href="#C-调用GP工具" class="headerlink" title="C++调用GP工具"></a>C++调用GP工具</h1><p>这段时间协助同事做一个调用GP工具的东西，共享出来。</p>
-<pre class=" language-c++"><code class="language-c++">IGeoProcessor2Ptr ipGeoProcessor(CLSID_GeoProcessor);
-IVariantArrayPtr ipVariantArray(CLSID_VarArray);
-ipVariantArray->Add(_variant_t(CComBSTR(_T("D:/NewMDB.mdb/LINE"))));
-ipVariantArray->Add(_variant_t(CComBSTR(_T("D:/NewMDB.mdb/LINE1"))));
-IGeoProcessorResultPtr ipGeoProcessorResult;
-HRESULT res = ipGeoProcessor->Execute(_bstr_t(_T("SplitLine")), ipVariantArray, NULL, &ipGeoProcessorResult);
-
-IGPMessagesPtr ipGPMessages = NULL;
-ipGeoProcessor->GetReturnMessages(&ipGPMessages);
-if (NULL != ipGPMessages)
-{
-  long lMsgCount = 0;
-  ipGPMessages->get_Count(&lMsgCount);
-  for (long l = 0; l < lMsgCount; l++)
-  {
-    IGPMessagePtr ipGPMessage;
-    ipGPMessages->esriGetMessage(l, &ipGPMessage);
-    VARIANT_BOOL vbBool;
-    BSTR bstrDescription;
-    ipGPMessage->get_Description(&bstrDescription);
-    ipGPMessage->IsAbort(&vbBool);
-    if (vbBool == VARIANT_TRUE)
-    {
-      //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
-    }
-    ipGPMessage->IsError(&vbBool);
-    if (vbBool == VARIANT_TRUE)
-    {
-      //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
-    }
-    ipGPMessage->IsInformational(&vbBool);
-    if (vbBool == VARIANT_TRUE)
-    {
-      //_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
-    }
-    ipGPMessage->IsWarning(&vbBool);
-    if (vbBool == VARIANT_TRUE)
-    {
-      //_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
-    }
-    ::SysFreeString(bstrDescription);
-  }
-}
-</code></pre>
-<p><a href="/Downloads/DemoArcobjects.zip">下载工程</a></p>
+        <h1 id="C-开发ArcMap-Add-in"><a href="#C-开发ArcMap-Add-in" class="headerlink" title="C#开发ArcMap Add-in"></a>C#开发ArcMap Add-in</h1><p>占坑，被完C++的版本后再写</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>用C#开发ArcMap Addin是Esri鼓励的方式，体现在ArcGis For Visual Studio插件上，利用这个插件，建ToolBar之类的操作非常简单，没有C++那么多的东西需要配置，也没有发现容易忽略的地方。最近做的一个东西，虽然是用C++做的，但是命令面板之类的东西是用WPF做的，主要是用WPF做出来的能看而且可用。</p>
+<h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><h2 id="添加一个命令"><a href="#添加一个命令" class="headerlink" title="添加一个命令"></a>添加一个命令</h2><h2 id="配置工具条"><a href="#配置工具条" class="headerlink" title="配置工具条"></a>配置工具条</h2><h2 id="添加可停靠窗体"><a href="#添加可停靠窗体" class="headerlink" title="添加可停靠窗体"></a>添加可停靠窗体</h2><p>##如何调用可停靠窗体</p>
+<h2 id="关于注册"><a href="#关于注册" class="headerlink" title="关于注册"></a>关于注册</h2><p>新建工程的时间，利用 ArcGis For Visual Studio插件，在VS的配置文件中加入了编译后注册选项（调用EsriRegasm.exe注册），这个是在编译后事件里是无法看到的，这也导致了一个问题，高版本的VS的配置中没有加入这个选项，因为编译完成后会提示注册失败而导致编译失败。目前还没有找到办法去解决。</p>
 
         
     
@@ -557,7 +515,7 @@ if (NULL != ipGPMessages)
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/04/11/C-开发Arcmap-Add-in/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/04/12/工作简记·02/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -571,7 +529,7 @@ if (NULL != ipGPMessages)
 
     <!-- Next Nav -->
     
-        <a href="/2018/04/06/C-开发ArcMap-Add-in注意事项/" id="post_nav-older" class="next-content">
+        <a href="/2018/04/11/工作简记·01/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -663,7 +621,7 @@ if (NULL != ipGPMessages)
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
