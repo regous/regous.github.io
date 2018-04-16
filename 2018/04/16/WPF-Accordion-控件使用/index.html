@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Mon Apr 16 2018 20:46:58 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Apr 16 2018 22:08:21 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Apr 16 2018 22:11:42 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/04/16/WPF-Accordion-控件使用/index.html",
     "headline": "WPF Accordion 控件使用",
     "datePublished": "Mon Apr 16 2018 20:46:58 GMT+0800",
-    "dateModified": "Mon Apr 16 2018 22:08:21 GMT+0800",
+    "dateModified": "Mon Apr 16 2018 22:11:42 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WPF-Accordion-控件使用"><span class="post-toc-number">1.</span> <span class="post-toc-text">WPF Accordion 控件使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改背景色"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">修改背景色</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决文件下沉问题"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">解决文件下沉问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决下拉超出界面的问题"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">解决下拉超出界面的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WPF-Accordion-控件使用"><span class="post-toc-number">1.</span> <span class="post-toc-text">WPF Accordion 控件使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改背景色"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">修改背景色</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决文字下沉问题"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">解决文字下沉问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决展开超出界面的问题"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">解决展开超出界面的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -928,13 +928,13 @@ xmlns:toolkitPrimitives="clr-namespace:System.Windows.Controls.Primitives;assemb
 <p>效果如图：</p>
 <p><img src="/2018/04/16/WPF-Accordion-控件使用/2018-04-16_210856.png" alt=""></p>
 <p>虽然解决方法不太漂亮，但是总算是可行。</p>
-<h3 id="解决文件下沉问题"><a href="#解决文件下沉问题" class="headerlink" title="解决文件下沉问题"></a>解决文件下沉问题</h3><p>与背景的修改类型，简单粗暴改样式，不过这个东西的问题比较难找，我一开始以为是因为布局的问题，但是实际是因为 TextBlock 的Margin的问题，原设置为</p>
+<h3 id="解决文字下沉问题"><a href="#解决文字下沉问题" class="headerlink" title="解决文字下沉问题"></a>解决文字下沉问题</h3><p>与背景的修改类型，简单粗暴改样式，不过这个东西的问题比较难找，我一开始以为是因为布局的问题，但是实际是因为 ContentPresenter 的 Margin 的问题，原设置为</p>
 <p><code>&lt;ContentPresenter HorizontalAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot; VerticalAlignment=&quot;Center&quot; Margin=&quot;6,6,6,0&quot; x:Name=&quot;header&quot; Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot; Grid.RowSpan=&quot;1&quot; Content=&quot;{TemplateBinding Content}&quot; ContentTemplate=&quot;{TemplateBinding ContentTemplate}&quot; /&gt;</code></p>
 <p>改为</p>
 <p><code>&lt;ContentPresenter HorizontalAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot; VerticalAlignment=&quot;Center&quot; Margin=&quot;6,6,6,6&quot; x:Name=&quot;header&quot; Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot; Grid.RowSpan=&quot;1&quot; Content=&quot;{TemplateBinding Content}&quot; ContentTemplate=&quot;{TemplateBinding ContentTemplate}&quot; /&gt;</code></p>
 <p>效果如图：</p>
 <p><img src="/2018/04/16/WPF-Accordion-控件使用/2018-04-16_211540.png" alt=""></p>
-<h3 id="解决下拉超出界面的问题"><a href="#解决下拉超出界面的问题" class="headerlink" title="解决下拉超出界面的问题"></a>解决下拉超出界面的问题</h3><p>目前我能找到的解决方法是，在Accordion尺寸变化时，限制AccordionItem的最大高度。</p>
+<h3 id="解决展开超出界面的问题"><a href="#解决展开超出界面的问题" class="headerlink" title="解决展开超出界面的问题"></a>解决展开超出界面的问题</h3><p>目前我能找到的解决方法是，在Accordion尺寸变化时，限制AccordionItem的最大高度。</p>
 <pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">toolkit:</span>Accordion</span> <span class="token attr-name"><span class="token namespace">x:</span>Name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wndAccordion<span class="token punctuation">"</span></span> <span class="token attr-name">VerticalContentAlignment</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Stretch<span class="token punctuation">"</span></span> <span class="token attr-name">SelectionMode</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ZeroOrOne<span class="token punctuation">"</span></span> <span class="token attr-name">SizeChanged</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wndAccordion_SizeChanged<span class="token punctuation">"</span></span> <span class="token attr-name">Width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{Binding Path<span class="token punctuation">=</span>ActualWidth, RelativeSource<span class="token punctuation">=</span>{RelativeSource AncestorType<span class="token punctuation">=</span>Grid}}<span class="token punctuation">"</span></span> <span class="token attr-name">Height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{Binding Path<span class="token punctuation">=</span>ActualHeight, RelativeSource<span class="token punctuation">=</span>{RelativeSource AncestorType<span class="token punctuation">=</span>Grid}}<span class="token punctuation">"</span></span> <span class="token attr-name">VerticalAlignment</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Stretch<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 </code></pre>
 <pre class=" language-C#"><code class="language-C#">private void wndAccordion_SizeChanged(object sender, SizeChangedEventArgs e)
