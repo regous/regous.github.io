@@ -37,7 +37,7 @@
     
     <title>
         
-            工作简记·04 | 
+            Arcpy根据模板创建工作空间 | 
         
         生命不息，折腾不止
     </title>
@@ -49,7 +49,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content=",工作简记">
+    <meta name="keywords" content=",arcpy">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,18 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="工作简记·04 | 生命不息，折腾不止">
+    <meta property="og:title" content="Arcpy根据模板创建工作空间 | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    <meta property="og:article:tag" content="工作简记"> 
+    <meta property="og:article:tag" content="arcpy"> 
 
     
-        <meta property="article:published_time" content="Thu Apr 19 2018 23:56:59 GMT+0800" />
-        <meta property="article:modified_time" content="Fri Apr 20 2018 00:01:17 GMT+0800" />
+        <meta property="article:published_time" content="Thu Apr 26 2018 10:00:58 GMT+0800" />
+        <meta property="article:modified_time" content="Thu Apr 26 2018 10:16:03 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="工作简记·04 | 生命不息，折腾不止">
+    <meta name="twitter:title" content="Arcpy根据模板创建工作空间 | 生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +250,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://ithinking.cc/2018/04/19/工作简记·04/index.html" />
+        <link rel="canonical" href="http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -262,10 +262,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://ithinking.cc/2018/04/19/工作简记·04/index.html",
-    "headline": "工作简记·04",
-    "datePublished": "Thu Apr 19 2018 23:56:59 GMT+0800",
-    "dateModified": "Fri Apr 20 2018 00:01:17 GMT+0800",
+    "mainEntityOfPage": "http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html",
+    "headline": "Arcpy根据模板创建工作空间",
+    "datePublished": "Thu Apr 26 2018 10:00:58 GMT+0800",
+    "dateModified": "Thu Apr 26 2018 10:16:03 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +283,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",工作简记",
+    "keywords": ",arcpy",
     "description": "你好，明天",
 }
 </script>
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#工作简记·04"><span class="post-toc-number">1.</span> <span class="post-toc-text">工作简记·04</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Arcpy根据模板创建工作空间"><span class="post-toc-number">1.</span> <span class="post-toc-text">Arcpy根据模板创建工作空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">使用方法</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                工作简记·04
+                Arcpy根据模板创建工作空间
             </p>
         </div>
 
@@ -400,7 +400,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>风之痕</strong>
-        <span>4月 19, 2018</span>
+        <span>4月 26, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -424,7 +424,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/工作简记/">工作简记</a>
+        <a class="post_tag-link" href="/tags/arcpy/">arcpy</a>
     </ul>
     
 
@@ -440,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=工作简记·04&url=http://ithinking.cc/2018/04/19/工作简记·04/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Arcpy根据模板创建工作空间&url=http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -449,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=工作简记·04&url=http://ithinking.cc/2018/04/19/工作简记·04/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Arcpy根据模板创建工作空间&url=http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -458,7 +458,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/04/19/工作简记·04/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -467,7 +467,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/04/19/工作简记·04/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/04/26/Arcpy根据模板创建工作空间/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -491,9 +491,133 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="工作简记·04"><a href="#工作简记·04" class="headerlink" title="工作简记·04"></a>工作简记·04</h1><ul>
-<li>明天就完离职手续了，以前其他同事离职，我很难过，现在我要离职了，心绪也一样是低落，没有想像中的兴奋，一点平静，更多的是难过，很多的人，离职之后就不会再见到了。</li>
-</ul>
+        <h1 id="Arcpy根据模板创建工作空间"><a href="#Arcpy根据模板创建工作空间" class="headerlink" title="Arcpy根据模板创建工作空间"></a>Arcpy根据模板创建工作空间</h1><p>写其他功能的时候，常常修修补补，后来发现，居然改出了一个不错的类，挺通用的，所以记录下来。</p>
+<p>Do not talk, show me the code!</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> shutil
+<span class="token keyword">import</span> zipfile
+
+
+<span class="token keyword">class</span> <span class="token class-name">Template</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    Unknown <span class="token operator">=</span> <span class="token number">0</span>
+    MDB <span class="token operator">=</span> <span class="token number">1</span>
+    GDB <span class="token operator">=</span> <span class="token number">2</span>
+    SHP <span class="token operator">=</span> <span class="token number">4</span>
+    ZIP <span class="token operator">=</span> <span class="token number">512</span>
+
+    DEFAULT_TYPE <span class="token operator">=</span> SHP
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token string">'shp'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">'''
+        Construct Function
+        :param path: the template's path. class will generate workspace by copy template.
+        :param default: default workspace type. if the path parameter is empty,this parameter will decide which type of
+                            workspace that will be generated.
+        '''</span>
+        self<span class="token punctuation">.</span>path <span class="token operator">=</span> path
+        self<span class="token punctuation">.</span>_db_type <span class="token operator">=</span> self<span class="token punctuation">.</span>_parse_db_type<span class="token punctuation">(</span>default<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_parse_db_type</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> default<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>path<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>default<span class="token punctuation">,</span> basestring<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                default <span class="token operator">=</span> default<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">if</span> default <span class="token operator">==</span> <span class="token string">'mdb'</span><span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>MDB
+                <span class="token keyword">elif</span> default <span class="token operator">==</span> <span class="token string">'gdb'</span><span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>GDB
+                <span class="token keyword">elif</span> default <span class="token operator">==</span> <span class="token string">'shp'</span><span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>SHP
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>DEFAULT_TYPE
+            <span class="token keyword">return</span> Template<span class="token punctuation">.</span>DEFAULT_TYPE
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'template not exists.'</span><span class="token punctuation">)</span>
+            ext <span class="token operator">=</span> self<span class="token punctuation">.</span>path<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            flag <span class="token operator">=</span> Template<span class="token punctuation">.</span>Unknown
+            <span class="token keyword">if</span> ext <span class="token operator">==</span> <span class="token string">'zip'</span><span class="token punctuation">:</span>
+                flag <span class="token operator">=</span> Template<span class="token punctuation">.</span>ZIP
+                fz <span class="token operator">=</span> zipfile<span class="token punctuation">.</span>ZipFile<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
+                fname <span class="token operator">=</span> fz<span class="token punctuation">.</span>namelist<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+                ext <span class="token operator">=</span> fname<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+
+            <span class="token keyword">if</span> ext <span class="token operator">==</span> <span class="token string">'mdb'</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>MDB
+            <span class="token keyword">elif</span> ext <span class="token operator">==</span> <span class="token string">'gdb'</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>GDB
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>SHP
+
+    <span class="token keyword">def</span> <span class="token function">clone</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        res <span class="token operator">=</span> <span class="token string">''</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>path<span class="token punctuation">:</span>
+            res <span class="token operator">=</span> self<span class="token punctuation">.</span>create<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>ZIP<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
+                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> u<span class="token string">'{0}.{1}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">'mdb'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
+                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> u<span class="token string">'{0}.{1}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">'gdb'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>SHP<span class="token punctuation">:</span>
+                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>_copy<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                on <span class="token operator">=</span> self<span class="token punctuation">.</span>_unzip<span class="token punctuation">(</span>output<span class="token punctuation">)</span>
+                res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
+                    res <span class="token operator">=</span> res <span class="token operator">+</span> <span class="token string">'.gdb'</span>
+                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
+                    res <span class="token operator">=</span> res <span class="token operator">+</span> <span class="token string">'.mdb'</span>
+                os<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>on<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_decorate<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">create</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
+            arcpy<span class="token punctuation">.</span>CreatePersonalGDB_management<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
+            arcpy<span class="token punctuation">.</span>CreateFileGDB_management<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                os<span class="token punctuation">.</span>mkdir<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_decorate<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">extention</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        actual_type <span class="token operator">=</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">^</span> Template<span class="token punctuation">.</span>ZIP <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>ZIP <span class="token keyword">else</span> self<span class="token punctuation">.</span>_db_type
+        <span class="token keyword">if</span> actual_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">'mdb'</span>
+        <span class="token keyword">elif</span> actual_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">'gdb'</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">'shp'</span>
+
+    <span class="token keyword">def</span> <span class="token function">_unzip</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        fz <span class="token operator">=</span> zipfile<span class="token punctuation">.</span>ZipFile<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
+        files <span class="token operator">=</span> fz<span class="token punctuation">.</span>namelist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        first <span class="token operator">=</span> files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> f <span class="token keyword">in</span> files<span class="token punctuation">:</span>
+            fz<span class="token punctuation">.</span>extract<span class="token punctuation">(</span>f<span class="token punctuation">,</span> output<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> first<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_copy</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isfile<span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            shutil<span class="token punctuation">.</span>copytree<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_decorate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>SHP<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> name
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            ext <span class="token operator">=</span> <span class="token string">'.'</span> <span class="token operator">+</span> self<span class="token punctuation">.</span>extention<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> name <span class="token keyword">if</span> name<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> ext <span class="token keyword">else</span> name <span class="token operator">+</span> ext
+</code></pre>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>Template的构造参数有两个，都是可选的</p>
+<pre class=" language-python"><code class="language-python">t <span class="token operator">=</span> Template<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo\FunData.mdb'</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span>clone<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo'</span><span class="token punctuation">,</span><span class="token string">'FunDataClone'</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span>create<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo'</span><span class="token punctuation">,</span><span class="token string">'FunDataClone_1'</span><span class="token punctuation">)</span>
+</code></pre>
 
         
     
@@ -514,21 +638,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/04/20/Arcpy并行运算一点经验总结/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/04/16/工作简记·03/" id="post_nav-older" class="next-content">
+        <a href="/2018/04/25/Chrome手动保存密码/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
