@@ -37,8 +37,6 @@
     
     <title>
         
-            工作简记·04 | 
-        
         生命不息，折腾不止
     </title>
 
@@ -49,7 +47,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content=",工作简记">
+    <meta name="keywords" content="">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,18 +229,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="工作简记·04 | 生命不息，折腾不止">
+    <meta property="og:title" content="生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    <meta property="og:article:tag" content="工作简记"> 
+    
 
     
-        <meta property="article:published_time" content="Thu Apr 19 2018 23:56:59 GMT+0800" />
-        <meta property="article:modified_time" content="Fri Apr 20 2018 00:01:17 GMT+0800" />
+        <meta property="article:published_time" content="Sat May 12 2018 18:54:39 GMT+0800" />
+        <meta property="article:modified_time" content="Sat May 12 2018 19:23:56 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="工作简记·04 | 生命不息，折腾不止">
+    <meta name="twitter:title" content="生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +248,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://ithinking.cc/2018/04/19/工作简记·04/index.html" />
+        <link rel="canonical" href="http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -262,10 +260,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://ithinking.cc/2018/04/19/工作简记·04/index.html",
-    "headline": "工作简记·04",
-    "datePublished": "Thu Apr 19 2018 23:56:59 GMT+0800",
-    "dateModified": "Fri Apr 20 2018 00:01:17 GMT+0800",
+    "mainEntityOfPage": "http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html",
+    "headline": "",
+    "datePublished": "Sat May 12 2018 18:54:39 GMT+0800",
+    "dateModified": "Sat May 12 2018 19:23:56 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +281,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",工作简记",
+    "keywords": "",
     "description": "你好，明天",
 }
 </script>
@@ -349,7 +347,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#工作简记·04"><span class="post-toc-number">1.</span> <span class="post-toc-text">工作简记·04</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#svn熟练用户的git简单入门教程"><span class="post-toc-number">1.</span> <span class="post-toc-text">svn熟练用户的git简单入门教程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择一个git托管商"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">选择一个git托管商</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装git"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">安装git</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本机克隆"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">本机克隆</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#增加一个文件并提交到本地数据库"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">增加一个文件并提交到本地数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将变更提交到git服务器"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">将变更提交到git服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">更新</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -381,7 +379,7 @@
         
     
             <p class="article-headline-p">
-                工作简记·04
+                
             </p>
         </div>
 
@@ -400,7 +398,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>风之痕</strong>
-        <span>4月 19, 2018</span>
+        <span>5月 12, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -418,15 +416,6 @@
 
     <!-- Tags (bookmark) -->
     
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/工作简记/">工作简记</a>
-    </ul>
-    
 
     <!-- Share -->
     <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
@@ -440,7 +429,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=工作简记·04&url=http://ithinking.cc/2018/04/19/工作简记·04/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=&url=http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -449,7 +438,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=工作简记·04&url=http://ithinking.cc/2018/04/19/工作简记·04/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=&url=http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -458,7 +447,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/04/19/工作简记·04/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -467,7 +456,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/04/19/工作简记·04/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/05/12/svn熟练用户的git简单入门教程/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -491,9 +480,34 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="工作简记·04"><a href="#工作简记·04" class="headerlink" title="工作简记·04"></a>工作简记·04</h1><ul>
-<li>明天就完离职手续了，以前其他同事离职，我很难过，现在我要离职了，心绪也一样是低落，没有想像中的兴奋，一点平静，更多的是难过，很多的人，离职之后就不会再见到了。</li>
-</ul>
+        <p>title: svn熟练用户的git简单入门教程<br>date: 2018-05-12 18:54:39<br>tags:</p>
+<h1 id="svn熟练用户的git简单入门教程"><a href="#svn熟练用户的git简单入门教程" class="headerlink" title="svn熟练用户的git简单入门教程"></a>svn熟练用户的git简单入门教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在整理自己的代码，以前用的是svn，其实对于我来说svn已经够用了，但是现在想整理好放到网上去备份，以后换电脑之类的什么的也方便。又因为以前对git只是说听，并没有使用过，因此想趁着这个契机，学学git使用，对于我svn已经够，但是git提供一个对于非常具有吸引力的特性——本地数据库，意味着我可以将本机作为一个服务器，等代码成熟再传到网上去，我是很乱改代码，所以这很吸引力，除此之外，只有知道svn的提交、更新、回退方法就可以了。</p>
+<h2 id="选择一个git托管商"><a href="#选择一个git托管商" class="headerlink" title="选择一个git托管商"></a>选择一个git托管商</h2><p>我选择的是gitlab，个人免费用户可以新建很多个工程，正合我意。</p>
+<p>首先在gitlab上注册一个账号，并新建一个项目，这个步骤略。</p>
+<p>项目地址为：<a href="https://gitlab.com/username/BlogDemo.git" target="_blank" rel="external">https://gitlab.com/username/BlogDemo.git</a></p>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><p>安装git和图形客户端TortoiseGit。</p>
+<h2 id="本机克隆"><a href="#本机克隆" class="headerlink" title="本机克隆"></a>本机克隆</h2><p>gitlab提供了详细命令操作方式</p>
+<pre><code>git clone https://gitlab.com/username/BlogDemo.git
+cd BlogDemo
+touch README.md
+git add README.md
+git commit -m &quot;add README&quot;
+git push -u origin master
+</code></pre><p>图形操作的话就简单了，右键单击文件夹空白，单击 git clone。</p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190552.png" alt=""></p>
+<h2 id="增加一个文件并提交到本地数据库"><a href="#增加一个文件并提交到本地数据库" class="headerlink" title="增加一个文件并提交到本地数据库"></a>增加一个文件并提交到本地数据库</h2><p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190805.png" alt=""></p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190842.png" alt=""></p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190920.png" alt=""></p>
+<h2 id="将变更提交到git服务器"><a href="#将变更提交到git服务器" class="headerlink" title="将变更提交到git服务器"></a>将变更提交到git服务器</h2><p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191027.png" alt=""></p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191142.png" alt=""></p>
+<p>刷新gitlab的项目页面，就可以看到这个文件了</p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191229.png" alt="2018-05-12_191229"></p>
+<p>这个新增的步骤，实际上也包含了修改的提交。</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>先删除本地新增的文件，再将它恢复</p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191906.png" alt=""></p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191939.png" alt="2018-05-12_191939"></p>
+<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_192007.png" alt="2018-05-12_192007"></p>
+<p>目前是自己玩这个项目，还没有遇到更复杂的问题。希望能帮到那些熟悉SVN，想使用而又让GIT吓到的童鞋（我以前就是）。</p>
 
         
     
@@ -514,21 +528,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/04/16/工作简记·03/" id="post_nav-older" class="next-content">
+        <a href="/2018/05/12/恢复-Edit-with-IDLE-右键菜单项/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
