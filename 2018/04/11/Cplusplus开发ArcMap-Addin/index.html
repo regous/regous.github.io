@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Wed Apr 11 2018 11:43:10 GMT+0800" />
-        <meta property="article:modified_time" content="Sat May 12 2018 09:31:14 GMT+0800" />
+        <meta property="article:modified_time" content="Sat May 12 2018 12:04:56 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/04/11/Cplusplus开发ArcMap-Addin/index.html",
     "headline": "C++开发ArcMap Addin",
     "datePublished": "Wed Apr 11 2018 11:43:10 GMT+0800",
-    "dateModified": "Sat May 12 2018 09:31:14 GMT+0800",
+    "dateModified": "Sat May 12 2018 12:04:56 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-开发ArcMap-Addin"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++开发ArcMap Addin</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现接口"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">实现接口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用regsvr32-exe注册"><span class="post-toc-number">1.0.1.1.</span> <span class="post-toc-text">使用regsvr32.exe注册</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用esriRegasm-exe注册"><span class="post-toc-number">1.0.1.2.</span> <span class="post-toc-text">使用esriRegasm.exe注册</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加工具条"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">添加工具条</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加停靠窗体"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">添加停靠窗体</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-开发ArcMap-Addin"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++开发ArcMap Addin</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建工程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">新建工程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加命令"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">添加命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现接口"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">实现接口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用regsvr32-exe注册"><span class="post-toc-number">1.2.1.1.</span> <span class="post-toc-text">使用regsvr32.exe注册</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用esriRegasm-exe注册"><span class="post-toc-number">1.2.1.2.</span> <span class="post-toc-text">使用esriRegasm.exe注册</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加工具"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">添加工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加工具条"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">添加工具条</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加停靠窗体"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">添加停靠窗体</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -491,11 +491,9 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-开发ArcMap-Addin"><a href="#C-开发ArcMap-Addin" class="headerlink" title="C++开发ArcMap Addin"></a>C++开发ArcMap Addin</h1><p>##新建工程</p>
-<p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_084216.png" alt=""></p>
+        <h1 id="C-开发ArcMap-Addin"><a href="#C-开发ArcMap-Addin" class="headerlink" title="C++开发ArcMap Addin"></a>C++开发ArcMap Addin</h1><h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_084216.png" alt=""></p>
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_084256.png" alt=""></p>
-<p>##添加命令</p>
-<p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_090548.png" alt=""></p>
+<h2 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h2><p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_090548.png" alt=""></p>
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_091115.png" alt=""></p>
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_092906.png" alt=""></p>
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-12_092926.png" alt=""></p>
@@ -646,12 +644,11 @@ OBJECT_ENTRY_AUTO(__uuidof(DemoCommand), CDemoCommand)
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-04-13_091520.png" alt=""></p>
 <p>重要的事情说三遍</p>
 <ul>
-<li>一定要用esriRegasm.exe注册</li>
-<li>一定要用esriRegasm.exe注册</li>
-<li>一定要用esriRegasm.exe注册</li>
+<li><strong>一定要用esriRegasm.exe注册</strong></li>
+<li><strong>一定要用esriRegasm.exe注册</strong></li>
+<li><strong>一定要用esriRegasm.exe注册</strong></li>
 </ul>
-<p>##添加工具</p>
-<p>与添加命令类似，主要是不同是，实现的接口</p>
+<h2 id="添加工具"><a href="#添加工具" class="headerlink" title="添加工具"></a>添加工具</h2><p>与添加命令类似，主要是不同是，实现的接口</p>
 <p><img src="/2018/04/11/Cplusplus开发ArcMap-Addin/2018-05-12_073749.png" alt=""></p>
 <p>另外，这个接口方法要返回<strong>VARIANT_TRUE</strong>，否则，无法切换成其他的工具。</p>
 <pre class=" language-c++"><code class="language-c++">STDMETHOD(Deactivate)(VARIANT_BOOL * complete)
