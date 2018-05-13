@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Tue Apr 10 2018 11:44:33 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Apr 10 2018 12:13:04 GMT+0800" />
+        <meta property="article:modified_time" content="Sun May 13 2018 09:28:42 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/04/10/Cplusplus调用GP工具/index.html",
     "headline": "C++调用GP工具",
     "datePublished": "Tue Apr 10 2018 11:44:33 GMT+0800",
-    "dateModified": "Tue Apr 10 2018 12:13:04 GMT+0800",
+    "dateModified": "Sun May 13 2018 09:28:42 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-调用GP工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++调用GP工具</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-调用GP工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++调用GP工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结果"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">结果</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -536,6 +536,323 @@ if (NULL != ipGPMessages)
   }
 }
 </code></pre>
+<pre class=" language-c++"><code class="language-c++">// DemoCplusplusGeoprocessing.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include "DemoCplusplusGeoprocessing.h"
+#include "EsriAuthority.h"
+#include "SpatialConnection.h"
+#include <vector>
+#include "cppgp.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+
+// 唯一的应用程序对象
+
+CWinApp theApp;
+
+using namespace std;
+
+IVariantArrayPtr 处理全部要素(IFeatureClassPtr ipFeatureClass)
+{
+    IVariantArrayPtr ipVariantArray(CLSID_VarArray);
+    _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, NULL, NULL);
+    ipVariantArray->Add(va);
+    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_全部.shp"))));
+    return ipVariantArray;
+}
+
+IVariantArrayPtr 处理OID为2的要素(IFeatureClassPtr ipFeatureClass)
+{
+    IVariantArrayPtr ipVariantArray(CLSID_VarArray);
+    IQueryFilterPtr ipQueryFilter(CLSID_QueryFilter);
+    ipQueryFilter->put_WhereClause(_bstr_t(_T("OBJECTID = 2 ")));
+    _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, ipQueryFilter, NULL);
+    ipVariantArray->Add(va);
+    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_OID2.shp"))));
+    return ipVariantArray;
+}
+
+IVariantArrayPtr 处理OID为1和2的要素(IFeatureClassPtr ipFeatureClass)
+{
+    IVariantArrayPtr ipVariantArray(CLSID_VarArray);
+    std::vector<long> vecOids;
+    vecOids.push_back(1);
+    vecOids.push_back(2);
+    _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, NULL, &vecOids);
+    ipVariantArray->Add(va);
+    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_OID12.shp"))));
+    return ipVariantArray;
+}
+
+int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
+{
+    int nRetCode = 0;
+
+    HMODULE hModule = ::GetModuleHandle(NULL);
+
+    if (hModule != NULL)
+    {
+        // 初始化 MFC 并在失败时显示错误
+        if (!AfxWinInit(hModule, NULL, ::GetCommandLine(), 0))
+        {
+            // TODO:  更改错误代码以符合您的需要
+            _tprintf(_T("错误:  MFC 初始化失败\n"));
+            nRetCode = 1;
+        }
+        else
+        {
+            // TODO:  在此处为应用程序的行为编写代码。
+            ::CoInitialize(NULL);
+            CEsriAuthority::Object.CheckOut();
+            CSpatialConnection aSpatialConnection(NULL);
+            aSpatialConnection.SetParameter(_T("DATABASE"), _T("..\\Demo\\Demo.mdb"));
+            aSpatialConnection.Connect();
+            IFeatureClassPtr ipFeatureClass;
+            aSpatialConnection.OpenFeatureClass(_T("LINE"), ipFeatureClass);
+            IGeoProcessor2Ptr ipGeoProcessor(CLSID_GeoProcessor);
+            IVariantArrayPtr ipVariantArray[3] = { 处理全部要素(ipFeatureClass), 处理OID为2的要素(ipFeatureClass), 处理OID为1和2的要素(ipFeatureClass) };
+
+            IGeoProcessorResultPtr ipGeoProcessorResult;
+            for (int i = 0; i < 3; i++)
+            {
+                HRESULT res = ipGeoProcessor->Execute(_bstr_t(_T("SplitLine")), ipVariantArray[i], NULL, &ipGeoProcessorResult);
+
+                IGPMessagesPtr ipGPMessages = NULL;
+                ipGeoProcessor->GetReturnMessages(&ipGPMessages);
+                if (NULL != ipGPMessages)
+                {
+                    long lMsgCount = 0;
+                    ipGPMessages->get_Count(&lMsgCount);
+                    for (long l = 0; l < lMsgCount; l++)
+                    {
+                        IGPMessagePtr ipGPMessage;
+                        ipGPMessages->esriGetMessage(l, &ipGPMessage);
+                        VARIANT_BOOL vbBool;
+                        BSTR bstrDescription;
+                        ipGPMessage->get_Description(&bstrDescription);
+                        ipGPMessage->IsAbort(&vbBool);
+                        if (vbBool == VARIANT_TRUE)
+                        {
+                            //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                        }
+                        ipGPMessage->IsError(&vbBool);
+                        if (vbBool == VARIANT_TRUE)
+                        {
+                            //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                        }
+                        ipGPMessage->IsInformational(&vbBool);
+                        if (vbBool == VARIANT_TRUE)
+                        {
+                            //_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                        }
+                        ipGPMessage->IsWarning(&vbBool);
+                        if (vbBool == VARIANT_TRUE)
+                        {
+                            //_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                        }
+                        ::SysFreeString(bstrDescription);
+                    }
+                }
+            }
+
+
+            CEsriAuthority::Object.Release();
+            ::CoUninitialize();
+        }
+    }
+    else
+    {
+        // TODO:  更改错误代码以符合您的需要
+        _tprintf(_T("错误:  GetModuleHandle 失败\n"));
+        nRetCode = 1;
+    }
+
+    return nRetCode;
+}
+</code></pre>
+<pre class=" language-C++"><code class="language-C++">#include "stdafx.h"
+#include "cppgp.h"
+#include "iPath.h"
+BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, IFeatureLayerPtr &ipSelectedFeatureLayer)
+{
+    HRESULT hr = S_FALSE;
+    if (NULL == ipFeatureClass)
+    {
+        return FALSE;
+    }
+    esriFeatureType eFeatureType;
+    hr = ipFeatureClass->get_FeatureType(&eFeatureType);
+    if (FAILED(hr))
+        return FALSE;
+    IFeatureLayerPtr ipFeatureLayer;
+    if (esriFTAnnotation == eFeatureType)
+    {
+        hr = ipFeatureLayer.CreateInstance(CLSID_FDOGraphicsLayer);
+    }
+    else if (esriFTSimple == eFeatureType
+        || esriFTSimpleEdge == eFeatureType
+        || esriFTComplexJunction == eFeatureType
+        || esriFTSimpleJunction == eFeatureType)
+    {
+        hr = ipFeatureLayer.CreateInstance(CLSID_FeatureLayer);
+    }
+    else
+        return FALSE;
+
+    if (FAILED(hr) || NULL == ipFeatureLayer)
+    {
+        return FALSE;
+    }
+    hr = ipFeatureLayer->putref_FeatureClass(ipFeatureClass);
+    if (FAILED(hr))
+    {
+        return FALSE;
+    }
+    if (NULL == ipQueryFilter)
+    {
+        ipSelectedFeatureLayer = ipFeatureLayer;
+        return TRUE;
+    }
+
+    IFeatureSelectionPtr ipFeatureSelection = (IFeatureSelectionPtr)ipFeatureLayer;
+    if (NULL == ipFeatureSelection)
+    {
+        return FALSE;
+    }
+
+
+    hr = ipFeatureSelection->SelectFeatures(ipQueryFilter, esriSelectionResultNew, VARIANT_FALSE);
+    if (FAILED(hr))
+    {
+        return FALSE;
+    }
+    IFeatureLayerDefinitionPtr ipFeatureLayerDefinition = (IFeatureLayerDefinitionPtr)ipFeatureLayer;
+    if (NULL == ipFeatureLayerDefinition)
+    {
+        return FALSE;
+    }
+    BSTR bstrLayerName = NULL;
+    hr = ipFeatureLayer->get_Name(&bstrLayerName);
+    hr = ipFeatureLayerDefinition->CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &ipSelectedFeatureLayer);
+    if (FAILED(hr) || NULL == ipSelectedFeatureLayer)
+    {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, const std::vector<long>& vecOids, IFeatureLayerPtr &ipSelectedFeatureLayer)
+{
+    HRESULT hr = S_FALSE;
+    if (NULL == ipFeatureClass)
+    {
+        return FALSE;
+    }
+    esriFeatureType eFeatureType;
+    hr = ipFeatureClass->get_FeatureType(&eFeatureType);
+    if (FAILED(hr))
+        return FALSE;
+    IFeatureLayerPtr ipFeatureLayer;
+    if (esriFTAnnotation == eFeatureType)
+    {
+        hr = ipFeatureLayer.CreateInstance(CLSID_FDOGraphicsLayer);
+    }
+    else if (esriFTSimple == eFeatureType
+        || esriFTSimpleEdge == eFeatureType
+        || esriFTComplexJunction == eFeatureType
+        || esriFTSimpleJunction == eFeatureType)
+    {
+        hr = ipFeatureLayer.CreateInstance(CLSID_FeatureLayer);
+    }
+    else
+        return FALSE;
+
+    if (FAILED(hr) || NULL == ipFeatureLayer)
+    {
+        return FALSE;
+    }
+    hr = ipFeatureLayer->putref_FeatureClass(ipFeatureClass);
+    if (FAILED(hr))
+    {
+        return FALSE;
+    }
+
+    IFeatureSelectionPtr ipFeatureSelection = (IFeatureSelectionPtr)ipFeatureLayer;
+    if (NULL == ipFeatureSelection)
+    {
+        return FALSE;
+    }
+    ISelectionSetPtr ipSelectSet;
+
+    ipFeatureClass->Select(NULL, esriSelectionType::esriSelectionTypeIDSet, esriSelectionOption::esriSelectionOptionEmpty, NULL, &ipSelectSet);
+    for (size_t i = 0; i < vecOids.size(); i++)
+    {
+        ipSelectSet->Add(vecOids[i]);
+    }
+
+    ipFeatureSelection->putref_SelectionSet(ipSelectSet);
+    IFeatureLayerDefinitionPtr ipFeatureLayerDefinition = (IFeatureLayerDefinitionPtr)ipFeatureLayer;
+    if (NULL == ipFeatureLayerDefinition)
+    {
+        return FALSE;
+    }
+    BSTR bstrLayerName = NULL;
+    hr = ipFeatureLayer->get_Name(&bstrLayerName);
+    hr = ipFeatureLayerDefinition->CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &ipSelectedFeatureLayer);
+    if (FAILED(hr) || NULL == ipSelectedFeatureLayer)
+    {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+_variant_t cppgp::CreateFeaturesParameter(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, const std::vector<long>* pvecSelectedOid)
+{
+    _variant_t varParam;
+    ::VariantInit(&varParam);
+    if (ipFeatureClass == NULL)
+    {
+        return varParam;
+    }
+    if (ipQueryFilter == NULL&&pvecSelectedOid == NULL)
+    {
+        varParam.punkVal = ipFeatureClass;
+        varParam.vt = VT_UNKNOWN;
+        varParam.punkVal->AddRef();
+        return varParam;
+    }
+    IFeatureLayerPtr ipSelectedFeatureLayer;
+    if (ipQueryFilter != NULL)
+    {
+        GetSelectionLayer(ipFeatureClass, ipQueryFilter, ipSelectedFeatureLayer);
+    }
+    else
+    {
+        GetSelectionLayer(ipFeatureClass, *pvecSelectedOid, ipSelectedFeatureLayer);
+    }
+    CString strLayer = iPath::GetTempFileName(iPath::GetTempPath(),_T("lyr"));
+    ILayerFilePtr ipLayerFile(CLSID_LayerFile);
+    ipLayerFile->New(_bstr_t(strLayer));
+    ipLayerFile->ReplaceContents(ipSelectedFeatureLayer);
+    ipLayerFile->Save();
+    varParam = CComBSTR(strLayer);
+    return varParam;
+}
+</code></pre>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>原图</p>
+<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092545.png" alt=""></p>
+<p>全部处理</p>
+<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092646.png" alt=""></p>
+<p>处理OID为2的要素</p>
+<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092729.png" alt=""></p>
+<p>处理OID为1和2的要素</p>
+<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092737.png" alt=""></p>
 <p><a href="/Downloads/DemoArcobjects.zip">下载工程</a></p>
 
         
