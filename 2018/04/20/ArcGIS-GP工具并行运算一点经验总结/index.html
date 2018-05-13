@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Fri Apr 20 2018 00:02:32 GMT+0800" />
-        <meta property="article:modified_time" content="Sun May 13 2018 09:37:29 GMT+0800" />
+        <meta property="article:modified_time" content="Sun May 13 2018 09:41:22 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html",
     "headline": "ArcGIS GP工具并行运算一点经验总结",
     "datePublished": "Fri Apr 20 2018 00:02:32 GMT+0800",
-    "dateModified": "Sun May 13 2018 09:37:29 GMT+0800",
+    "dateModified": "Sun May 13 2018 09:41:22 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ArcGIS-GP工具并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcGIS GP工具并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ArcGIS-GP工具并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcGIS GP工具并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#续"><span class="post-toc-number">2.</span> <span class="post-toc-text">续</span></a></li></ol>
     </ul>
     
 
@@ -612,15 +612,12 @@
 <p>有些GP工具是内在支持并行计算的，详见 <a href="https://support.esri.com/en/technical-article/000012172" target="_blank" rel="external">FAQ: Do all geoprocessing tools support Parallel Processing?</a></p>
 <p>参考文件：</p>
 <ul>
-<li><p><a href="http://proceedings.esri.com/library/userconf/devsummit17/papers/dev_int_39.pdf" target="_blank" rel="external">Parallel Python：Multiprocessing With ArcPy</a></p>
-</li>
-<li><p><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_1/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 1</a></p>
-</li>
-<li><p><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_2/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 2</a></p>
-</li>
-<li><p><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_3/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 3</a></p>
-</li>
+<li><a href="http://proceedings.esri.com/library/userconf/devsummit17/papers/dev_int_39.pdf" target="_blank" rel="external">Parallel Python：Multiprocessing With ArcPy</a></li>
+<li><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_1/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 1</a></li>
+<li><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_2/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 2</a></li>
+<li><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_3/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 3</a></li>
 </ul>
+<h1 id="续"><a href="#续" class="headerlink" title="续"></a>续</h1><p>经过这几天的测试GP如果加载到ArcMAP中，也是不支持多线程调用，但是用ArcEngine写的独立进程则可以。也就是用C#写的自定义GP工具，自定义GP工具里用多线程同时调用ArcGIS的GP工具，只有一个GP工具在运行，其他的线程的GP工具则阻塞了。但是这个GP在AE程序中是可以正常调用的。</p>
 
         
     
