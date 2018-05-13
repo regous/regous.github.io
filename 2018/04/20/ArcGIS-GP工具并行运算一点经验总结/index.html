@@ -37,7 +37,7 @@
     
     <title>
         
-            Arcpy并行运算一点经验总结 | 
+            ArcGIS GP工具并行运算一点经验总结 | 
         
         生命不息，折腾不止
     </title>
@@ -231,18 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Arcpy并行运算一点经验总结 | 生命不息，折腾不止">
+    <meta property="og:title" content="ArcGIS GP工具并行运算一点经验总结 | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
     <meta property="og:article:tag" content="arcpy"> 
 
     
         <meta property="article:published_time" content="Fri Apr 20 2018 00:02:32 GMT+0800" />
-        <meta property="article:modified_time" content="Wed Apr 25 2018 17:19:48 GMT+0800" />
+        <meta property="article:modified_time" content="Sun May 13 2018 09:37:29 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Arcpy并行运算一点经验总结 | 生命不息，折腾不止">
+    <meta name="twitter:title" content="ArcGIS GP工具并行运算一点经验总结 | 生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -263,9 +263,9 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": "http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html",
-    "headline": "Arcpy并行运算一点经验总结",
+    "headline": "ArcGIS GP工具并行运算一点经验总结",
     "datePublished": "Fri Apr 20 2018 00:02:32 GMT+0800",
-    "dateModified": "Wed Apr 25 2018 17:19:48 GMT+0800",
+    "dateModified": "Sun May 13 2018 09:37:29 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Arcpy并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">Arcpy并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ArcGIS-GP工具并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcGIS GP工具并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                Arcpy并行运算一点经验总结
+                ArcGIS GP工具并行运算一点经验总结
             </p>
         </div>
 
@@ -440,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Arcpy并行运算一点经验总结&url=http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ArcGIS GP工具并行运算一点经验总结&url=http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -449,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Arcpy并行运算一点经验总结&url=http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ArcGIS GP工具并行运算一点经验总结&url=http://ithinking.cc/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -491,7 +491,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="Arcpy并行运算一点经验总结"><a href="#Arcpy并行运算一点经验总结" class="headerlink" title="Arcpy并行运算一点经验总结"></a>Arcpy并行运算一点经验总结</h1><p>这段时间帮一个同事做一个分幅裁切的东西。</p>
+        <h1 id="ArcGIS-GP工具并行运算一点经验总结"><a href="#ArcGIS-GP工具并行运算一点经验总结" class="headerlink" title="ArcGIS GP工具并行运算一点经验总结"></a>ArcGIS GP工具并行运算一点经验总结</h1><p>这段时间帮一个同事做一个分幅裁切的东西。</p>
 <p>实现调用的是ArcGIS的Split和Append\Copy\FeatureClassToFeatureClass GP工具。分完一层再分一层，然后再处理分完成的数据。其实这种情况用多线程完成可以提高处理的速度。于是就想看看能不能用多线程来处理完成这个操作。</p>
 <h2 id="Arcpy不支持多线程"><a href="#Arcpy不支持多线程" class="headerlink" title="Arcpy不支持多线程"></a>Arcpy不支持多线程</h2><p>测试代码如下：</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
@@ -601,14 +601,14 @@
 <p>arcpy.ListDatasets return 0 dataset<br>arcpy.ListFeatureClasses return 1 FeatureClass<br>(1, 1)<br>arcpy.ListDatasets return 0 dataset<br>arcpy.ListFeatureClasses return 1 FeatureClass<br>(1, 1)</p>
 </blockquote>
 <p>新建一个Toolbox，添加脚本，进行调用</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/Arcpy并行运算一点经验总结/20180425165723.png" alt=""></p>
+<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165723.png" alt=""></p>
 <p>结果如下：</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/Arcpy并行运算一点经验总结/20180425165832.png" alt=""></p>
+<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165832.png" alt=""></p>
 <p>貌似成功了。</p>
 <h3 id="脚本不能在进程中运行"><a href="#脚本不能在进程中运行" class="headerlink" title="脚本不能在进程中运行"></a>脚本不能在进程中运行</h3><p><strong>Run Python script in process</strong> 选项不能勾上，否则就会启动另外两个Arcmap进程</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/Arcpy并行运算一点经验总结/20180425171046.png" alt=""></p>
+<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171046.png" alt=""></p>
 <p><strong>Always run in foreground</strong> 勾不勾都行，不影响。</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/Arcpy并行运算一点经验总结/20180425171509.png" alt=""></p>
+<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171509.png" alt=""></p>
 <p>有些GP工具是内在支持并行计算的，详见 <a href="https://support.esri.com/en/technical-article/000012172" target="_blank" rel="external">FAQ: Do all geoprocessing tools support Parallel Processing?</a></p>
 <p>参考文件：</p>
 <ul>
