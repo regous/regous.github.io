@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -492,53 +492,61 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>平时的写程序中，用一个类来实现一个业务，这个类下两个成员，一个用来管理配置，一个需要读取配置，如果将管理配置的类暴露给需要读取配置的类，这样做看起来不太漂亮，相对来说，只暴露配置类的一个方法更好一些，使用C++标准模板库的function/bind实现起来很简单。</p>
-<h1 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h1><p>function/bind定义在”functional”头文件里</p>
-<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><pre class=" language-c++"><code class="language-c++">#include <functional>
-#include <iostream>
-#include <memory>
-class A
+<h1 id="头文件">头文件</h1>
+<p>function/bind定义在”functional”头文件里</p>
+<h1 id="完整代码">完整代码</h1>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;functional&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
+<span class="pp">#include </span><span class="im">&lt;memory&gt;</span>
+<span class="kw">class</span> A
 {
-public:
-    std::function<int(int val)> _Ptr;
-    void work(int val)
+<span class="kw">public</span>:
+    <span class="bu">std::</span>function&lt;<span class="dt">int</span>(<span class="dt">int</span> val)&gt; _Ptr;
+    <span class="dt">void</span> work(<span class="dt">int</span> val)
     {
-        if (nullptr!=_Ptr)
+        <span class="cf">if</span> (<span class="kw">nullptr</span>!=_Ptr)
         {
-            std::cout << "callback" << " parameter:" << val << " result:" << _Ptr(val) << std::endl;
+            <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;callback&quot;</span> &lt;&lt; <span class="st">&quot; parameter:&quot;</span> &lt;&lt; val &lt;&lt; <span class="st">&quot; result:&quot;</span> &lt;&lt; _Ptr(val) &lt;&lt; <span class="bu">std::</span>endl;
         }
-        else
+        <span class="cf">else</span>
         {
-            std::cout << "callback nullptr" << std::endl;
+            <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;callback nullptr&quot;</span> &lt;&lt; <span class="bu">std::</span>endl;
         }
     }
 };
-class B
+<span class="kw">class</span> B
 {
-public:
-    int test(int val)
+<span class="kw">public</span>:
+    <span class="dt">int</span> test(<span class="dt">int</span> val)
     {
-        std::cout << "invoke" << " internal:" << i << std::endl;
-        return val+i;
+        <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;invoke&quot;</span> &lt;&lt; <span class="st">&quot; internal:&quot;</span> &lt;&lt; i &lt;&lt; <span class="bu">std::</span>endl;
+        <span class="cf">return</span> val+i;
     }
-    int i;
+    <span class="dt">int</span> i;
 };
-int _tmain(int argc, _TCHAR* argv[])
+<span class="dt">int</span> _tmain(<span class="dt">int</span> argc, _TCHAR* argv[])
 {
     A a;
     B b;
-    b.i = 1111;
-    a._Ptr = std::bind(&B::test, &b, std::placeholders::_1);
-    a.work(2222);
-    b.i = 5555;
-    a.work(2222);
-    return 0;
-}
-</code></pre>
+    b.i = <span class="dv">1111</span>;
+    a._Ptr = <span class="bu">std::</span>bind(&amp;B::test, &amp;b, <span class="bu">std::</span>placeholders<span class="bu">::</span>_1);
+    a.work(<span class="dv">2222</span>);
+    b.i = <span class="dv">5555</span>;
+    a.work(<span class="dv">2222</span>);
+    <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
 <p>程序运行结果</p>
-<p><img src="/2017/09/21/use_c-plusplus_implement_delegate_like_c-sharp/2016-07-31-01.png" alt="2016-07-31-01"></p>
+<div class="figure">
+<img src="/2017/09/21/use_c-plusplus_implement_delegate_like_c-sharp/2016-07-31-01.png" alt="2016-07-31-01">
+<p class="caption">2016-07-31-01</p>
+</div>
 <p>首先定义两个类A和B，A是读取配置的，B是提供配置的。注意A类中的_Ptr成员，它的类型是std::function，std::function是标准模板库定义的类模板，模板参数是函数指针式的声明，在这里，这个函数接收一个int的参数（val），返回一个int类型的值；_Ptr的赋值是在a._Ptr = std::bind(&amp;B::test, &amp;b, std::placeholders::_1);调用std::bind方法，第一个参数是B::test，也就是B类的成函数test的地址，第二个参数是类B的对象b的地址（C++里类的非静态成员函数需要类的实例才能调用 ，这就是使用function比直接使用函数指针方便的原因：function将函数地址、实例地址打包起来了，因此调用方不需要知道这些细节），第三个参数及其之后是参数的占位符，告诉function，这些位置由参数来取代，function最多支持20个参数。</p>
-<h1 id="注意对象的生命期"><a href="#注意对象的生命期" class="headerlink" title="注意对象的生命期"></a>注意对象的生命期</h1><p>a.work执行的时候，对象b不能被析构，否则就会有未定义的行动。</p>
-<p><img src="/2017/09/21/use_c-plusplus_implement_delegate_like_c-sharp/2016-07-31-02.png" alt="2016-07-31-02"></p>
+<h1 id="注意对象的生命期">注意对象的生命期</h1>
+<p>a.work执行的时候，对象b不能被析构，否则就会有未定义的行动。</p>
+<div class="figure">
+<img src="/2017/09/21/use_c-plusplus_implement_delegate_like_c-sharp/2016-07-31-02.png" alt="2016-07-31-02">
+<p class="caption">2016-07-31-02</p>
+</div>
 
         
     
@@ -665,7 +673,7 @@ int _tmain(int argc, _TCHAR* argv[])
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -939,7 +947,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

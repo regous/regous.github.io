@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-调用GP工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++调用GP工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结果"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">结果</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c调用gp工具"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++调用GP工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结果"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">结果</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -491,368 +491,379 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-调用GP工具"><a href="#C-调用GP工具" class="headerlink" title="C++调用GP工具"></a>C++调用GP工具</h1><p>这段时间协助同事做一个调用GP工具的东西，共享出来。</p>
-<pre class=" language-c++"><code class="language-c++">IGeoProcessor2Ptr ipGeoProcessor(CLSID_GeoProcessor);
+        <h1 id="c调用gp工具">C++调用GP工具</h1>
+<p>这段时间协助同事做一个调用GP工具的东西，共享出来。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">IGeoProcessor2Ptr ipGeoProcessor(CLSID_GeoProcessor);
 IVariantArrayPtr ipVariantArray(CLSID_VarArray);
-ipVariantArray->Add(_variant_t(CComBSTR(_T("D:/NewMDB.mdb/LINE"))));
-ipVariantArray->Add(_variant_t(CComBSTR(_T("D:/NewMDB.mdb/LINE1"))));
+ipVariantArray-&gt;Add(_variant_t(CComBSTR(_T(<span class="st">&quot;D:/NewMDB.mdb/LINE&quot;</span>))));
+ipVariantArray-&gt;Add(_variant_t(CComBSTR(_T(<span class="st">&quot;D:/NewMDB.mdb/LINE1&quot;</span>))));
 IGeoProcessorResultPtr ipGeoProcessorResult;
-HRESULT res = ipGeoProcessor->Execute(_bstr_t(_T("SplitLine")), ipVariantArray, NULL, &ipGeoProcessorResult);
+HRESULT res = ipGeoProcessor-&gt;Execute(_bstr_t(_T(<span class="st">&quot;SplitLine&quot;</span>)), ipVariantArray, NULL, &amp;ipGeoProcessorResult);
 
 IGPMessagesPtr ipGPMessages = NULL;
-ipGeoProcessor->GetReturnMessages(&ipGPMessages);
-if (NULL != ipGPMessages)
+ipGeoProcessor-&gt;GetReturnMessages(&amp;ipGPMessages);
+<span class="cf">if</span> (NULL != ipGPMessages)
 {
-  long lMsgCount = 0;
-  ipGPMessages->get_Count(&lMsgCount);
-  for (long l = 0; l < lMsgCount; l++)
+  <span class="dt">long</span> lMsgCount = <span class="dv">0</span>;
+  ipGPMessages-&gt;get_Count(&amp;lMsgCount);
+  <span class="cf">for</span> (<span class="dt">long</span> l = <span class="dv">0</span>; l &lt; lMsgCount; l++)
   {
     IGPMessagePtr ipGPMessage;
-    ipGPMessages->esriGetMessage(l, &ipGPMessage);
+    ipGPMessages-&gt;esriGetMessage(l, &amp;ipGPMessage);
     VARIANT_BOOL vbBool;
     BSTR bstrDescription;
-    ipGPMessage->get_Description(&bstrDescription);
-    ipGPMessage->IsAbort(&vbBool);
-    if (vbBool == VARIANT_TRUE)
+    ipGPMessage-&gt;get_Description(&amp;bstrDescription);
+    ipGPMessage-&gt;IsAbort(&amp;vbBool);
+    <span class="cf">if</span> (vbBool == VARIANT_TRUE)
     {
-      //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+      <span class="co">//_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
     }
-    ipGPMessage->IsError(&vbBool);
-    if (vbBool == VARIANT_TRUE)
+    ipGPMessage-&gt;IsError(&amp;vbBool);
+    <span class="cf">if</span> (vbBool == VARIANT_TRUE)
     {
-      //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+      <span class="co">//_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
     }
-    ipGPMessage->IsInformational(&vbBool);
-    if (vbBool == VARIANT_TRUE)
+    ipGPMessage-&gt;IsInformational(&amp;vbBool);
+    <span class="cf">if</span> (vbBool == VARIANT_TRUE)
     {
-      //_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+      <span class="co">//_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
     }
-    ipGPMessage->IsWarning(&vbBool);
-    if (vbBool == VARIANT_TRUE)
+    ipGPMessage-&gt;IsWarning(&amp;vbBool);
+    <span class="cf">if</span> (vbBool == VARIANT_TRUE)
     {
-      //_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+      <span class="co">//_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
     }
     ::SysFreeString(bstrDescription);
   }
-}
-</code></pre>
-<pre class=" language-c++"><code class="language-c++">// DemoCplusplusGeoprocessing.cpp : 定义控制台应用程序的入口点。
-//
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// DemoCplusplusGeoprocessing.cpp : 定义控制台应用程序的入口点。</span>
+<span class="co">//</span>
 
-#include "stdafx.h"
-#include "DemoCplusplusGeoprocessing.h"
-#include "EsriAuthority.h"
-#include "SpatialConnection.h"
-#include <vector>
-#include "cppgp.h"
+<span class="pp">#include </span><span class="im">&quot;stdafx.h&quot;</span>
+<span class="pp">#include </span><span class="im">&quot;DemoCplusplusGeoprocessing.h&quot;</span>
+<span class="pp">#include </span><span class="im">&quot;EsriAuthority.h&quot;</span>
+<span class="pp">#include </span><span class="im">&quot;SpatialConnection.h&quot;</span>
+<span class="pp">#include </span><span class="im">&lt;vector&gt;</span>
+<span class="pp">#include </span><span class="im">&quot;cppgp.h&quot;</span>
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
+<span class="pp">#ifdef _DEBUG</span>
+<span class="pp">#define new DEBUG_NEW</span>
+<span class="pp">#endif</span>
 
 
-// 唯一的应用程序对象
+<span class="co">// 唯一的应用程序对象</span>
 
 CWinApp theApp;
 
-using namespace std;
+<span class="kw">using</span> <span class="kw">namespace</span> std;
 
 IVariantArrayPtr 处理全部要素(IFeatureClassPtr ipFeatureClass)
 {
     IVariantArrayPtr ipVariantArray(CLSID_VarArray);
     _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, NULL, NULL);
-    ipVariantArray->Add(va);
-    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_全部.shp"))));
-    return ipVariantArray;
+    ipVariantArray-&gt;Add(va);
+    ipVariantArray-&gt;Add(_variant_t(CComBSTR(_T(<span class="st">&quot;..</span><span class="sc">\\</span><span class="st">Demo</span><span class="sc">\\</span><span class="st">LINE_全部.shp&quot;</span>))));
+    <span class="cf">return</span> ipVariantArray;
 }
 
-IVariantArrayPtr 处理OID为2的要素(IFeatureClassPtr ipFeatureClass)
+IVariantArrayPtr 处理OID为<span class="dv">2</span>的要素(IFeatureClassPtr ipFeatureClass)
 {
     IVariantArrayPtr ipVariantArray(CLSID_VarArray);
     IQueryFilterPtr ipQueryFilter(CLSID_QueryFilter);
-    ipQueryFilter->put_WhereClause(_bstr_t(_T("OBJECTID = 2 ")));
+    ipQueryFilter-&gt;put_WhereClause(_bstr_t(_T(<span class="st">&quot;OBJECTID = 2 &quot;</span>)));
     _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, ipQueryFilter, NULL);
-    ipVariantArray->Add(va);
-    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_OID2.shp"))));
-    return ipVariantArray;
+    ipVariantArray-&gt;Add(va);
+    ipVariantArray-&gt;Add(_variant_t(CComBSTR(_T(<span class="st">&quot;..</span><span class="sc">\\</span><span class="st">Demo</span><span class="sc">\\</span><span class="st">LINE_OID2.shp&quot;</span>))));
+    <span class="cf">return</span> ipVariantArray;
 }
 
-IVariantArrayPtr 处理OID为1和2的要素(IFeatureClassPtr ipFeatureClass)
+IVariantArrayPtr 处理OID为<span class="dv">1</span>和<span class="dv">2</span>的要素(IFeatureClassPtr ipFeatureClass)
 {
     IVariantArrayPtr ipVariantArray(CLSID_VarArray);
-    std::vector<long> vecOids;
-    vecOids.push_back(1);
-    vecOids.push_back(2);
-    _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, NULL, &vecOids);
-    ipVariantArray->Add(va);
-    ipVariantArray->Add(_variant_t(CComBSTR(_T("..\\Demo\\LINE_OID12.shp"))));
-    return ipVariantArray;
+    <span class="bu">std::</span>vector&lt;<span class="dt">long</span>&gt; vecOids;
+    vecOids.push_back(<span class="dv">1</span>);
+    vecOids.push_back(<span class="dv">2</span>);
+    _variant_t va = cppgp::CreateFeaturesParameter(ipFeatureClass, NULL, &amp;vecOids);
+    ipVariantArray-&gt;Add(va);
+    ipVariantArray-&gt;Add(_variant_t(CComBSTR(_T(<span class="st">&quot;..</span><span class="sc">\\</span><span class="st">Demo</span><span class="sc">\\</span><span class="st">LINE_OID12.shp&quot;</span>))));
+    <span class="cf">return</span> ipVariantArray;
 }
 
-int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
+<span class="dt">int</span> _tmain(<span class="dt">int</span> argc, TCHAR* argv[], TCHAR* envp[])
 {
-    int nRetCode = 0;
+    <span class="dt">int</span> nRetCode = <span class="dv">0</span>;
 
     HMODULE hModule = ::GetModuleHandle(NULL);
 
-    if (hModule != NULL)
+    <span class="cf">if</span> (hModule != NULL)
     {
-        // 初始化 MFC 并在失败时显示错误
-        if (!AfxWinInit(hModule, NULL, ::GetCommandLine(), 0))
+        <span class="co">// 初始化 MFC 并在失败时显示错误</span>
+        <span class="cf">if</span> (!AfxWinInit(hModule, NULL, ::GetCommandLine(), <span class="dv">0</span>))
         {
-            // TODO:  更改错误代码以符合您的需要
-            _tprintf(_T("错误:  MFC 初始化失败\n"));
-            nRetCode = 1;
+            <span class="co">// </span><span class="al">TODO</span><span class="co">:  更改错误代码以符合您的需要</span>
+            _tprintf(_T(<span class="st">&quot;错误:  MFC 初始化失败</span><span class="sc">\n</span><span class="st">&quot;</span>));
+            nRetCode = <span class="dv">1</span>;
         }
-        else
+        <span class="cf">else</span>
         {
-            // TODO:  在此处为应用程序的行为编写代码。
+            <span class="co">// </span><span class="al">TODO</span><span class="co">:  在此处为应用程序的行为编写代码。</span>
             ::CoInitialize(NULL);
             CEsriAuthority::Object.CheckOut();
             CSpatialConnection aSpatialConnection(NULL);
-            aSpatialConnection.SetParameter(_T("DATABASE"), _T("..\\Demo\\Demo.mdb"));
+            aSpatialConnection.SetParameter(_T(<span class="st">&quot;DATABASE&quot;</span>), _T(<span class="st">&quot;..</span><span class="sc">\\</span><span class="st">Demo</span><span class="sc">\\</span><span class="st">Demo.mdb&quot;</span>));
             aSpatialConnection.Connect();
             IFeatureClassPtr ipFeatureClass;
-            aSpatialConnection.OpenFeatureClass(_T("LINE"), ipFeatureClass);
+            aSpatialConnection.OpenFeatureClass(_T(<span class="st">&quot;LINE&quot;</span>), ipFeatureClass);
             IGeoProcessor2Ptr ipGeoProcessor(CLSID_GeoProcessor);
-            IVariantArrayPtr ipVariantArray[3] = { 处理全部要素(ipFeatureClass), 处理OID为2的要素(ipFeatureClass), 处理OID为1和2的要素(ipFeatureClass) };
-
+            IVariantArrayPtr ipVariantArray[<span class="dv">3</span>] = { 处理全部要素(ipFeatureClass), 处理OID为<span class="dv">2</span>的要素(ipFeatureClass), 处理OID为<span class="dv">1</span>和<span class="dv">2</span>的要素(ipFeatureClass) };
+            
             IGeoProcessorResultPtr ipGeoProcessorResult;
-            for (int i = 0; i < 3; i++)
+            <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">3</span>; i++)
             {
-                HRESULT res = ipGeoProcessor->Execute(_bstr_t(_T("SplitLine")), ipVariantArray[i], NULL, &ipGeoProcessorResult);
+                HRESULT res = ipGeoProcessor-&gt;Execute(_bstr_t(_T(<span class="st">&quot;SplitLine&quot;</span>)), ipVariantArray[i], NULL, &amp;ipGeoProcessorResult);
 
                 IGPMessagesPtr ipGPMessages = NULL;
-                ipGeoProcessor->GetReturnMessages(&ipGPMessages);
-                if (NULL != ipGPMessages)
+                ipGeoProcessor-&gt;GetReturnMessages(&amp;ipGPMessages);
+                <span class="cf">if</span> (NULL != ipGPMessages)
                 {
-                    long lMsgCount = 0;
-                    ipGPMessages->get_Count(&lMsgCount);
-                    for (long l = 0; l < lMsgCount; l++)
+                    <span class="dt">long</span> lMsgCount = <span class="dv">0</span>;
+                    ipGPMessages-&gt;get_Count(&amp;lMsgCount);
+                    <span class="cf">for</span> (<span class="dt">long</span> l = <span class="dv">0</span>; l &lt; lMsgCount; l++)
                     {
                         IGPMessagePtr ipGPMessage;
-                        ipGPMessages->esriGetMessage(l, &ipGPMessage);
+                        ipGPMessages-&gt;esriGetMessage(l, &amp;ipGPMessage);
                         VARIANT_BOOL vbBool;
                         BSTR bstrDescription;
-                        ipGPMessage->get_Description(&bstrDescription);
-                        ipGPMessage->IsAbort(&vbBool);
-                        if (vbBool == VARIANT_TRUE)
+                        ipGPMessage-&gt;get_Description(&amp;bstrDescription);
+                        ipGPMessage-&gt;IsAbort(&amp;vbBool);
+                        <span class="cf">if</span> (vbBool == VARIANT_TRUE)
                         {
-                            //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                            <span class="co">//_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
                         }
-                        ipGPMessage->IsError(&vbBool);
-                        if (vbBool == VARIANT_TRUE)
+                        ipGPMessage-&gt;IsError(&amp;vbBool);
+                        <span class="cf">if</span> (vbBool == VARIANT_TRUE)
                         {
-                            //_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                            <span class="co">//_ErrorCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
                         }
-                        ipGPMessage->IsInformational(&vbBool);
-                        if (vbBool == VARIANT_TRUE)
+                        ipGPMessage-&gt;IsInformational(&amp;vbBool);
+                        <span class="cf">if</span> (vbBool == VARIANT_TRUE)
                         {
-                            //_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                            <span class="co">//_InfoCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
                         }
-                        ipGPMessage->IsWarning(&vbBool);
-                        if (vbBool == VARIANT_TRUE)
+                        ipGPMessage-&gt;IsWarning(&amp;vbBool);
+                        <span class="cf">if</span> (vbBool == VARIANT_TRUE)
                         {
-                            //_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));
+                            <span class="co">//_WarnCategory((LPCTSTR)(_bstr_t(bstrDescription, false)));</span>
                         }
                         ::SysFreeString(bstrDescription);
                     }
                 }
             }
-
+            
 
             CEsriAuthority::Object.Release();
             ::CoUninitialize();
         }
     }
-    else
+    <span class="cf">else</span>
     {
-        // TODO:  更改错误代码以符合您的需要
-        _tprintf(_T("错误:  GetModuleHandle 失败\n"));
-        nRetCode = 1;
+        <span class="co">// </span><span class="al">TODO</span><span class="co">:  更改错误代码以符合您的需要</span>
+        _tprintf(_T(<span class="st">&quot;错误:  GetModuleHandle 失败</span><span class="sc">\n</span><span class="st">&quot;</span>));
+        nRetCode = <span class="dv">1</span>;
     }
 
-    return nRetCode;
-}
-</code></pre>
-<pre class=" language-C++"><code class="language-C++">#include "stdafx.h"
-#include "cppgp.h"
-#include "iPath.h"
-BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, IFeatureLayerPtr &ipSelectedFeatureLayer)
+    <span class="cf">return</span> nRetCode;
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&quot;stdafx.h&quot;</span>
+<span class="pp">#include </span><span class="im">&quot;cppgp.h&quot;</span>
+<span class="pp">#include </span><span class="im">&quot;iPath.h&quot;</span>
+BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, IFeatureLayerPtr &amp;ipSelectedFeatureLayer)
 {
     HRESULT hr = S_FALSE;
-    if (NULL == ipFeatureClass)
+    <span class="cf">if</span> (NULL == ipFeatureClass)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     esriFeatureType eFeatureType;
-    hr = ipFeatureClass->get_FeatureType(&eFeatureType);
-    if (FAILED(hr))
-        return FALSE;
+    hr = ipFeatureClass-&gt;get_FeatureType(&amp;eFeatureType);
+    <span class="cf">if</span> (FAILED(hr))
+        <span class="cf">return</span> FALSE;
     IFeatureLayerPtr ipFeatureLayer;
-    if (esriFTAnnotation == eFeatureType)
+    <span class="cf">if</span> (esriFTAnnotation == eFeatureType)
     {
         hr = ipFeatureLayer.CreateInstance(CLSID_FDOGraphicsLayer);
     }
-    else if (esriFTSimple == eFeatureType
+    <span class="cf">else</span> <span class="cf">if</span> (esriFTSimple == eFeatureType
         || esriFTSimpleEdge == eFeatureType
         || esriFTComplexJunction == eFeatureType
         || esriFTSimpleJunction == eFeatureType)
     {
         hr = ipFeatureLayer.CreateInstance(CLSID_FeatureLayer);
     }
-    else
-        return FALSE;
+    <span class="cf">else</span>
+        <span class="cf">return</span> FALSE;
 
-    if (FAILED(hr) || NULL == ipFeatureLayer)
+    <span class="cf">if</span> (FAILED(hr) || NULL == ipFeatureLayer)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
-    hr = ipFeatureLayer->putref_FeatureClass(ipFeatureClass);
-    if (FAILED(hr))
+    hr = ipFeatureLayer-&gt;putref_FeatureClass(ipFeatureClass);
+    <span class="cf">if</span> (FAILED(hr))
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
-    if (NULL == ipQueryFilter)
+    <span class="cf">if</span> (NULL == ipQueryFilter)
     {
         ipSelectedFeatureLayer = ipFeatureLayer;
-        return TRUE;
+        <span class="cf">return</span> TRUE;
     }
 
     IFeatureSelectionPtr ipFeatureSelection = (IFeatureSelectionPtr)ipFeatureLayer;
-    if (NULL == ipFeatureSelection)
+    <span class="cf">if</span> (NULL == ipFeatureSelection)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
 
 
-    hr = ipFeatureSelection->SelectFeatures(ipQueryFilter, esriSelectionResultNew, VARIANT_FALSE);
-    if (FAILED(hr))
+    hr = ipFeatureSelection-&gt;SelectFeatures(ipQueryFilter, esriSelectionResultNew, VARIANT_FALSE);
+    <span class="cf">if</span> (FAILED(hr))
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     IFeatureLayerDefinitionPtr ipFeatureLayerDefinition = (IFeatureLayerDefinitionPtr)ipFeatureLayer;
-    if (NULL == ipFeatureLayerDefinition)
+    <span class="cf">if</span> (NULL == ipFeatureLayerDefinition)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     BSTR bstrLayerName = NULL;
-    hr = ipFeatureLayer->get_Name(&bstrLayerName);
-    hr = ipFeatureLayerDefinition->CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &ipSelectedFeatureLayer);
-    if (FAILED(hr) || NULL == ipSelectedFeatureLayer)
+    hr = ipFeatureLayer-&gt;get_Name(&amp;bstrLayerName);
+    hr = ipFeatureLayerDefinition-&gt;CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &amp;ipSelectedFeatureLayer);
+    <span class="cf">if</span> (FAILED(hr) || NULL == ipSelectedFeatureLayer)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
 
-    return TRUE;
+    <span class="cf">return</span> TRUE;
 }
 
-BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, const std::vector<long>& vecOids, IFeatureLayerPtr &ipSelectedFeatureLayer)
+BOOL cppgp::GetSelectionLayer(IFeatureClassPtr ipFeatureClass, <span class="at">const</span> <span class="bu">std::</span>vector&lt;<span class="dt">long</span>&gt;&amp; vecOids, IFeatureLayerPtr &amp;ipSelectedFeatureLayer)
 {
     HRESULT hr = S_FALSE;
-    if (NULL == ipFeatureClass)
+    <span class="cf">if</span> (NULL == ipFeatureClass)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     esriFeatureType eFeatureType;
-    hr = ipFeatureClass->get_FeatureType(&eFeatureType);
-    if (FAILED(hr))
-        return FALSE;
+    hr = ipFeatureClass-&gt;get_FeatureType(&amp;eFeatureType);
+    <span class="cf">if</span> (FAILED(hr))
+        <span class="cf">return</span> FALSE;
     IFeatureLayerPtr ipFeatureLayer;
-    if (esriFTAnnotation == eFeatureType)
+    <span class="cf">if</span> (esriFTAnnotation == eFeatureType)
     {
         hr = ipFeatureLayer.CreateInstance(CLSID_FDOGraphicsLayer);
     }
-    else if (esriFTSimple == eFeatureType
+    <span class="cf">else</span> <span class="cf">if</span> (esriFTSimple == eFeatureType
         || esriFTSimpleEdge == eFeatureType
         || esriFTComplexJunction == eFeatureType
         || esriFTSimpleJunction == eFeatureType)
     {
         hr = ipFeatureLayer.CreateInstance(CLSID_FeatureLayer);
     }
-    else
-        return FALSE;
+    <span class="cf">else</span>
+        <span class="cf">return</span> FALSE;
 
-    if (FAILED(hr) || NULL == ipFeatureLayer)
+    <span class="cf">if</span> (FAILED(hr) || NULL == ipFeatureLayer)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
-    hr = ipFeatureLayer->putref_FeatureClass(ipFeatureClass);
-    if (FAILED(hr))
+    hr = ipFeatureLayer-&gt;putref_FeatureClass(ipFeatureClass);
+    <span class="cf">if</span> (FAILED(hr))
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
 
     IFeatureSelectionPtr ipFeatureSelection = (IFeatureSelectionPtr)ipFeatureLayer;
-    if (NULL == ipFeatureSelection)
+    <span class="cf">if</span> (NULL == ipFeatureSelection)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     ISelectionSetPtr ipSelectSet;
 
-    ipFeatureClass->Select(NULL, esriSelectionType::esriSelectionTypeIDSet, esriSelectionOption::esriSelectionOptionEmpty, NULL, &ipSelectSet);
-    for (size_t i = 0; i < vecOids.size(); i++)
+    ipFeatureClass-&gt;Select(NULL, esriSelectionType::esriSelectionTypeIDSet, esriSelectionOption::esriSelectionOptionEmpty, NULL, &amp;ipSelectSet);
+    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; vecOids.size(); i++)
     {
-        ipSelectSet->Add(vecOids[i]);
+        ipSelectSet-&gt;Add(vecOids[i]);
     }
 
-    ipFeatureSelection->putref_SelectionSet(ipSelectSet);
+    ipFeatureSelection-&gt;putref_SelectionSet(ipSelectSet);
     IFeatureLayerDefinitionPtr ipFeatureLayerDefinition = (IFeatureLayerDefinitionPtr)ipFeatureLayer;
-    if (NULL == ipFeatureLayerDefinition)
+    <span class="cf">if</span> (NULL == ipFeatureLayerDefinition)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
     BSTR bstrLayerName = NULL;
-    hr = ipFeatureLayer->get_Name(&bstrLayerName);
-    hr = ipFeatureLayerDefinition->CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &ipSelectedFeatureLayer);
-    if (FAILED(hr) || NULL == ipSelectedFeatureLayer)
+    hr = ipFeatureLayer-&gt;get_Name(&amp;bstrLayerName);
+    hr = ipFeatureLayerDefinition-&gt;CreateSelectionLayer(bstrLayerName, VARIANT_TRUE, NULL, NULL, &amp;ipSelectedFeatureLayer);
+    <span class="cf">if</span> (FAILED(hr) || NULL == ipSelectedFeatureLayer)
     {
-        return FALSE;
+        <span class="cf">return</span> FALSE;
     }
 
-    return TRUE;
+    <span class="cf">return</span> TRUE;
 }
-_variant_t cppgp::CreateFeaturesParameter(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, const std::vector<long>* pvecSelectedOid)
+_variant_t cppgp::CreateFeaturesParameter(IFeatureClassPtr ipFeatureClass, IQueryFilterPtr ipQueryFilter, <span class="at">const</span> <span class="bu">std::</span>vector&lt;<span class="dt">long</span>&gt;* pvecSelectedOid)
 {
     _variant_t varParam;
-    ::VariantInit(&varParam);
-    if (ipFeatureClass == NULL)
+    ::VariantInit(&amp;varParam);
+    <span class="cf">if</span> (ipFeatureClass == NULL)
     {
-        return varParam;
+        <span class="cf">return</span> varParam;
     }
-    if (ipQueryFilter == NULL&&pvecSelectedOid == NULL)
+    <span class="cf">if</span> (ipQueryFilter == NULL&amp;&amp;pvecSelectedOid == NULL)
     {
         varParam.punkVal = ipFeatureClass;
         varParam.vt = VT_UNKNOWN;
-        varParam.punkVal->AddRef();
-        return varParam;
+        varParam.punkVal-&gt;AddRef();
+        <span class="cf">return</span> varParam;
     }
     IFeatureLayerPtr ipSelectedFeatureLayer;
-    if (ipQueryFilter != NULL)
+    <span class="cf">if</span> (ipQueryFilter != NULL)
     {
         GetSelectionLayer(ipFeatureClass, ipQueryFilter, ipSelectedFeatureLayer);
     }
-    else
+    <span class="cf">else</span>
     {
         GetSelectionLayer(ipFeatureClass, *pvecSelectedOid, ipSelectedFeatureLayer);
     }
-    CString strLayer = iPath::GetTempFileName(iPath::GetTempPath(),_T("lyr"));
+    CString strLayer = iPath::GetTempFileName(iPath::GetTempPath(),_T(<span class="st">&quot;lyr&quot;</span>));
     ILayerFilePtr ipLayerFile(CLSID_LayerFile);
-    ipLayerFile->New(_bstr_t(strLayer));
-    ipLayerFile->ReplaceContents(ipSelectedFeatureLayer);
-    ipLayerFile->Save();
+    ipLayerFile-&gt;New(_bstr_t(strLayer));
+    ipLayerFile-&gt;ReplaceContents(ipSelectedFeatureLayer);
+    ipLayerFile-&gt;Save();
     varParam = CComBSTR(strLayer);
-    return varParam;
-}
-</code></pre>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>原图</p>
-<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092545.png" alt=""></p>
+    <span class="cf">return</span> varParam;
+}</code></pre></div>
+<h2 id="结果">结果</h2>
+<p>原图</p>
+<div class="figure">
+<img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092545.png">
+
+</div>
 <p>全部处理</p>
-<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092646.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092646.png">
+
+</div>
 <p>处理OID为2的要素</p>
-<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092729.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092729.png">
+
+</div>
 <p>处理OID为1和2的要素</p>
-<p><img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092737.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/10/Cplusplus调用GP工具/2018-05-13_092737.png">
+
+</div>
 <p><a href="/Downloads/DemoArcobjects.zip">下载工程</a></p>
 
         
@@ -980,7 +991,7 @@ _variant_t cppgp::CreateFeaturesParameter(IFeatureClassPtr ipFeatureClass, IQuer
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1254,7 +1265,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-开发ArcMap-Addin注意事项"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++开发ArcMap Addin注意事项</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DockableWindow"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">DockableWindow</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用MFC窗口前"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">调用MFC窗口前</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于图标"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">关于图标</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c开发arcmap-addin注意事项"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++开发ArcMap Addin注意事项</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dockablewindow"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">DockableWindow</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用mfc窗口前"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">调用MFC窗口前</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于图标"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">关于图标</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -491,46 +491,48 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-开发ArcMap-Addin注意事项"><a href="#C-开发ArcMap-Addin注意事项" class="headerlink" title="C++开发ArcMap Addin注意事项"></a>C++开发ArcMap Addin注意事项</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>ArcGIS 10之后渐渐就不鼓励使用C++开发Add-in插件了，用C#开发很简单的事情，在C++里会很麻烦，比如在config.esriaddinx文件里配一个Toolbar很简单的，但是在C++里没有明显的方法，如果是在自定义里配一个Toolbar，这个Toolbar是保存的MXD文档里的，如果不打开这个MXD文件，配置的Toolbar就不会显示出现，而在config.esriaddinx文件里却没有这个问题。这次做一个东西，只能用使用C++，实施的同事要求能做成一个安装包，所以只好功能在C++里写，然后在外面再套一层C#写的插件，并配置一个Toolbar。这样才解决了安装的问题，否则每一台电脑手动去配置一个Toolbar是不可能的，而如果命令没有加载的ArcMap里，任何想作为入口的代码都不会执行。</p>
-<h3 id="DockableWindow"><a href="#DockableWindow" class="headerlink" title="DockableWindow"></a>DockableWindow</h3><p>DockableWindow实现比较简单，ATL简单对象实现了IDockableWindowDef接口的方法，但是必须的要添对象的类型</p>
-<pre class=" language-c++"><code class="language-c++">    BEGIN_CATEGORY_MAP(CDemoDockWindow)
+        <h1 id="c开发arcmap-addin注意事项">C++开发ArcMap Addin注意事项</h1>
+<h3 id="前言">前言</h3>
+<p>ArcGIS 10之后渐渐就不鼓励使用C++开发Add-in插件了，用C#开发很简单的事情，在C++里会很麻烦，比如在config.esriaddinx文件里配一个Toolbar很简单的，但是在C++里没有明显的方法，如果是在自定义里配一个Toolbar，这个Toolbar是保存的MXD文档里的，如果不打开这个MXD文件，配置的Toolbar就不会显示出现，而在config.esriaddinx文件里却没有这个问题。这次做一个东西，只能用使用C++，实施的同事要求能做成一个安装包，所以只好功能在C++里写，然后在外面再套一层C#写的插件，并配置一个Toolbar。这样才解决了安装的问题，否则每一台电脑手动去配置一个Toolbar是不可能的，而如果命令没有加载的ArcMap里，任何想作为入口的代码都不会执行。</p>
+<h3 id="dockablewindow">DockableWindow</h3>
+<p>DockableWindow实现比较简单，ATL简单对象实现了IDockableWindowDef接口的方法，但是必须的要添对象的类型</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">    BEGIN_CATEGORY_MAP(CDemoDockWindow)
         IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))
         IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))
         IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))
         IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))
-    END_CATEGORY_MAP()
-</code></pre>
+    END_CATEGORY_MAP()</code></pre></div>
 <p>同时，这个DLL必须要用EsriRegasm.exe注册，如果仅仅是使用Regsvr32.exe注册的话，是无法创建出窗口了（花了一天多的时间才搞明白这个事情，不知道EsriRegasm.exe在背地里干了什么）。</p>
 <p>完整代码</p>
-<pre class=" language-C++"><code class="language-C++">// DemoDockWindow.h : CDemoDockWindow 的声明
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="co">// DemoDockWindow.h : CDemoDockWindow 的声明</span>
 
-#pragma once
-#include "resource.h"       // 主符号
-
-
-#include "DlgDockWindow.h"
+<span class="pp">#pragma once</span>
+<span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span>
 
 
-
-#if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
-#error "Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。"
-#endif
-
-using namespace ATL;
+<span class="pp">#include </span><span class="im">&quot;DlgDockWindow.h&quot;</span>
 
 
-// CDemoDockWindow
 
-class ATL_NO_VTABLE CDemoDockWindow :
-    public CComObjectRootEx<CComSingleThreadModel>,
-    public CComCoClass<CDemoDockWindow, &CLSID_DemoDockWindow>,
-    public IDispatchImpl<IDemoDockWindow, &IID_IDemoDockWindow, &LIBID_iDataPluginLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
-    public IDockableWindowDef
+<span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span>
+<span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span>
+<span class="pp">#endif</span>
+
+<span class="kw">using</span> <span class="kw">namespace</span> ATL;
+
+
+<span class="co">// CDemoDockWindow</span>
+
+<span class="kw">class</span> ATL_NO_VTABLE CDemoDockWindow :
+    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,
+    <span class="kw">public</span> CComCoClass&lt;CDemoDockWindow, &amp;CLSID_DemoDockWindow&gt;,
+    <span class="kw">public</span> IDispatchImpl&lt;IDemoDockWindow, &amp;IID_IDemoDockWindow, &amp;LIBID_iDataPluginLib, <span class="co">/*wMajor =*/</span> <span class="dv">1</span>, <span class="co">/*wMinor =*/</span> <span class="dv">0</span>&gt;,
+    <span class="kw">public</span> IDockableWindowDef
 {
-public:
-    CDemoDockWindow() :m_pDlgDockWindow(nullptr)
+<span class="kw">public</span>:
+    CDemoDockWindow() :<span class="va">m_pDlgDockWindow</span>(<span class="kw">nullptr</span>)
     {
-
+        
     }
 
     DECLARE_REGISTRY_RESOURCEID(IDR_DEMODOCKWINDOW)
@@ -553,75 +555,74 @@ public:
 
     HRESULT FinalConstruct()
     {
-        return S_OK;
+        <span class="cf">return</span> S_OK;
     }
 
-    void FinalRelease()
+    <span class="dt">void</span> FinalRelease()
     {
     }
 
-public:
+<span class="kw">public</span>:
 
-    CDlgDockWindow* m_pDlgDockWindow;
+    CDlgDockWindow* <span class="va">m_pDlgDockWindow</span>;
 
 
-    // IDockableWindowDef Methods
-public:
+    <span class="co">// IDockableWindowDef Methods</span>
+<span class="kw">public</span>:
     STDMETHOD(OnCreate)(LPDISPATCH hook)
     {
         IApplicationPtr ipApplication;
         ipApplication = hook;
         OLE_HANDLE AppOLEHandle;
-        HRESULT hr = ipApplication->get_hWnd(&AppOLEHandle);
+        HRESULT hr = ipApplication-&gt;get_hWnd(&amp;AppOLEHandle);
         HWND hwnd = (HWND)AppOLEHandle;
         USING_MFC;
-        m_pDlgDockWindow = new CDlgDockWindow();
-        m_pDlgDockWindow->Create(CDlgDockWindow::IDD, CWnd::FromHandle(hwnd));
-        return S_OK;
+        <span class="va">m_pDlgDockWindow</span> = <span class="kw">new</span> CDlgDockWindow();
+        <span class="va">m_pDlgDockWindow</span>-&gt;Create(CDlgDockWindow::IDD, CWnd::FromHandle(hwnd));
+        <span class="cf">return</span> S_OK;
     }
     STDMETHOD(get_ChildHWND)(OLE_HANDLE * hWnd)
     {
-        *hWnd = (OLE_HANDLE)m_pDlgDockWindow->m_hWnd;
-        return S_OK;
+        *hWnd = (OLE_HANDLE)<span class="va">m_pDlgDockWindow</span>-&gt;<span class="va">m_hWnd</span>;
+        <span class="cf">return</span> S_OK;
     }
     STDMETHOD(get_Name)(BSTR * Name)
     {
-        *Name = ::SysAllocString(_T("DemoDockWindow"));
-        return S_OK;
+        *Name = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));
+        <span class="cf">return</span> S_OK;
     }
     STDMETHOD(get_Caption)(BSTR * Caption)
     {
-        *Caption = ::SysAllocString(_T("DemoDockWindow"));
-        return S_OK;
+        *Caption = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));
+        <span class="cf">return</span> S_OK;
     }
     STDMETHOD(OnDestroy)()
     {
         USING_MFC;
-        if (m_pDlgDockWindow != nullptr&&TRUE == ::IsWindow(m_pDlgDockWindow->GetSafeHwnd()))
+        <span class="cf">if</span> (<span class="va">m_pDlgDockWindow</span> != <span class="kw">nullptr</span>&amp;&amp;TRUE == ::IsWindow(<span class="va">m_pDlgDockWindow</span>-&gt;GetSafeHwnd()))
         {
-            m_pDlgDockWindow->DestroyWindow();
-            m_pDlgDockWindow = nullptr;
+            <span class="va">m_pDlgDockWindow</span>-&gt;DestroyWindow();
+            <span class="va">m_pDlgDockWindow</span> = <span class="kw">nullptr</span>;
         }
-        return S_OK;
+        <span class="cf">return</span> S_OK;
     }
     STDMETHOD(get_UserData)(VARIANT * data)
     {
-        return E_NOTIMPL;
+        <span class="cf">return</span> E_NOTIMPL;
     }
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(DemoDockWindow), CDemoDockWindow)
-</code></pre>
-<h3 id="调用MFC窗口前"><a href="#调用MFC窗口前" class="headerlink" title="调用MFC窗口前"></a>调用MFC窗口前</h3><p>必须添加USING_MFC，否则窗口创建会出错。</p>
-<pre class=" language-C++"><code class="language-C++">#define USING_MFC AFX_MANAGE_STATE(AfxGetStaticModuleState());
-</code></pre>
-<h3 id="关于图标"><a href="#关于图标" class="headerlink" title="关于图标"></a>关于图标</h3><p>貌似只能用.bmp的资源，至少.ico的资源我使用的时间没有成功。用C#的话，直接使用.png文件就好了。</p>
-<pre class=" language-C++"><code class="language-C++">    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)
+OBJECT_ENTRY_AUTO(__uuidof(DemoDockWindow), CDemoDockWindow)</code></pre></div>
+<h3 id="调用mfc窗口前">调用MFC窗口前</h3>
+<p>必须添加USING_MFC，否则窗口创建会出错。</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="pp">#define USING_MFC AFX_MANAGE_STATE(AfxGetStaticModuleState());</span></code></pre></div>
+<h3 id="关于图标">关于图标</h3>
+<p>貌似只能用.bmp的资源，至少.ico的资源我使用的时间没有成功。用C#的话，直接使用.png文件就好了。</p>
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp">    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)
     {
         *Bitmap = (OLE_HANDLE)::LoadBitmap(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDB_BITMAP_ANACONDA));;
-        return E_NOTIMPL;
-    }
-</code></pre>
+        <span class="cf">return</span> E_NOTIMPL;
+    }</code></pre></div>
 
         
     
@@ -748,7 +749,7 @@ OBJECT_ENTRY_AUTO(__uuidof(DemoDockWindow), CDemoDockWindow)
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1022,7 +1023,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

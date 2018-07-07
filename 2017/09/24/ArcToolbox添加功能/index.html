@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ArcToolbox添加功能"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcToolbox添加功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个加法的例子"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">一个加法的例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个获取要素类空间坐标系的例子"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">一个获取要素类空间坐标系的例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AE实现GP工具"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">AE实现GP工具</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#arctoolbox添加功能"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcToolbox添加功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#arcpy"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个加法的例子"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">一个加法的例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个获取要素类空间坐标系的例子"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">一个获取要素类空间坐标系的例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ae实现gp工具"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">AE实现GP工具</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -491,251 +491,291 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="ArcToolbox添加功能"><a href="#ArcToolbox添加功能" class="headerlink" title="ArcToolbox添加功能"></a>ArcToolbox添加功能</h1><p>ArcToolbox添加的功能可以分两类：Script、Tool。</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_150143.jpg" alt=""></p>
+        <h1 id="arctoolbox添加功能">ArcToolbox添加功能</h1>
+<p>ArcToolbox添加的功能可以分两类：Script、Tool。</p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_150143.jpg">
+
+</div>
 <p>Script：用Arcpy写，调用的时候其实就是调用Python的脚本。</p>
 <p>Tool：用AO写成，需要注册。</p>
-<h2 id="Arcpy"><a href="#Arcpy" class="headerlink" title="Arcpy"></a>Arcpy</h2><p>先从简单的开始</p>
-<h3 id="一个加法的例子"><a href="#一个加法的例子" class="headerlink" title="一个加法的例子"></a>一个加法的例子</h3><p>用Python实现一个最简单的加法，传入两个数和方法名，返回两数相加的结果。</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding:utf-8 -*-</span>
-<span class="token keyword">import</span> arcpy
+<h2 id="arcpy">Arcpy</h2>
+<p>先从简单的开始</p>
+<h3 id="一个加法的例子">一个加法的例子</h3>
+<p>用Python实现一个最简单的加法，传入两个数和方法名，返回两数相加的结果。</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding:utf-8 -*-</span>
+<span class="im">import</span> arcpy
 
 
-<span class="token keyword">def</span> <span class="token function">play_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    p1 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-    op <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    p1 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-    res <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">if</span> op<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'plus'</span><span class="token punctuation">:</span>
-        res <span class="token operator">=</span> int<span class="token punctuation">(</span>p1<span class="token punctuation">)</span> <span class="token operator">+</span> int<span class="token punctuation">(</span>p2<span class="token punctuation">)</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        res <span class="token operator">=</span> 'Error
-    arcpy<span class="token punctuation">.</span>SetParameter<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+<span class="kw">def</span> play_function():
+    p1 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)
+    op <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)
+    p1 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">2</span>)
+    res <span class="op">=</span> <span class="dv">0</span>
+    <span class="cf">if</span> op.lower() <span class="op">==</span> <span class="st">&#39;plus&#39;</span>:
+        res <span class="op">=</span> <span class="bu">int</span>(p1) <span class="op">+</span> <span class="bu">int</span>(p2)
+    <span class="cf">else</span>:
+        res <span class="op">=</span> <span class="st">&#39;Error</span>
+<span class="st">    arcpy.SetParameter(3, res)</span>
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    play_function<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
+<span class="st">if __name__ == &#39;</span>__main__<span class="st">&#39;:</span>
+<span class="st">    play_function()</span></code></pre></div>
 <p>先新建一个Toolbox</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152039.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152039.jpg">
+
+</div>
 <p>添加一个Script</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152321.jpg" alt=""></p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152429.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152321.jpg">
+
+</div>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152429.jpg">
+
+</div>
 <p><em>勾选 Store relative path names (instead of absolute path) ，让Toolbox以相对路径的方式存储Python脚本的位置。</em></p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152538.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_152538.jpg">
+
+</div>
 <p>设置脚本的参数，传入参数较为简单，注意返回值，在Tool里是作为传出参数，所以Parameter Properties里的Direction值为Output，而传入参数为Input，这是比较容易被忽略的地方，如果没有设置传出参数，那么脚本的调用是不会传出结果的。</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_153209.jpg" alt=""></p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_153752.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_153209.jpg">
+
+</div>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_153752.jpg">
+
+</div>
 <p>从Geoprocessing-Results可以查看执行结果</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_154210.jpg" alt=""></p>
-<h3 id="一个获取要素类空间坐标系的例子"><a href="#一个获取要素类空间坐标系的例子" class="headerlink" title="一个获取要素类空间坐标系的例子"></a>一个获取要素类空间坐标系的例子</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding:utf-8 -*-</span>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_154210.jpg">
 
-<span class="token keyword">import</span> arcpy
-<span class="token keyword">import</span> os
-<span class="token keyword">import</span> sys
+</div>
+<h3 id="一个获取要素类空间坐标系的例子">一个获取要素类空间坐标系的例子</h3>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding:utf-8 -*-</span>
 
-<span class="token keyword">def</span> <span class="token function">get_spatial_reference</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    dataset <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameter<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-    arcpy<span class="token punctuation">.</span>AddMessage<span class="token punctuation">(</span>dataset<span class="token punctuation">)</span>
-    spatial_ref <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span>dataset<span class="token punctuation">)</span><span class="token punctuation">.</span>spatialReference
-    <span class="token keyword">print</span><span class="token punctuation">(</span>spatial_ref<span class="token punctuation">)</span>
-    arcpy<span class="token punctuation">.</span>SetParameter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>spatial_ref<span class="token punctuation">)</span>
+<span class="im">import</span> arcpy
+<span class="im">import</span> os
+<span class="im">import</span> sys
+
+<span class="kw">def</span> get_spatial_reference():
+    dataset <span class="op">=</span> arcpy.GetParameter(<span class="dv">0</span>)
+    arcpy.AddMessage(dataset)
+    spatial_ref <span class="op">=</span> arcpy.Describe(dataset).spatialReference
+    <span class="bu">print</span>(spatial_ref)
+    arcpy.SetParameter(<span class="dv">1</span>,spatial_ref)
 
 
-<span class="token keyword">if</span> __name__<span class="token operator">==</span><span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    get_spatial_reference<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_154559.jpg" alt=""></p>
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    get_spatial_reference()</code></pre></div>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-24_154559.jpg">
+
+</div>
 <p>在加法的例子中，使用 <strong>arcpy.SetParameter(3, res)</strong> 设置传出参数，注意这个语句的索引是 3 ，而在空间参考的例子中索引是 1。两个例子分别使用了 arcpy.GetParameterAsText 和 arcpy.GetParameter 来获取脚本的传入参数。在 ArcCatalog 界面上调用GP工具时，所有的参数都以字符串的方法展示给调用者。有些参数无法从字符串转化为对象（比如Spatial Reference），就要用 arcpy.GetParameter 来获取相关的参数。</p>
-<h2 id="AE实现GP工具"><a href="#AE实现GP工具" class="headerlink" title="AE实现GP工具"></a>AE实现GP工具</h2><p>先新建一个类库，设置为COM互操作注册。</p>
+<h2 id="ae实现gp工具">AE实现GP工具</h2>
+<p>先新建一个类库，设置为COM互操作注册。</p>
 <p>添加一个工具类，实现 <strong>IGPFunction2</strong> 接口</p>
-<pre class=" language-c#"><code class="language-c#">public class PlayFunction:IGPFunction2
+<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs"><span class="kw">public</span> <span class="kw">class</span> PlayFunction:IGPFunction2
 {        
-    public ESRI.ArcGIS.esriSystem.UID DialogCLSID
+    <span class="kw">public</span> ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">UID</span> DialogCLSID
     {
-        get { return null; }
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="kw">null</span>; }
     }
 
-    public string DisplayName
+    <span class="kw">public</span> <span class="dt">string</span> DisplayName
     {
-        get { return "浪"; }
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;浪&quot;</span>; }
     }
-    public string Name
+    <span class="kw">public</span> <span class="dt">string</span> Name
     {
-        get { return "PlayFunction"; }
-    }
-
-    public void Execute(ESRI.ArcGIS.esriSystem.IArray paramvalues, ESRI.ArcGIS.esriSystem.ITrackCancel TrackCancel, IGPEnvironmentManager envMgr, ESRI.ArcGIS.Geodatabase.IGPMessages message)
-    {
-        System.Windows.Forms.MessageBox.Show("浪浪浪");
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;PlayFunction&quot;</span>; }
     }
 
-    public ESRI.ArcGIS.esriSystem.IName FullName
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Execute</span>(ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IArray</span> paramvalues, ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">ITrackCancel</span> TrackCancel, IGPEnvironmentManager envMgr, ESRI.<span class="fu">ArcGIS</span>.<span class="fu">Geodatabase</span>.<span class="fu">IGPMessages</span> message)
     {
-        get
-        {
-            ThePacificOcean aThePacificOcean = new ThePacificOcean();
-            return aThePacificOcean.CreateGPFunctionNames() as IName;
-        }
+        System.<span class="fu">Windows</span>.<span class="fu">Forms</span>.<span class="fu">MessageBox</span>.<span class="fu">Show</span>(<span class="st">&quot;浪浪浪&quot;</span>);
     }
 
-    public dynamic GetRenderer(IGPParameter pParam)
-    {
-        return null;
-    }
-
-    public int HelpContext
-    {
-        get { return 0; }
-    }
-
-    public string HelpFile
-    {
-        get { return ""; }
-    }
-
-    public bool IsLicensed()
-    {
-        return true;
-    }
-
-    public string MetadataFile
-    {
-        get { return "PlayFunction.xml"; }
-    }
-
-    public ESRI.ArcGIS.esriSystem.IArray ParameterInfo
+    <span class="kw">public</span> ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IName</span> FullName
     {
         get
         {
-            IArray pArray = new ArrayClass();
-            return pArray;
+            ThePacificOcean aThePacificOcean = <span class="kw">new</span> <span class="fu">ThePacificOcean</span>();
+            <span class="kw">return</span> aThePacificOcean.<span class="fu">CreateGPFunctionNames</span>() <span class="kw">as</span> IName;
         }
     }
 
-    public void UpdateMessages(ESRI.ArcGIS.esriSystem.IArray paramvalues, IGPEnvironmentManager pEnvMgr, ESRI.ArcGIS.Geodatabase.IGPMessages Messages)
+    <span class="kw">public</span> dynamic <span class="fu">GetRenderer</span>(IGPParameter pParam)
     {
-
+        <span class="kw">return</span> <span class="kw">null</span>;
     }
 
-    public void UpdateParameters(ESRI.ArcGIS.esriSystem.IArray paramvalues, IGPEnvironmentManager pEnvMgr)
+    <span class="kw">public</span> <span class="dt">int</span> HelpContext
     {
-
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="dv">0</span>; }
     }
 
-    public ESRI.ArcGIS.Geodatabase.IGPMessages Validate(ESRI.ArcGIS.esriSystem.IArray paramvalues, bool updateValues, IGPEnvironmentManager envMgr)
+    <span class="kw">public</span> <span class="dt">string</span> HelpFile
     {
-        return null;
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;&quot;</span>; }
     }
-}
-</code></pre>
+
+    <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">IsLicensed</span>()
+    {
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+
+    <span class="kw">public</span> <span class="dt">string</span> MetadataFile
+    {
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;PlayFunction.xml&quot;</span>; }
+    }
+
+    <span class="kw">public</span> ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IArray</span> ParameterInfo
+    {
+        get
+        {
+            IArray pArray = <span class="kw">new</span> <span class="fu">ArrayClass</span>();
+            <span class="kw">return</span> pArray;
+        }
+    }
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">UpdateMessages</span>(ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IArray</span> paramvalues, IGPEnvironmentManager pEnvMgr, ESRI.<span class="fu">ArcGIS</span>.<span class="fu">Geodatabase</span>.<span class="fu">IGPMessages</span> Messages)
+    {
+        
+    }
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">UpdateParameters</span>(ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IArray</span> paramvalues, IGPEnvironmentManager pEnvMgr)
+    {
+        
+    }
+
+    <span class="kw">public</span> ESRI.<span class="fu">ArcGIS</span>.<span class="fu">Geodatabase</span>.<span class="fu">IGPMessages</span> <span class="fu">Validate</span>(ESRI.<span class="fu">ArcGIS</span>.<span class="fu">esriSystem</span>.<span class="fu">IArray</span> paramvalues, <span class="dt">bool</span> updateValues, IGPEnvironmentManager envMgr)
+    {
+        <span class="kw">return</span> <span class="kw">null</span>;
+    }
+}</code></pre></div>
 <p>麻雀虽小，五脏俱全，工具必需的属性都有了。</p>
 <p>再添加一个工具类，实现 <strong>IGPFunctionFactory</strong> 接口</p>
-<pre class=" language-c#"><code class="language-c#">[
-    Guid("182AB4E8-B408-466F-B5F9-9B9B58BDC782"),
-    ComVisible(true)
+<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs">[
+    <span class="fu">Guid</span>(<span class="st">&quot;182AB4E8-B408-466F-B5F9-9B9B58BDC782&quot;</span>),
+    <span class="fu">ComVisible</span>(<span class="kw">true</span>)
 ]
-public class ThePacificOcean:IGPFunctionFactory
+<span class="kw">public</span> <span class="kw">class</span> ThePacificOcean:IGPFunctionFactory
 {
-    // Register the Function Factory with the ESRI Geoprocessor Function Factory Component Category.
-    #region "Component Category Registration"
-    [ComRegisterFunction()]
-    static void Reg(string regKey)
+    <span class="co">// Register the Function Factory with the ESRI Geoprocessor Function Factory Component Category.</span>
+    <span class="dv">#region &quot;Component Category Registration&quot;</span>
+    [<span class="fu">ComRegisterFunction</span>()]
+    <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Reg</span>(<span class="dt">string</span> regKey)
     {
-        GPFunctionFactories.Register(regKey);
+        GPFunctionFactories.<span class="fu">Register</span>(regKey);
     }
 
-    [ComUnregisterFunction()]
-    static void Unreg(string regKey)
+    [<span class="fu">ComUnregisterFunction</span>()]
+    <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Unreg</span>(<span class="dt">string</span> regKey)
     {
-        GPFunctionFactories.Unregister(regKey);
+        GPFunctionFactories.<span class="fu">Unregister</span>(regKey);
     }
-    #endregion
-    #region IGPFunctionFactory Members
-    public string Alias
+    <span class="dv">#endregion</span>
+    <span class="dv">#region IGPFunctionFactory Members</span>
+    <span class="kw">public</span> <span class="dt">string</span> Alias
     {
-        get { return "太平洋"; }
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;太平洋&quot;</span>; }
     }
 
-    public UID CLSID
+    <span class="kw">public</span> UID CLSID
     {
         get
         {
-            UID id = new UIDClass();
-            id.Value = this.GetType().GUID.ToString("B");
-            return id;
+            UID id = <span class="kw">new</span> <span class="fu">UIDClass</span>();
+            id.<span class="fu">Value</span> = <span class="kw">this</span>.<span class="fu">GetType</span>().<span class="fu">GUID</span>.<span class="fu">ToString</span>(<span class="st">&quot;B&quot;</span>);
+            <span class="kw">return</span> id;
         }
     }
 
-    public IGPFunction GetFunction(string Name)
+    <span class="kw">public</span> IGPFunction <span class="fu">GetFunction</span>(<span class="dt">string</span> Name)
     {
-        switch (Name)
+        <span class="kw">switch</span> (Name)
         {
-            case ("PlayFunction"):
-                IGPFunction gpFunction = new PlayFunction();
-                return gpFunction;
+            <span class="kw">case</span> (<span class="st">&quot;PlayFunction&quot;</span>):
+                IGPFunction gpFunction = <span class="kw">new</span> <span class="fu">PlayFunction</span>();
+                <span class="kw">return</span> gpFunction;
         }
 
-        return null;
+        <span class="kw">return</span> <span class="kw">null</span>;
     }
 
-    public IEnumGPEnvironment GetFunctionEnvironments()
+    <span class="kw">public</span> IEnumGPEnvironment <span class="fu">GetFunctionEnvironments</span>()
     {
-        return null;
+        <span class="kw">return</span> <span class="kw">null</span>;
     }
 
-    public IGPName GetFunctionName(string Name)
+    <span class="kw">public</span> IGPName <span class="fu">GetFunctionName</span>(<span class="dt">string</span> Name)
     {
-        IGPName gpName = new GPFunctionNameClass();
+        IGPName gpName = <span class="kw">new</span> <span class="fu">GPFunctionNameClass</span>();
 
-        switch (Name)
+        <span class="kw">switch</span> (Name)
         {
-            case ("PlayFunction"):
-                return (IGPName)CreateGPFunctionNames();
+            <span class="kw">case</span> (<span class="st">&quot;PlayFunction&quot;</span>):
+                <span class="kw">return</span> (IGPName)<span class="fu">CreateGPFunctionNames</span>();
         }
-        return null;
+        <span class="kw">return</span> <span class="kw">null</span>;
     }
 
-    public IEnumGPName GetFunctionNames()
+    <span class="kw">public</span> IEnumGPName <span class="fu">GetFunctionNames</span>()
     {
-        IArray nameArray = new EnumGPNameClass();
-        nameArray.Add(CreateGPFunctionNames());
-        return (IEnumGPName)nameArray;
+        IArray nameArray = <span class="kw">new</span> <span class="fu">EnumGPNameClass</span>();
+        nameArray.<span class="fu">Add</span>(<span class="fu">CreateGPFunctionNames</span>());
+        <span class="kw">return</span> (IEnumGPName)nameArray;
     }
 
-    public string Name
+    <span class="kw">public</span> <span class="dt">string</span> Name
     {
-        get { return "The Pacific Ocean"; }
+        <span class="kw">get</span> { <span class="kw">return</span> <span class="st">&quot;The Pacific Ocean&quot;</span>; }
     }
-    #endregion
+    <span class="dv">#endregion</span>
 
-    #region 创建Function Name
-    public IGPFunctionName CreateGPFunctionNames()
+    <span class="dv">#region 创建Function Name</span>
+    <span class="kw">public</span> IGPFunctionName <span class="fu">CreateGPFunctionNames</span>()
     {
-        PlayFunction aPlayFunction = new PlayFunction();
-        IGPFunctionName functionName = new GPFunctionNameClass();
-        IGPName name = functionName as IGPName;
+        PlayFunction aPlayFunction = <span class="kw">new</span> <span class="fu">PlayFunction</span>();
+        IGPFunctionName functionName = <span class="kw">new</span> <span class="fu">GPFunctionNameClass</span>();
+        IGPName name = functionName <span class="kw">as</span> IGPName;
 
         name = (IGPName)functionName;
-        name.Category = "Happy Fun";
-        name.Description = "乘风破浪";
-        name.DisplayName = aPlayFunction.DisplayName;
-        name.Name = aPlayFunction.Name;
-        name.Factory = this;
-        return functionName;
+        name.<span class="fu">Category</span> = <span class="st">&quot;Happy Fun&quot;</span>;
+        name.<span class="fu">Description</span> = <span class="st">&quot;乘风破浪&quot;</span>;
+        name.<span class="fu">DisplayName</span> = aPlayFunction.<span class="fu">DisplayName</span>;
+        name.<span class="fu">Name</span> = aPlayFunction.<span class="fu">Name</span>;
+        name.<span class="fu">Factory</span> = <span class="kw">this</span>;
+        <span class="kw">return</span> functionName;
     }
-    #endregion
-}
-</code></pre>
+    <span class="dv">#endregion</span>
+}</code></pre></div>
 <p>编译，并使用regasm.exe注册动态库。</p>
 <p>在Toolbox上添加一个Tool命令</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185655.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185655.jpg">
+
+</div>
 <p>选中刚刚编写的工具</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185825.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185825.jpg">
+
+</div>
 <p>Tool添加完成</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185959.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_185959.jpg">
+
+</div>
 <p>点击调用，弹出提示框</p>
-<p><img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_190951.jpg" alt=""></p>
+<div class="figure">
+<img src="/2017/09/24/ArcToolbox添加功能/2017-09-30_190951.jpg">
+
+</div>
 
         
     
@@ -862,7 +902,7 @@ public class ThePacificOcean:IGPFunctionFactory
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1136,7 +1176,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ArcGIS-GP工具并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcGIS GP工具并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#续"><span class="post-toc-number">2.</span> <span class="post-toc-text">续</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#arcgis-gp工具并行运算一点经验总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">ArcGIS GP工具并行运算一点经验总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#arcpy不支持多线程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Arcpy不支持多线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">结论</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多进程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#脚本不能在进程中运行"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">脚本不能在进程中运行</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#续"><span class="post-toc-number">2.</span> <span class="post-toc-text">续</span></a></li></ol>
     </ul>
     
 
@@ -491,124 +491,138 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="ArcGIS-GP工具并行运算一点经验总结"><a href="#ArcGIS-GP工具并行运算一点经验总结" class="headerlink" title="ArcGIS GP工具并行运算一点经验总结"></a>ArcGIS GP工具并行运算一点经验总结</h1><p>这段时间帮一个同事做一个分幅裁切的东西。</p>
-<p>实现调用的是ArcGIS的Split和Append\Copy\FeatureClassToFeatureClass GP工具。分完一层再分一层，然后再处理分完成的数据。其实这种情况用多线程完成可以提高处理的速度。于是就想看看能不能用多线程来处理完成这个操作。</p>
-<h2 id="Arcpy不支持多线程"><a href="#Arcpy不支持多线程" class="headerlink" title="Arcpy不支持多线程"></a>Arcpy不支持多线程</h2><p>测试代码如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
-<span class="token keyword">import</span> threading
+        <h1 id="arcgis-gp工具并行运算一点经验总结">ArcGIS GP工具并行运算一点经验总结</h1>
+<p>这段时间帮一个同事做一个分幅裁切的东西。</p>
+<p>实现调用的是ArcGIS的Split和AppendGP工具。分完一层再分一层，然后再处理分完成的数据。其实这种情况用多线程完成可以提高处理的速度。于是就想看看能不能用多线程来处理完成这个操作。</p>
+<h2 id="arcpy不支持多线程">Arcpy不支持多线程</h2>
+<p>测试代码如下：</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> arcpy
+<span class="im">import</span> threading
 
-<span class="token keyword">def</span> <span class="token function">List</span><span class="token punctuation">(</span>wkp<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> wkp
-    dss <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListDatasets<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> dss <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-        arcpy<span class="token punctuation">.</span>AddError<span class="token punctuation">(</span><span class="token string">'ListThread arcpy.ListDatasets return None'</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        arcpy<span class="token punctuation">.</span>AddMessage<span class="token punctuation">(</span><span class="token string">'ListThread arcpy.ListDatasets return {} dataset'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>dss<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="kw">def</span> List(wkp):
+    arcpy.env.workspace <span class="op">=</span> wkp
+    dss <span class="op">=</span> arcpy.ListDatasets()
+    <span class="cf">if</span> dss <span class="kw">is</span> <span class="va">None</span>:
+        arcpy.AddError(<span class="st">&#39;ListThread arcpy.ListDatasets return None&#39;</span>)
+        <span class="cf">return</span>
+    <span class="cf">else</span>:
+        arcpy.AddMessage(<span class="st">&#39;ListThread arcpy.ListDatasets return </span><span class="sc">{}</span><span class="st"> dataset&#39;</span>.<span class="bu">format</span>(<span class="bu">len</span>(dss)))
 
-    dss<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
-    fcs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token keyword">for</span> ds <span class="token keyword">in</span> dss<span class="token punctuation">:</span>
-        temp_fcs <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">(</span>feature_dataset<span class="token operator">=</span>ds<span class="token punctuation">)</span>
-        fcs<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>temp_fcs<span class="token punctuation">)</span>
+    dss.insert(<span class="dv">0</span>, <span class="va">None</span>)
+    fcs <span class="op">=</span> []
+    <span class="cf">for</span> ds <span class="kw">in</span> dss:
+        temp_fcs <span class="op">=</span> arcpy.ListFeatureClasses(feature_dataset<span class="op">=</span>ds)
+        fcs.extend(temp_fcs)
 
-    arcpy<span class="token punctuation">.</span>AddMessage<span class="token punctuation">(</span><span class="token string">'ListThread arcpy.ListFeatureClasses return {} FeatureClass'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>fcs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    arcpy.AddMessage(<span class="st">&#39;ListThread arcpy.ListFeatureClasses return </span><span class="sc">{}</span><span class="st"> FeatureClass&#39;</span>.<span class="bu">format</span>(<span class="bu">len</span>(fcs)))
 
-<span class="token keyword">class</span> <span class="token class-name">ListThread</span><span class="token punctuation">(</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> wkp<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        threading<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>workspace <span class="token operator">=</span> wkp
+<span class="kw">class</span> ListThread(threading.Thread):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, wkp):
+        threading.Thread.<span class="fu">__init__</span>(<span class="va">self</span>)
+        <span class="va">self</span>.workspace <span class="op">=</span> wkp
 
-    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        List<span class="token punctuation">(</span>self<span class="token punctuation">.</span>workspace<span class="token punctuation">)</span>
+    <span class="kw">def</span> run(<span class="va">self</span>):
+        List(<span class="va">self</span>.workspace)
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    wkp_0 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-    wkp_1 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> wkp_0<span class="token punctuation">:</span>
-        wkp_0 <span class="token operator">=</span> r<span class="token string">'E:\GamingSpace\FunAddin\Demo\Points.gdb'</span>
-    List<span class="token punctuation">(</span>wkp_0<span class="token punctuation">)</span>
-    t <span class="token operator">=</span> ListThread<span class="token punctuation">(</span>wkp_0<span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
+    wkp_0 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)
+    wkp_1 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)
+    <span class="cf">if</span> <span class="kw">not</span> wkp_0:
+        wkp_0 <span class="op">=</span> <span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo\Points.gdb&#39;</span>
+    List(wkp_0)
+    t <span class="op">=</span> ListThread(wkp_0)
+    t.start()
+    t.join()</code></pre></div>
 <p>输出结果如下：</p>
 <blockquote>
-<p>arcpy.ListDatasets return 0 dataset<br>arcpy.ListFeatureClasses return 1 FeatureClass</p>
+<p>arcpy.ListDatasets return 0 dataset arcpy.ListFeatureClasses return 1 FeatureClass</p>
 <p>Process finished with exit code -1073741819 (0xC0000005)</p>
 </blockquote>
 <p>第一个执行List函数时是正常输出的，但是当第二次执行时，进程崩溃了，0xC0000005代码应该是访问错误的地址。</p>
 <p>修改代码，变更List的执行顺序</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    wkp_0 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-    wkp_1 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> wkp_0<span class="token punctuation">:</span>
-        wkp_0 <span class="token operator">=</span> r<span class="token string">'E:\GamingSpace\FunAddin\Demo\Points.gdb'</span>
-    t <span class="token operator">=</span> ListThread<span class="token punctuation">(</span>wkp_0<span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    List<span class="token punctuation">(</span>wkp_0<span class="token punctuation">)</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
+    wkp_0 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)
+    wkp_1 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)
+    <span class="cf">if</span> <span class="kw">not</span> wkp_0:
+        wkp_0 <span class="op">=</span> <span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo\Points.gdb&#39;</span>
+    t <span class="op">=</span> ListThread(wkp_0)
+    t.start()
+    t.join()
+    List(wkp_0)</code></pre></div>
 <p>输出如下：</p>
 <blockquote>
-<p>ERROR: arcpy.ListDatasets return None<br>Traceback (most recent call last):<br>  File “C:/Users/Ous/Dropbox/code/arcpy/Multiprocessing/Multithreading/test_step_1_multithreading.py”, line 38, in <module><br>    List(wkp_0)<br>  File “C:/Users/Ous/Dropbox/code/arcpy/Multiprocessing/Multithreading/test_step_1_multithreading.py”, line 5, in List<br>    arcpy.env.workspace = wkp<br>  File “C:\Program Files (x86)\ArcGIS\Desktop10.2\arcpy\arcpy\geoprocessing_base.py”, line 529, in set_<br>    self[env] = val<br>  File “C:\Program Files (x86)\ArcGIS\Desktop10.2\arcpy\arcpy\geoprocessing_base.py”, line 581, in <strong>setitem</strong><br>    ret_ = setattr(self._gp, item, value)<br>AttributeError: Object: Environment <workspace> cannot be set</workspace></module></p>
+<p>ERROR: arcpy.ListDatasets return None Traceback (most recent call last): File &quot;C:/Users/Ous/Dropbox/code/arcpy/Multiprocessing/Multithreading/test_step_1_multithreading.py&quot;, line 38, in <module> List(wkp_0) File &quot;C:/Users/Ous/Dropbox/code/arcpy/Multiprocessing/Multithreading/test_step_1_multithreading.py&quot;, line 5, in List arcpy.env.workspace = wkp File &quot;C:Files (x86)10.2_base.py&quot;, line 529, in set_ self[env] = val File &quot;C:Files (x86)10.2_base.py&quot;, line 581, in <strong>setitem</strong> ret_ = setattr(self._gp, item, value) AttributeError: Object: Environment <workspace> cannot be set</workspace></module></p>
 <p>Process finished with exit code 1</p>
 </blockquote>
 <p>第一次在子线程中执行就出错了，然后在父线程中设置环境就直接报错了。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Arcpy不支持多线程，可能是因为arcpy.env的限制。</p>
-<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><p>测试代码：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
-<span class="token keyword">import</span> multiprocessing
+<h3 id="结论">结论</h3>
+<p>Arcpy不支持多线程，可能是因为arcpy.env的限制。</p>
+<h2 id="多进程">多进程</h2>
+<p>测试代码：</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> arcpy
+<span class="im">import</span> multiprocessing
 
 
-<span class="token keyword">def</span> <span class="token function">List</span><span class="token punctuation">(</span>wkp<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> wkp
-    dss <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListDatasets<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> dss <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-        arcpy<span class="token punctuation">.</span>AddError<span class="token punctuation">(</span><span class="token string">'arcpy.ListDatasets return None'</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token punctuation">(</span>None<span class="token punctuation">,</span> None<span class="token punctuation">)</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        arcpy<span class="token punctuation">.</span>AddMessage<span class="token punctuation">(</span><span class="token string">'arcpy.ListDatasets return {} dataset'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>dss<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="kw">def</span> List(wkp):
+    arcpy.env.workspace <span class="op">=</span> wkp
+    dss <span class="op">=</span> arcpy.ListDatasets()
+    <span class="cf">if</span> dss <span class="kw">is</span> <span class="va">None</span>:
+        arcpy.AddError(<span class="st">&#39;arcpy.ListDatasets return None&#39;</span>)
+        <span class="cf">return</span> (<span class="va">None</span>, <span class="va">None</span>)
+    <span class="cf">else</span>:
+        arcpy.AddMessage(<span class="st">&#39;arcpy.ListDatasets return </span><span class="sc">{}</span><span class="st"> dataset&#39;</span>.<span class="bu">format</span>(<span class="bu">len</span>(dss)))
 
-    dss<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
-    fcs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token keyword">for</span> ds <span class="token keyword">in</span> dss<span class="token punctuation">:</span>
-        temp_fcs <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">(</span>feature_dataset<span class="token operator">=</span>ds<span class="token punctuation">)</span>
-        fcs<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>temp_fcs<span class="token punctuation">)</span>
+    dss.insert(<span class="dv">0</span>, <span class="va">None</span>)
+    fcs <span class="op">=</span> []
+    <span class="cf">for</span> ds <span class="kw">in</span> dss:
+        temp_fcs <span class="op">=</span> arcpy.ListFeatureClasses(feature_dataset<span class="op">=</span>ds)
+        fcs.extend(temp_fcs)
 
-    arcpy<span class="token punctuation">.</span>AddMessage<span class="token punctuation">(</span><span class="token string">'arcpy.ListFeatureClasses return {} FeatureClass'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>fcs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>len<span class="token punctuation">(</span>dss<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>fcs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    arcpy.AddMessage(<span class="st">&#39;arcpy.ListFeatureClasses return </span><span class="sc">{}</span><span class="st"> FeatureClass&#39;</span>.<span class="bu">format</span>(<span class="bu">len</span>(fcs)))
+    <span class="cf">return</span> (<span class="bu">len</span>(dss), <span class="bu">len</span>(fcs))
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    wkp_0 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-    wkp_1 <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>GetParameterAsText<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> wkp_0<span class="token punctuation">:</span>
-        wkp_0 <span class="token operator">=</span> r<span class="token string">'E:\GamingSpace\FunAddin\Demo\Points.gdb'</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> wkp_1<span class="token punctuation">:</span>
-        wkp_1 <span class="token operator">=</span> r<span class="token string">'E:\GamingSpace\FunAddin\Demo\Polygons.gdb'</span>
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
+    wkp_0 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)
+    wkp_1 <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)
+    <span class="cf">if</span> <span class="kw">not</span> wkp_0:
+        wkp_0 <span class="op">=</span> <span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo\Points.gdb&#39;</span>
+    <span class="cf">if</span> <span class="kw">not</span> wkp_1:
+        wkp_1 <span class="op">=</span> <span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo\Polygons.gdb&#39;</span>
 
-    pool <span class="token operator">=</span> multiprocessing<span class="token punctuation">.</span>Pool<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    jobs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    jobs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>pool<span class="token punctuation">.</span>apply_async<span class="token punctuation">(</span>List<span class="token punctuation">,</span> <span class="token punctuation">(</span>wkp_0<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    jobs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>pool<span class="token punctuation">.</span>apply_async<span class="token punctuation">(</span>List<span class="token punctuation">,</span> <span class="token punctuation">(</span>wkp_1<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>jobs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>jobs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
+    pool <span class="op">=</span> multiprocessing.Pool()
+    jobs <span class="op">=</span> []
+    jobs.append(pool.apply_async(List, (wkp_0,)))
+    jobs.append(pool.apply_async(List, (wkp_1,)))
+    <span class="bu">print</span>(jobs[<span class="dv">0</span>].get())
+    <span class="bu">print</span>(jobs[<span class="dv">1</span>].get())</code></pre></div>
 <p>输出结果如下：</p>
 <blockquote>
-<p>arcpy.ListDatasets return 0 dataset<br>arcpy.ListFeatureClasses return 1 FeatureClass<br>(1, 1)<br>arcpy.ListDatasets return 0 dataset<br>arcpy.ListFeatureClasses return 1 FeatureClass<br>(1, 1)</p>
+<p>arcpy.ListDatasets return 0 dataset arcpy.ListFeatureClasses return 1 FeatureClass (1, 1) arcpy.ListDatasets return 0 dataset arcpy.ListFeatureClasses return 1 FeatureClass (1, 1)</p>
 </blockquote>
 <p>新建一个Toolbox，添加脚本，进行调用</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165723.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165723.png">
+
+</div>
 <p>结果如下：</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165832.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425165832.png">
+
+</div>
 <p>貌似成功了。</p>
-<h3 id="脚本不能在进程中运行"><a href="#脚本不能在进程中运行" class="headerlink" title="脚本不能在进程中运行"></a>脚本不能在进程中运行</h3><p><strong>Run Python script in process</strong> 选项不能勾上，否则就会启动另外两个Arcmap进程</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171046.png" alt=""></p>
+<h3 id="脚本不能在进程中运行">脚本不能在进程中运行</h3>
+<p><strong>Run Python script in process</strong> 选项不能勾上，否则就会启动另外两个Arcmap进程</p>
+<div class="figure">
+<img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171046.png">
+
+</div>
 <p><strong>Always run in foreground</strong> 勾不勾都行，不影响。</p>
-<p><img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171509.png" alt=""></p>
+<div class="figure">
+<img src="/2018/04/20/ArcGIS-GP工具并行运算一点经验总结/20180425171509.png">
+
+</div>
 <p>有些GP工具是内在支持并行计算的，详见 <a href="https://support.esri.com/en/technical-article/000012172" target="_blank" rel="external">FAQ: Do all geoprocessing tools support Parallel Processing?</a></p>
 <p>参考文件：</p>
 <ul>
@@ -617,7 +631,8 @@
 <li><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_2/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 2</a></li>
 <li><a href="https://pythongisandstuff.wordpress.com/2011/07/05/using_arcpy_with_multiprocessing-part_3/" target="_blank" rel="external">Using Arcpy with multiprocessing – Part 3</a></li>
 </ul>
-<h1 id="续"><a href="#续" class="headerlink" title="续"></a>续</h1><p>经过这几天的测试GP如果加载到ArcMAP中，也是不支持多线程调用，但是用ArcEngine写的独立进程则可以。也就是用C#写的自定义GP工具，自定义GP工具里用多线程同时调用ArcGIS的GP工具，只有一个GP工具在运行，其他的线程的GP工具则阻塞了。但是这个GP在AE程序中是可以正常调用的。</p>
+<h1 id="续">续</h1>
+<p>经过这几天的测试GP如果加载到ArcMAP中，也是不支持多线程调用，但是用ArcEngine写的独立进程则可以。也就是用C#写的自定义GP工具，自定义GP工具里用多线程同时调用ArcGIS的GP工具，只有一个GP工具在运行，其他的线程的GP工具则阻塞了。但是这个GP在AE程序中是可以正常调用的。</p>
 
         
     
@@ -744,7 +759,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1018,7 +1033,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

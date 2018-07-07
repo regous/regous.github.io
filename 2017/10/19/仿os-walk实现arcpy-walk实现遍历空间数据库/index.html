@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -482,135 +482,133 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding:gbk -*-</span>
-<span class="token keyword">import</span> arcpy
+        <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding:gbk -*-</span>
+<span class="im">import</span> arcpy
 
 
-<span class="token keyword">def</span> <span class="token function">walk</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span>
-         only_this_user<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-         with_user<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-         dataset<span class="token operator">=</span>None<span class="token punctuation">,</span>
-         featureclass<span class="token operator">=</span>None<span class="token punctuation">,</span>
-         table<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="kw">def</span> walk(root,
+         only_this_user<span class="op">=</span><span class="va">True</span>,
+         with_user<span class="op">=</span><span class="va">True</span>,
+         dataset<span class="op">=</span><span class="va">None</span>,
+         featureclass<span class="op">=</span><span class="va">None</span>,
+         table<span class="op">=</span><span class="va">None</span>):
 
-    <span class="token keyword">def</span> <span class="token function">define_filter</span><span class="token punctuation">(</span>dict_object<span class="token punctuation">,</span> wild_card<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        obj <span class="token operator">=</span> None
-        <span class="token keyword">if</span> dict_object <span class="token operator">==</span> None <span class="token operator">or</span> <span class="token operator">not</span> isinstance<span class="token punctuation">(</span>dict_object<span class="token punctuation">,</span> dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            obj <span class="token operator">=</span> dict<span class="token punctuation">(</span>dict_object<span class="token punctuation">)</span>
+    <span class="kw">def</span> define_filter(dict_object, wild_card):
+        obj <span class="op">=</span> <span class="va">None</span>
+        <span class="cf">if</span> dict_object <span class="op">==</span> <span class="va">None</span> <span class="kw">or</span> <span class="kw">not</span> <span class="bu">isinstance</span>(dict_object, <span class="bu">dict</span>):
+            obj <span class="op">=</span> {}
+        <span class="cf">else</span>:
+            obj <span class="op">=</span> <span class="bu">dict</span>(dict_object)
 
-        <span class="token keyword">if</span> <span class="token string">'wild_card'</span> <span class="token operator">not</span> <span class="token keyword">in</span> obj<span class="token punctuation">:</span>
-            obj<span class="token punctuation">[</span><span class="token string">'wild_card'</span><span class="token punctuation">]</span> <span class="token operator">=</span> wild_card
+        <span class="cf">if</span> <span class="st">&#39;wild_card&#39;</span> <span class="kw">not</span> <span class="kw">in</span> obj:
+            obj[<span class="st">&#39;wild_card&#39;</span>] <span class="op">=</span> wild_card
 
-        <span class="token keyword">return</span> obj
+        <span class="cf">return</span> obj
 
-    <span class="token keyword">def</span> <span class="token function">remove_user</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> with_user <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> obj
-        <span class="token keyword">if</span> obj <span class="token operator">==</span> None<span class="token punctuation">:</span>
-            obj <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="kw">def</span> remove_user(obj):
+        <span class="cf">if</span> with_user <span class="op">==</span> <span class="va">True</span>:
+            <span class="cf">return</span> obj
+        <span class="cf">if</span> obj <span class="op">==</span> <span class="va">None</span>:
+            obj <span class="op">=</span> []
 
-        <span class="token keyword">def</span> <span class="token function">p_str</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> len<span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">2</span><span class="token punctuation">:</span>
-                iPos <span class="token operator">=</span> obj<span class="token punctuation">.</span>rindex<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span>
-                <span class="token keyword">if</span> iPos <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> obj
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> obj<span class="token punctuation">[</span>iPos <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> obj
+        <span class="kw">def</span> p_str(obj):
+            <span class="cf">if</span> <span class="bu">len</span>(obj) <span class="op">&gt;</span> <span class="dv">2</span>:
+                iPos <span class="op">=</span> obj.rindex(<span class="st">&#39;.&#39;</span>)
+                <span class="cf">if</span> iPos <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>:
+                    <span class="cf">return</span> obj
+                <span class="cf">else</span>:
+                    <span class="cf">return</span> obj[iPos <span class="op">+</span> <span class="dv">1</span>:]
+            <span class="cf">else</span>:
+                <span class="cf">return</span> obj
 
-        <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>obj<span class="token punctuation">,</span> str<span class="token punctuation">)</span> <span class="token operator">or</span> isinstance<span class="token punctuation">(</span>obj<span class="token punctuation">,</span> unicode<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> p_str<span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
-        <span class="token keyword">elif</span> isinstance<span class="token punctuation">(</span>obj<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                obj<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> p_str<span class="token punctuation">(</span>obj<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="cf">if</span> <span class="bu">isinstance</span>(obj, <span class="bu">str</span>) <span class="kw">or</span> <span class="bu">isinstance</span>(obj, <span class="bu">unicode</span>):
+            <span class="cf">return</span> p_str(obj)
+        <span class="cf">elif</span> <span class="bu">isinstance</span>(obj, <span class="bu">list</span>):
+            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(obj)):
+                obj[i] <span class="op">=</span> p_str(obj[i])
 
-            <span class="token keyword">return</span> obj
+            <span class="cf">return</span> obj
 
-    <span class="token keyword">def</span> <span class="token function">ListFunction</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> params<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        datas <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token operator">**</span>params<span class="token punctuation">)</span>
-        datas <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token keyword">if</span> datas <span class="token operator">==</span> None <span class="token keyword">else</span> datas
-        <span class="token keyword">return</span> remove_user<span class="token punctuation">(</span>datas<span class="token punctuation">)</span>
+    <span class="kw">def</span> ListFunction(func, params):
+        datas <span class="op">=</span> func(<span class="op">**</span>params)
+        datas <span class="op">=</span> [] <span class="cf">if</span> datas <span class="op">==</span> <span class="va">None</span> <span class="cf">else</span> datas
+        <span class="cf">return</span> remove_user(datas)
 
-    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> root
+    arcpy.env.workspace <span class="op">=</span> root
 
-    desc <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span>root<span class="token punctuation">)</span>
-    root_type<span class="token operator">=</span>desc<span class="token punctuation">.</span>dataType
-    user<span class="token operator">=</span><span class="token string">''</span>
-    <span class="token keyword">if</span> root_type<span class="token operator">==</span><span class="token string">'Workspace'</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> <span class="token string">'esriDataSourcesGDB.SdeWorkspaceFactory.1'</span> <span class="token operator">==</span> desc<span class="token punctuation">.</span>workspaceFactoryProgID<span class="token punctuation">:</span>
-            user <span class="token operator">=</span> desc<span class="token punctuation">.</span>connectionProperties<span class="token punctuation">.</span>user
-    <span class="token keyword">elif</span> root_type<span class="token operator">==</span><span class="token string">"FeatureDataset"</span><span class="token punctuation">:</span>
-        desc2<span class="token operator">=</span>arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span>desc<span class="token punctuation">.</span>path<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> <span class="token string">'esriDataSourcesGDB.SdeWorkspaceFactory.1'</span> <span class="token operator">==</span> desc2<span class="token punctuation">.</span>workspaceFactoryProgID<span class="token punctuation">:</span>
-            user <span class="token operator">=</span> desc2<span class="token punctuation">.</span>connectionProperties<span class="token punctuation">.</span>user
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> <span class="token string">""</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">return</span>
-
-
-    wild_card <span class="token operator">=</span> <span class="token string">'*'</span>
-    <span class="token keyword">if</span> only_this_user <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-        wild_card <span class="token operator">=</span> <span class="token string">'{0}.*'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>user<span class="token punctuation">)</span>
-
-    new_featureclass_filter <span class="token operator">=</span> define_filter<span class="token punctuation">(</span>featureclass<span class="token punctuation">,</span> wild_card<span class="token punctuation">)</span>
-    fcs <span class="token operator">=</span> ListFunction<span class="token punctuation">(</span>arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">,</span> new_featureclass_filter<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> root_type<span class="token operator">==</span><span class="token string">'FeatureDataset'</span><span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> <span class="token string">'{0}.{1}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>user<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> desc<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token keyword">if</span> with_user <span class="token operator">and</span> user <span class="token operator">!=</span> <span class="token string">''</span> <span class="token keyword">else</span> desc<span class="token punctuation">.</span>name<span class="token punctuation">,</span> fcs<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">return</span>
-    <span class="token comment" spellcheck="true">#else</span>
-    new_table_filter <span class="token operator">=</span> define_filter<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> wild_card<span class="token punctuation">)</span>
-    tbs <span class="token operator">=</span> ListFunction<span class="token punctuation">(</span>arcpy<span class="token punctuation">.</span>ListTables<span class="token punctuation">,</span>new_table_filter<span class="token punctuation">)</span>
-
-    <span class="token keyword">yield</span> <span class="token string">""</span><span class="token punctuation">,</span> fcs<span class="token punctuation">,</span> tbs
-
-    new_dataset_filter <span class="token operator">=</span> define_filter<span class="token punctuation">(</span>dataset<span class="token punctuation">,</span> wild_card<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token string">'feature_type'</span> <span class="token operator">not</span> <span class="token keyword">in</span> new_dataset_filter<span class="token punctuation">:</span>
-        new_dataset_filter<span class="token punctuation">[</span><span class="token string">'feature_type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'feature'</span>
-    dts <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListDatasets<span class="token punctuation">(</span><span class="token operator">**</span>new_dataset_filter<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> dts<span class="token punctuation">:</span>
-        <span class="token keyword">return</span>
-
-    <span class="token keyword">if</span> new_featureclass_filter<span class="token punctuation">[</span><span class="token string">'wild_card'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'*'</span><span class="token punctuation">:</span>
-        new_featureclass_filter<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'wild_card'</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">for</span> dt <span class="token keyword">in</span> dts<span class="token punctuation">:</span>
-        new_featureclass_filter<span class="token punctuation">[</span><span class="token string">'feature_dataset'</span><span class="token punctuation">]</span> <span class="token operator">=</span> dt
-        fcs <span class="token operator">=</span> ListFunction<span class="token punctuation">(</span>arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">,</span>new_featureclass_filter<span class="token punctuation">)</span>
-        dt <span class="token operator">=</span> remove_user<span class="token punctuation">(</span>dt<span class="token punctuation">)</span>
-        <span class="token keyword">yield</span> dt<span class="token punctuation">,</span> fcs<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    desc <span class="op">=</span> arcpy.Describe(root)
+    root_type<span class="op">=</span>desc.dataType
+    user<span class="op">=</span><span class="st">&#39;&#39;</span>
+    <span class="cf">if</span> root_type<span class="op">==</span><span class="st">&#39;Workspace&#39;</span>:
+        <span class="cf">if</span> <span class="st">&#39;esriDataSourcesGDB.SdeWorkspaceFactory.1&#39;</span> <span class="op">==</span> desc.workspaceFactoryProgID:
+            user <span class="op">=</span> desc.connectionProperties.user
+    <span class="cf">elif</span> root_type<span class="op">==</span><span class="st">&quot;FeatureDataset&quot;</span>:
+        desc2<span class="op">=</span>arcpy.Describe(desc.path)
+        <span class="cf">if</span> <span class="st">&#39;esriDataSourcesGDB.SdeWorkspaceFactory.1&#39;</span> <span class="op">==</span> desc2.workspaceFactoryProgID:
+            user <span class="op">=</span> desc2.connectionProperties.user
+    <span class="cf">else</span>:
+        <span class="cf">yield</span> <span class="st">&quot;&quot;</span>,[],[]
+        <span class="cf">return</span>
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    <span class="token keyword">for</span> dt<span class="token punctuation">,</span> fcs<span class="token punctuation">,</span> tbs <span class="token keyword">in</span> walk<span class="token punctuation">(</span>
-            r<span class="token string">'C:\Users\XX\AppData\Roaming\ESRI\Desktop10.2\ArcCatalog\连接到 xx.sde'</span><span class="token punctuation">,</span>
-            only_this_user<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
-            with_user<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'#########################################################'</span><span class="token punctuation">)</span>
-        <span class="token keyword">print</span> <span class="token punctuation">(</span>dt<span class="token punctuation">)</span>
-        <span class="token keyword">print</span> <span class="token punctuation">(</span>fcs<span class="token punctuation">)</span>
-        <span class="token keyword">print</span> <span class="token punctuation">(</span>tbs<span class="token punctuation">)</span>
-</code></pre>
+    wild_card <span class="op">=</span> <span class="st">&#39;*&#39;</span>
+    <span class="cf">if</span> only_this_user <span class="op">==</span> <span class="va">True</span>:
+        wild_card <span class="op">=</span> <span class="st">&#39;</span><span class="sc">{0}</span><span class="st">.*&#39;</span>.<span class="bu">format</span>(user)
+
+    new_featureclass_filter <span class="op">=</span> define_filter(featureclass, wild_card)
+    fcs <span class="op">=</span> ListFunction(arcpy.ListFeatureClasses, new_featureclass_filter)
+    <span class="cf">if</span> root_type<span class="op">==</span><span class="st">&#39;FeatureDataset&#39;</span>:
+        <span class="cf">yield</span> <span class="st">&#39;</span><span class="sc">{0}</span><span class="st">.</span><span class="sc">{1}</span><span class="st">&#39;</span>.<span class="bu">format</span>(user.upper(), desc.name) <span class="cf">if</span> with_user <span class="kw">and</span> user <span class="op">!=</span> <span class="st">&#39;&#39;</span> <span class="cf">else</span> desc.name, fcs, []
+        <span class="cf">return</span>
+    <span class="co">#else</span>
+    new_table_filter <span class="op">=</span> define_filter(<span class="st">&#39;&#39;</span>, wild_card)
+    tbs <span class="op">=</span> ListFunction(arcpy.ListTables,new_table_filter)
+
+    <span class="cf">yield</span> <span class="st">&quot;&quot;</span>, fcs, tbs
+
+    new_dataset_filter <span class="op">=</span> define_filter(dataset, wild_card)
+    <span class="cf">if</span> <span class="st">&#39;feature_type&#39;</span> <span class="kw">not</span> <span class="kw">in</span> new_dataset_filter:
+        new_dataset_filter[<span class="st">&#39;feature_type&#39;</span>] <span class="op">=</span> <span class="st">&#39;feature&#39;</span>
+    dts <span class="op">=</span> arcpy.ListDatasets(<span class="op">**</span>new_dataset_filter)
+    <span class="cf">if</span> <span class="kw">not</span> dts:
+        <span class="cf">return</span>
+
+    <span class="cf">if</span> new_featureclass_filter[<span class="st">&#39;wild_card&#39;</span>] <span class="op">==</span> <span class="st">&#39;*&#39;</span>:
+        new_featureclass_filter.pop(<span class="st">&#39;wild_card&#39;</span>)
+
+    <span class="cf">for</span> dt <span class="kw">in</span> dts:
+        new_featureclass_filter[<span class="st">&#39;feature_dataset&#39;</span>] <span class="op">=</span> dt
+        fcs <span class="op">=</span> ListFunction(arcpy.ListFeatureClasses,new_featureclass_filter)
+        dt <span class="op">=</span> remove_user(dt)
+        <span class="cf">yield</span> dt, fcs, []
+
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:
+    <span class="cf">for</span> dt, fcs, tbs <span class="kw">in</span> walk(
+            <span class="vs">r&#39;C:\Users\XX\AppData\Roaming\ESRI\Desktop10.2\ArcCatalog\连接到 xx.sde&#39;</span>,
+            only_this_user<span class="op">=</span><span class="va">False</span>,
+            with_user<span class="op">=</span><span class="va">False</span>):
+        <span class="bu">print</span>(<span class="st">&#39;#########################################################&#39;</span>)
+        <span class="bu">print</span> (dt)
+        <span class="bu">print</span> (fcs)
+        <span class="bu">print</span> (tbs)</code></pre></div>
 <p>结果类似</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#########################################################</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#########################################################</span>
 
-<span class="token punctuation">[</span>u<span class="token string">'SDE.JNETRGN'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.SOUTH_CSJCCH_USERZONE'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.PIPEDESIGN'</span><span class="token punctuation">,</span> u<span class="token string">'DZFISS.BOOA'</span><span class="token punctuation">,</span> u<span class="token string">'DZFISS.BOOL'</span><span class="token punctuation">,</span> u<span class="token string">'DZFISS.BOUA'</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span>u<span class="token string">'SDE.IMPORTRESULTOBJ'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.IMPORTRESULTFWX'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.SOUTH_GYJCCH_HISSERVER'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.SOUTH_PIPE_HISVERSION_LAYER'</span><span class="token punctuation">]</span>
-<span class="token comment" spellcheck="true">#########################################################</span>
-SDE<span class="token punctuation">.</span>DLG_Kqq
-<span class="token punctuation">[</span>u<span class="token string">'SDE.DLG_K_Ctlpnt'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.DLG_K_Resapl'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.DLG_K_Resann'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.DLG_K_Traann'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.DLG_K_Hydrgn'</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token punctuation">]</span>
-<span class="token comment" spellcheck="true">#########################################################</span>
-SDE<span class="token punctuation">.</span>TD
-<span class="token punctuation">[</span>u<span class="token string">'SDE.TDYWHX'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.LM'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.ZD'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.TDYWHXJZX'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.TDYWHXJZD'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.JZD'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.JZX'</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token punctuation">]</span>
-<span class="token comment" spellcheck="true">#########################################################</span>
-SDE<span class="token punctuation">.</span>CSCHY
-<span class="token punctuation">[</span>u<span class="token string">'SDE.fwx_jgcl'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.fwx_tdhb'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.fwx_tdcr'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.fwx_zy'</span><span class="token punctuation">,</span> u<span class="token string">'SDE.fwx_fz'</span><span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token punctuation">]</span>
-</code></pre>
+[<span class="st">u&#39;SDE.JNETRGN&#39;</span>, <span class="st">u&#39;SDE.SOUTH_CSJCCH_USERZONE&#39;</span>, <span class="st">u&#39;SDE.PIPEDESIGN&#39;</span>, <span class="st">u&#39;DZFISS.BOOA&#39;</span>, <span class="st">u&#39;DZFISS.BOOL&#39;</span>, <span class="st">u&#39;DZFISS.BOUA&#39;</span>]
+[<span class="st">u&#39;SDE.IMPORTRESULTOBJ&#39;</span>, <span class="st">u&#39;SDE.IMPORTRESULTFWX&#39;</span>, <span class="st">u&#39;SDE.SOUTH_GYJCCH_HISSERVER&#39;</span>, <span class="st">u&#39;SDE.SOUTH_PIPE_HISVERSION_LAYER&#39;</span>]
+<span class="co">#########################################################</span>
+SDE.DLG_Kqq
+[<span class="st">u&#39;SDE.DLG_K_Ctlpnt&#39;</span>, <span class="st">u&#39;SDE.DLG_K_Resapl&#39;</span>, <span class="st">u&#39;SDE.DLG_K_Resann&#39;</span>, <span class="st">u&#39;SDE.DLG_K_Traann&#39;</span>, <span class="st">u&#39;SDE.DLG_K_Hydrgn&#39;</span>]
+[]
+<span class="co">#########################################################</span>
+SDE.TD
+[<span class="st">u&#39;SDE.TDYWHX&#39;</span>, <span class="st">u&#39;SDE.LM&#39;</span>, <span class="st">u&#39;SDE.ZD&#39;</span>, <span class="st">u&#39;SDE.TDYWHXJZX&#39;</span>, <span class="st">u&#39;SDE.TDYWHXJZD&#39;</span>, <span class="st">u&#39;SDE.JZD&#39;</span>, <span class="st">u&#39;SDE.JZX&#39;</span>]
+[]
+<span class="co">#########################################################</span>
+SDE.CSCHY
+[<span class="st">u&#39;SDE.fwx_jgcl&#39;</span>, <span class="st">u&#39;SDE.fwx_tdhb&#39;</span>, <span class="st">u&#39;SDE.fwx_tdcr&#39;</span>, <span class="st">u&#39;SDE.fwx_zy&#39;</span>, <span class="st">u&#39;SDE.fwx_fz&#39;</span>]
+[]</code></pre></div>
 
         
     
@@ -645,7 +643,7 @@ SDE<span class="token punctuation">.</span>CSCHY
 
     <!-- Next Nav -->
     
-        <a href="/2017/10/18/无符号数与有符号数的存储/" id="post_nav-older" class="next-content">
+        <a href="/2017/10/16/C++多线程学习笔记_A/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -737,7 +735,7 @@ SDE<span class="token punctuation">.</span>CSCHY
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1011,7 +1009,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

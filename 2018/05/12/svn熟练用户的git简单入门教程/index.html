@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -482,32 +482,70 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="svn熟练用户的git简单入门教程"><a href="#svn熟练用户的git简单入门教程" class="headerlink" title="svn熟练用户的git简单入门教程"></a>svn熟练用户的git简单入门教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在整理自己的代码，以前用的是svn，其实对于我来说svn已经够用了，但是现在想整理好放到网上去备份，以后换电脑之类的什么的也方便。又因为以前对git只是说听，并没有使用过，因此想趁着这个契机，学学git使用，对于我svn已经够，但是git提供一个对于非常具有吸引力的特性——本地数据库，意味着我可以将本机作为一个服务器，等代码成熟再传到网上去，我是很乱改代码，所以这很吸引力，除此之外，只有知道svn的提交、更新、回退方法就可以了。</p>
-<h2 id="选择一个git托管商"><a href="#选择一个git托管商" class="headerlink" title="选择一个git托管商"></a>选择一个git托管商</h2><p>我选择的是gitlab，个人免费用户可以新建很多个工程，正合我意。</p>
+        <h1 id="svn熟练用户的git简单入门教程">svn熟练用户的git简单入门教程</h1>
+<h2 id="前言">前言</h2>
+<p>最近在整理自己的代码，以前用的是svn，其实对于我来说svn已经够用了，但是现在想整理好放到网上去备份，以后换电脑之类的什么的也方便。又因为以前对git只是说听，并没有使用过，因此想趁着这个契机，学学git使用，对于我svn已经够，但是git提供一个对于非常具有吸引力的特性——本地数据库，意味着我可以将本机作为一个服务器，等代码成熟再传到网上去，我是很乱改代码，所以这很吸引力，除此之外，只有知道svn的提交、更新、回退方法就可以了。</p>
+<h2 id="选择一个git托管商">选择一个git托管商</h2>
+<p>我选择的是gitlab，个人免费用户可以新建很多个工程，正合我意。</p>
 <p>首先在gitlab上注册一个账号，并新建一个项目，这个步骤略。</p>
-<p>项目地址为：<a href="https://gitlab.com/username/BlogDemo.git" target="_blank" rel="external">https://gitlab.com/username/BlogDemo.git</a></p>
-<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><p>安装git和图形客户端TortoiseGit。</p>
-<h2 id="本机克隆"><a href="#本机克隆" class="headerlink" title="本机克隆"></a>本机克隆</h2><p>gitlab提供了详细命令操作方式</p>
+<p>项目地址为：https://gitlab.com/username/BlogDemo.git</p>
+<h2 id="安装git">安装git</h2>
+<p>安装git和图形客户端TortoiseGit。</p>
+<h2 id="本机克隆">本机克隆</h2>
+<p>gitlab提供了详细命令操作方式</p>
 <pre><code>git clone https://gitlab.com/username/BlogDemo.git
 cd BlogDemo
 touch README.md
 git add README.md
 git commit -m &quot;add README&quot;
-git push -u origin master
-</code></pre><p>图形操作的话就简单了，右键单击文件夹空白，单击 git clone。</p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190552.png" alt=""></p>
-<h2 id="增加一个文件并提交到本地数据库"><a href="#增加一个文件并提交到本地数据库" class="headerlink" title="增加一个文件并提交到本地数据库"></a>增加一个文件并提交到本地数据库</h2><p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190805.png" alt=""></p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190842.png" alt=""></p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190920.png" alt=""></p>
-<h2 id="将变更提交到git服务器"><a href="#将变更提交到git服务器" class="headerlink" title="将变更提交到git服务器"></a>将变更提交到git服务器</h2><p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191027.png" alt=""></p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191142.png" alt=""></p>
+git push -u origin master</code></pre>
+<p>图形操作的话就简单了，右键单击文件夹空白，单击 git clone。</p>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190552.png">
+
+</div>
+<h2 id="增加一个文件并提交到本地数据库">增加一个文件并提交到本地数据库</h2>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190805.png">
+
+</div>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190842.png">
+
+</div>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_190920.png">
+
+</div>
+<h2 id="将变更提交到git服务器">将变更提交到git服务器</h2>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191027.png">
+
+</div>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191142.png">
+
+</div>
 <p>刷新gitlab的项目页面，就可以看到这个文件了</p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191229.png" alt="2018-05-12_191229"></p>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191229.png" alt="2018-05-12_191229">
+<p class="caption">2018-05-12_191229</p>
+</div>
 <p>这个新增的步骤，实际上也包含了修改的提交。</p>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>先删除本地新增的文件，再将它恢复</p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191906.png" alt=""></p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191939.png" alt="2018-05-12_191939"></p>
-<p><img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_192007.png" alt="2018-05-12_192007"></p>
+<h2 id="更新">更新</h2>
+<p>先删除本地新增的文件，再将它恢复</p>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191906.png">
+
+</div>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_191939.png" alt="2018-05-12_191939">
+<p class="caption">2018-05-12_191939</p>
+</div>
+<div class="figure">
+<img src="/2018/05/12/svn熟练用户的git简单入门教程/2018-05-12_192007.png" alt="2018-05-12_192007">
+<p class="caption">2018-05-12_192007</p>
+</div>
 <p>目前是自己玩这个项目，还没有遇到更复杂的问题。希望能帮到那些熟悉SVN，想使用而又让GIT吓到的童鞋（我以前就是）。</p>
 
         
@@ -635,7 +673,7 @@ git push -u origin master
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -909,7 +947,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Python爬虫经验学习总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">Python爬虫经验学习总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫可以做什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">爬虫可以做什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫的工作流程是怎么样的？"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">爬虫的工作流程是怎么样的？</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#python爬虫经验学习总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">Python爬虫经验学习总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫可以做什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">爬虫可以做什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫的工作流程是怎么样的"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">爬虫的工作流程是怎么样的？</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -491,8 +491,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="Python爬虫经验学习总结"><a href="#Python爬虫经验学习总结" class="headerlink" title="Python爬虫经验学习总结"></a>Python爬虫经验学习总结</h1><h2 id="爬虫可以做什么"><a href="#爬虫可以做什么" class="headerlink" title="爬虫可以做什么"></a>爬虫可以做什么</h2><p>比如我想下载一个上市公司的年报，我可以登录到上海证券交易所的网站，然后根据上市公司的代码、报告类型和日期查询到上市公司某一年的财务报告。这个工作完全可以在浏览器上进行。如果上市公司才上市不长时间还好解决，如果上市时间较多，则需要重复查询多次（上证一次只允许查询开始日期到结束日期为三年的报告，如果时间比较长则需要多次查询），查询到之后还需要手动云下载命名等。如果这个功能需要多次使用的话，那就更麻烦了。这时我们可以用爬虫来一次性地把所有的年报查询并下载下来，也就是说，让脚本模仿人类的使用习惯，自动抓取开发所感兴趣的信息。</p>
-<h2 id="爬虫的工作流程是怎么样的？"><a href="#爬虫的工作流程是怎么样的？" class="headerlink" title="爬虫的工作流程是怎么样的？"></a>爬虫的工作流程是怎么样的？</h2><p>在最简单的情况下，网站的查询一般是在前端通过WebAPI向后端发送查询请求，后端查询到结果后，以Json格式的方式返回查询结果，这时脚本需要做的就是根据WebAPI的地址和参数，构造一个查询请求给后端，获取到请求的结果后，解析JSON，拿到感兴趣的信息。当然有些网站是直接返回页面的，这时就要解析HTML了。更复杂的情况下，WebAPI做了防止爬虫的处理，这时我们可以启动一个浏览器进程，使用脚本控制浏览器的输入和点击事件，然后解析HTML的页面获取感兴趣的内容。</p>
+        <h1 id="python爬虫经验学习总结">Python爬虫经验学习总结</h1>
+<h2 id="爬虫可以做什么">爬虫可以做什么</h2>
+<p>比如我想下载一个上市公司的年报，我可以登录到上海证券交易所的网站，然后根据上市公司的代码、报告类型和日期查询到上市公司某一年的财务报告。这个工作完全可以在浏览器上进行。如果上市公司才上市不长时间还好解决，如果上市时间较多，则需要重复查询多次（上证一次只允许查询开始日期到结束日期为三年的报告，如果时间比较长则需要多次查询），查询到之后还需要手动云下载命名等。如果这个功能需要多次使用的话，那就更麻烦了。这时我们可以用爬虫来一次性地把所有的年报查询并下载下来，也就是说，让脚本模仿人类的使用习惯，自动抓取开发所感兴趣的信息。</p>
+<h2 id="爬虫的工作流程是怎么样的">爬虫的工作流程是怎么样的？</h2>
+<p>在最简单的情况下，网站的查询一般是在前端通过WebAPI向后端发送查询请求，后端查询到结果后，以Json格式的方式返回查询结果，这时脚本需要做的就是根据WebAPI的地址和参数，构造一个查询请求给后端，获取到请求的结果后，解析JSON，拿到感兴趣的信息。当然有些网站是直接返回页面的，这时就要解析HTML了。更复杂的情况下，WebAPI做了防止爬虫的处理，这时我们可以启动一个浏览器进程，使用脚本控制浏览器的输入和点击事件，然后解析HTML的页面获取感兴趣的内容。</p>
 
         
     
@@ -619,7 +622,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -893,7 +896,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

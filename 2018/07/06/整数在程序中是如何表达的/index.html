@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Fri Jul 06 2018 21:53:00 GMT+0800" />
-        <meta property="article:modified_time" content="Sat Jul 07 2018 11:53:57 GMT+0800" />
+        <meta property="article:modified_time" content="Sat Jul 07 2018 15:33:57 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/07/06/整数在程序中是如何表达的/index.html",
     "headline": "整数在程序中是如何表达的",
     "datePublished": "Fri Jul 06 2018 21:53:00 GMT+0800",
-    "dateModified": "Sat Jul 07 2018 11:53:57 GMT+0800",
+    "dateModified": "Sat Jul 07 2018 15:33:57 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -482,27 +482,31 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="整数在程序中是如何表达的"><a href="#整数在程序中是如何表达的" class="headerlink" title="整数在程序中是如何表达的"></a>整数在程序中是如何表达的</h1><p>计算机的数据都是二进制的方式进行存储的，整数也不是例外。</p>
-<h2 id="无符号数与有符号数"><a href="#无符号数与有符号数" class="headerlink" title="无符号数与有符号数"></a>无符号数与有符号数</h2><p>无符号数是是正数与0的并集，不包含负数。有符号数是无符号数与负数的并集。</p>
-<h2 id="无符号数如何表达"><a href="#无符号数如何表达" class="headerlink" title="无符号数如何表达"></a>无符号数如何表达</h2><p>假设无符号数有二进制中为ω位，$$x_{n}$$为第$$n$$位的值（$$0$$或$$1$$），则无符号数的十进制值为</p>
-<p>$$X=\sum<em>{n=0}^{n=ω-1}x</em>{n}*2^{n}$$</p>
+        <h1 id="整数在程序中是如何表达的">整数在程序中是如何表达的</h1>
+<p>计算机的数据都是二进制的方式进行存储的，整数也不是例外。</p>
+<h2 id="无符号数与有符号数">无符号数与有符号数</h2>
+<p>无符号数是是正数与0的并集，不包含负数。有符号数是无符号数与负数的并集。</p>
+<h2 id="无符号数如何表达">无符号数如何表达</h2>
+<p>假设无符号数有二进制中为 <span class="math inline">\(ω\)</span> 位， <span class="math inline">\(x_{n}\)</span> 为第 <span class="math inline">\(n\)</span> 位的值（ <span class="math inline">\(0\)</span> 或 <span class="math inline">\(1\)</span> ），则无符号数的十进制值为</p>
+<p><span class="math display">\[X=\sum_{n=0}^{n=ω-1}x_{n}*2^{n}\]</span></p>
 <p>以4位数为例</p>
-<p>$$0 = [0000] = 0<em>2^{3}+0</em>2^{2}+0<em>2^{1}+0</em>2^{0}$$</p>
-<p>$$15 = [1111] = 1<em>2^{3}+1</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$7 = [0111] = 0<em>2^{3}+1</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$12 = [1100] = 1<em>2^{3}+1</em>2^{2}+0<em>2^{1}+0</em>2^{0}$$</p>
-<p>$$3 = [0011] = 0<em>2^{3}+0</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$13 = [1101] = 1<em>2^{3}+1</em>2^{2}+0<em>2^{1}+1</em>2^{0}$$</p>
-<h2 id="有符号数如何表达"><a href="#有符号数如何表达" class="headerlink" title="有符号数如何表达"></a>有符号数如何表达</h2><p>有符号数最常用的方式补码。</p>
+<p><span class="math display">\[0 = [0000] = 0*2^{3}+0*2^{2}+0*2^{1}+0*2^{0}\]</span></p>
+<p><span class="math display">\[15 = [1111] = 1*2^{3}+1*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[7 = [0111] = 0*2^{3}+1*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[12 = [1100] = 1*2^{3}+1*2^{2}+0*2^{1}+0*2^{0}\]</span></p>
+<p><span class="math display">\[3 = [0011] = 0*2^{3}+0*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[13 = [1101] = 1*2^{3}+1*2^{2}+0*2^{1}+1*2^{0}\]</span></p>
+<h2 id="有符号数如何表达">有符号数如何表达</h2>
+<p>有符号数最常用的方式补码。</p>
 <p>补码的最高有效位是负权。</p>
-<p>$$X=-x<em>{ω-1}*2^{ω-1}+\sum</em>{n=0}^{n=ω-2}x_{n}*2^{n}$$</p>
+<p><span class="math display">\[X=\color{red}{-}x_{ω-1}*2^{ω-1}+\sum_{n=0}^{n=ω-2}x_{n}*2^{n}\]</span></p>
 <p>以4位数为例</p>
-<p>$$-8 = [0000] = -0<em>2^{3}+0</em>2^{2}+0<em>2^{1}+0</em>2^{0}$$</p>
-<p>$$-1 = [1111] = -1<em>2^{3}+1</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$7 = [0111] = -0<em>2^{3}+1</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$-4 = [1100] = -1<em>2^{3}+1</em>2^{2}+0<em>2^{1}+0</em>2^{0}$$</p>
-<p>$$3 = [0011] = -0<em>2^{3}+0</em>2^{2}+1<em>2^{1}+1</em>2^{0}$$</p>
-<p>$$-3 = [1101] = -1<em>2^{3}+1</em>2^{2}+0<em>2^{1}+1</em>2^{0}$$</p>
+<p><span class="math display">\[-8 = [0000] = \color{red}{-}0*2^{3}+0*2^{2}+0*2^{1}+0*2^{0}​\]</span></p>
+<p><span class="math display">\[-1 = [1111] = \color{red}{-}1*2^{3}+1*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[7 = [0111] = \color{red}{-}0*2^{3}+1*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[-4 = [1100] = \color{red}{-}1*2^{3}+1*2^{2}+0*2^{1}+0*2^{0}\]</span></p>
+<p><span class="math display">\[3 = [0011] = \color{red}{-}0*2^{3}+0*2^{2}+1*2^{1}+1*2^{0}\]</span></p>
+<p><span class="math display">\[-3 = [1101] = \color{red}{-}1*2^{3}+1*2^{2}+0*2^{1}+1*2^{0}\]</span></p>
 
         
     
@@ -522,6 +526,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2018/07/07/Hexo-Material公式/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -621,7 +633,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -858,6 +870,26 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- MathJax Load-->
 
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
 
 <!-- Bing Background -->
 
@@ -895,7 +927,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

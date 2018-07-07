@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前置工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">前置工作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#不折腾会死"><span class="post-toc-number">2.</span> <span class="post-toc-text">不折腾会死</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#swashbuckle"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">swashbuckle</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改index-html"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">修改index.html</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前置工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">前置工作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#不折腾会死"><span class="post-toc-number">2.</span> <span class="post-toc-text">不折腾会死</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#swashbuckle"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">swashbuckle</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改swaggeruiconfig类"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">修改SwaggerUiConfig类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改index.html"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">修改index.html</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置url"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">设置%(Url)</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -492,99 +492,104 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>swashbuckle是测试.Net WebAPI的库，基本的功能都有了，界面也比较美观。最近在做一个项目的时候，用到了上传文件的接口，swashbuckle-5.3.1不能支持多个文件，而OpenAPI3.0是支持的，swagger-ui，在前几天（10月13日）更新到了3.3.2，界面更加美观了，作为一个好色之徒，这个理由足够让我升级了。</p>
-<h1 id="前置工作"><a href="#前置工作" class="headerlink" title="前置工作"></a>前置工作</h1><p>建一个WebAPI工程，在从nuget中添加swashbuckle引用，这时引用的是5.3.1版本的，参考 <a href="http://www.cnblogs.com/Arrays/p/5146194.html" target="_blank" rel="external">如何使 WebAPI 自动生成漂亮又实用在线API文档</a> ，配置工程，配置完成后，应该就能满足大部分的需求了。</p>
-<h1 id="不折腾会死"><a href="#不折腾会死" class="headerlink" title="不折腾会死"></a>不折腾会死</h1><p>在github上clone代码 <a href="https://github.com/swagger-api/swagger-ui" target="_blank" rel="external">swagger-ui</a> 和 <a href="https://github.com/domaindrivendev/Swashbuckle" target="_blank" rel="external">swashbuckle</a> 。</p>
-<h2 id="swashbuckle"><a href="#swashbuckle" class="headerlink" title="swashbuckle"></a>swashbuckle</h2><p>打开解决方案，将除了Swashbuckle.Core之外的工程移除掉，将Swashbuckle.Core\SwaggerUi\CustomAssets目录下的文件全部移除，再将swagger-ui\dist下的文件拷到这目前下，如图：</p>
-<p><img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085320.jpg" alt="20171017085320"></p>
+<h1 id="前置工作">前置工作</h1>
+<p>建一个WebAPI工程，在从nuget中添加swashbuckle引用，这时引用的是5.3.1版本的，参考 <a href="http://www.cnblogs.com/Arrays/p/5146194.html" target="_blank" rel="external">如何使 WebAPI 自动生成漂亮又实用在线API文档</a> ，配置工程，配置完成后，应该就能满足大部分的需求了。</p>
+<h1 id="不折腾会死">不折腾会死</h1>
+<p>在github上clone代码 <a href="https://github.com/swagger-api/swagger-ui" target="_blank" rel="external">swagger-ui</a> 和 <a href="https://github.com/domaindrivendev/Swashbuckle" target="_blank" rel="external">swashbuckle</a> 。</p>
+<h2 id="swashbuckle">swashbuckle</h2>
+<p>打开解决方案，将除了Swashbuckle.Core之外的工程移除掉，将Swashbuckle.Core，再将swagger-ui，如图：</p>
+<div class="figure">
+<img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085320.jpg" alt="20171017085320">
+<p class="caption">20171017085320</p>
+</div>
 <p>将拷进来的文件包含到工程当中，修改文件生成操作为“嵌入的资源”</p>
-<p><img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085613.jpg" alt="20171017085613"></p>
-<p><img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085641.jpg" alt="20171017085641"></p>
+<div class="figure">
+<img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085613.jpg" alt="20171017085613">
+<p class="caption">20171017085613</p>
+</div>
+<div class="figure">
+<img src="/2017/10/16/修改swashbuckle，升级swaggerui/20171017085641.jpg" alt="20171017085641">
+<p class="caption">20171017085641</p>
+</div>
 <p>至此，文件准备完毕。接下来就要修改代码了。</p>
-<p>##修改SwaggerUiConfig类</p>
+<h2 id="修改swaggeruiconfig类">修改SwaggerUiConfig类</h2>
 <p>添加新拷进来的文件来资源，由</p>
-<pre class=" language-c#"><code class="language-c#">// Use some custom versions to support config and extensionless paths
-var thisAssembly = GetType().Assembly;
-CustomAsset("index", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.index.html", isTemplate: true);
-CustomAsset("css/screen-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.screen.css");
-CustomAsset("css/typography-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.typography.css");
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs"><span class="co">// Use some custom versions to support config and extensionless paths</span>
+<span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;
+<span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;css/typography-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;</span>);</code></pre></div>
 <p>改为：</p>
-<pre class=" language-c#"><code class="language-c#">// Use some custom versions to support config and extensionless paths
-var thisAssembly = GetType().Assembly;
-CustomAsset("index", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.index.html", isTemplate: true);
-CustomAsset("css/screen-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.screen.css");
-//CustomAsset("css/typography-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.typography.css");
-CustomAsset("img/favicon-16x16-png", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.favicon-16x16.png");
-CustomAsset("img/favicon-32x32-png", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.favicon-32x32.png");
-//CustomAsset("index.html", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.index.html");
-CustomAsset("oauth2-redirect-html", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.oauth2-redirect.html");
-CustomAsset("css/open-sans-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.open-sans.css");
-CustomAsset("js/swagger-ui-bundle-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js");
-CustomAsset("js/swagger-ui-bundle-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js.map");
-CustomAsset("js/swagger-ui-standalone-preset-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js");
-CustomAsset("js/swagger-ui-standalone-preset-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js.map");
-CustomAsset("css/swagger-ui-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css");
-CustomAsset("js/swagger-ui-css-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css.map");
-CustomAsset("js/swagger-ui-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js");
-CustomAsset("js/swagger-ui-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js.map");
-</code></pre>
-<p>CustomAsset函数第一个参数相当于键，同时也是作为URL的一部分，因此不能带’.’，否则IIS会以文件的方式进行处理，但是这些文件，我们是以嵌入的资源进行处理的。</p>
-<h2 id="修改index-html"><a href="#修改index-html" class="headerlink" title="修改index.html"></a>修改index.html</h2><p>修改参数的URL路径，由：</p>
-<pre class=" language-javascript"><code class="language-javascript">url<span class="token punctuation">:</span> <span class="token string">"http://petstore.swagger.io/v2/swagger.json"</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs"><span class="co">// Use some custom versions to support config and extensionless paths</span>
+<span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;
+<span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);
+<span class="co">//CustomAsset(&quot;css/typography-css&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;);</span>
+<span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-16x16-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-16x16.png&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-32x32-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-32x32.png&quot;</span>);
+<span class="co">//CustomAsset(&quot;index.html&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;);</span>
+<span class="fu">CustomAsset</span>(<span class="st">&quot;oauth2-redirect-html&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.oauth2-redirect.html&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;css/open-sans-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.open-sans.css&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js.map&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js.map&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;css/swagger-ui-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-css-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css.map&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js&quot;</span>);
+<span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js.map&quot;</span>);</code></pre></div>
+<p>CustomAsset函数第一个参数相当于键，同时也是作为URL的一部分，因此不能带'.'，否则IIS会以文件的方式进行处理，但是这些文件，我们是以嵌入的资源进行处理的。</p>
+<h2 id="修改index.html">修改index.html</h2>
+<p>修改参数的URL路径，由：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">url<span class="op">:</span> <span class="st">&quot;http://petstore.swagger.io/v2/swagger.json&quot;</span></code></pre></div>
 <p>改为：</p>
-<pre class=" language-javascript"><code class="language-javascript">url<span class="token punctuation">:</span> <span class="token string">'%(Url)'</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">url<span class="op">:</span> <span class="st">&#39;%(Url)&#39;</span></code></pre></div>
 <p>由：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./swagger-ui.css<span class="token punctuation">"</span></span> <span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image/png<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./favicon-32x32.png<span class="token punctuation">"</span></span> <span class="token attr-name">sizes</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>32x32<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image/png<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./favicon-16x16.png<span class="token punctuation">"</span></span> <span class="token attr-name">sizes</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>16x16<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./swagger-ui-bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./swagger-ui-standalone-preset.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;./swagger-ui.css&quot;</span> <span class="kw">&gt;</span>
+<span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-32x32.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-16x16.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-bundle.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-standalone-preset.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></code></pre></div>
 <p>改为：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>css/swagger-ui-css<span class="token punctuation">'</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>stylesheet<span class="token punctuation">'</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>text/css<span class="token punctuation">'</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image/png<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>img/favicon-16x16-png<span class="token punctuation">"</span></span> <span class="token attr-name">sizes</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>32x32<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image/png<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>img/favicon-32x32-png<span class="token punctuation">"</span></span> <span class="token attr-name">sizes</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>16x16<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>js/swagger-ui-bundle-js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>js/swagger-ui-standalone-preset-js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&#39;css/swagger-ui-css&#39;</span><span class="ot"> rel=</span><span class="st">&#39;stylesheet&#39;</span><span class="ot"> type=</span><span class="st">&#39;text/css&#39;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-16x16-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-32x32-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-bundle-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></code></pre></div>
 <p>如果<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">无法访问，则通过你懂的，下载到本地再添加到工程的资源里。</p>
 <p>js/css/png的href与CustomAsset函数的第一个参数相同。</p>
-<p>##设置%(Url)</p>
+<h2 id="设置url">设置%(Url)</h2>
 <p>在EmbeddedAssetProvider.GetEmbeddedResourceStreamFor里</p>
-<pre class=" language-c#"><code class="language-c#">private Stream GetEmbeddedResourceStreamFor(EmbeddedAssetDescriptor resourceDescriptor, string rootUrl)
+<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs"><span class="kw">private</span> Stream <span class="fu">GetEmbeddedResourceStreamFor</span>(EmbeddedAssetDescriptor resourceDescriptor, <span class="dt">string</span> rootUrl)
 {
-    var stream = resourceDescriptor.Assembly.GetManifestResourceStream(resourceDescriptor.Name);
-    if (stream == null)
-        throw new AssetNotFound(String.Format("Embedded resource not found - {0}", resourceDescriptor.Name));
+    <span class="dt">var</span> stream = resourceDescriptor.<span class="fu">Assembly</span>.<span class="fu">GetManifestResourceStream</span>(resourceDescriptor.<span class="fu">Name</span>);
+    <span class="kw">if</span> (stream == <span class="kw">null</span>)
+        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">AssetNotFound</span>(String.<span class="fu">Format</span>(<span class="st">&quot;Embedded resource not found - {0}&quot;</span>, resourceDescriptor.<span class="fu">Name</span>));
 
-    if (resourceDescriptor.IsTemplate)
+    <span class="kw">if</span> (resourceDescriptor.<span class="fu">IsTemplate</span>)
     {
-        var templateParams = _templateParams
-            .Union(new[] { 
-                new KeyValuePair<string, string>("%(RootUrl)", rootUrl), 
-                new KeyValuePair<string, string>("%(Url)", string.Format("{0}/{1}", rootUrl, _templateParams["%(DiscoveryPaths)"].Split('|')[0])) 
+        <span class="dt">var</span> templateParams = _templateParams
+            .<span class="fu">Union</span>(<span class="kw">new</span>[] { 
+                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(RootUrl)&quot;</span>, rootUrl), 
+                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(Url)&quot;</span>, <span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">&quot;{0}/{1}&quot;</span>, rootUrl, _templateParams[<span class="st">&quot;%(DiscoveryPaths)&quot;</span>].<span class="fu">Split</span>(<span class="ch">&#39;|&#39;</span>)[<span class="dv">0</span>])) 
             })
-            .ToDictionary(entry => entry.Key, entry => entry.Value);
+            .<span class="fu">ToDictionary</span>(entry =&gt; entry.<span class="fu">Key</span>, entry =&gt; entry.<span class="fu">Value</span>);
 
-        return stream.FindAndReplace(templateParams);
+        <span class="kw">return</span> stream.<span class="fu">FindAndReplace</span>(templateParams);
     }
 
-    return stream;
-}
-</code></pre>
+    <span class="kw">return</span> stream;
+}</code></pre></div>
 <p>改完编译通过后，移除原来对Swashbuckle.Core的引用，再引用自己的编译的Swashbuckle.Core.dll就可以了。</p>
 <p>如果多文件上传，可以这样</p>
-<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
-    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"file"</span><span class="token punctuation">,</span>
-    <span class="token property">"in"</span><span class="token operator">:</span> <span class="token string">"formData"</span><span class="token punctuation">,</span>
-    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"file to upload"</span><span class="token punctuation">,</span>
-    <span class="token property">"required"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
-    <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"file"</span><span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;in&quot;</span><span class="fu">:</span> <span class="st">&quot;formData&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;file to upload&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;required&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
 
         
     
@@ -605,7 +610,7 @@ CustomAsset("js/swagger-ui-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomA
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/10/18/无符号数与有符号数的存储/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/10/16/C++多线程学习笔记_A/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -619,7 +624,7 @@ CustomAsset("js/swagger-ui-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomA
 
     <!-- Next Nav -->
     
-        <a href="/2017/10/16/C++多线程学习笔记_A/" id="post_nav-older" class="next-content">
+        <a href="/2017/10/16/通过ARCPY给FEATURE设置GUID/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -711,7 +716,7 @@ CustomAsset("js/swagger-ui-js-map", thisAssembly, "Swashbuckle.SwaggerUi.CustomA
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -985,7 +990,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

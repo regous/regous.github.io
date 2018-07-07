@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在右键添加“CMD中打开”菜单项"><span class="post-toc-number">1.</span> <span class="post-toc-text">在右键添加“CMD中打开”菜单项</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在右键添加cmd中打开菜单项"><span class="post-toc-number">1.</span> <span class="post-toc-text">在右键添加“CMD中打开”菜单项</span></a></li></ol>
     </ul>
     
 
@@ -482,7 +482,8 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="在右键添加“CMD中打开”菜单项"><a href="#在右键添加“CMD中打开”菜单项" class="headerlink" title="在右键添加“CMD中打开”菜单项"></a>在右键添加“CMD中打开”菜单项</h1><p>有时候在操作中需要在CMD窗口中打开某个文件夹，当然拷文件夹路径再打开也行的，但是太麻烦了，如果在右键添加一个菜单项可以直接打开就太好了，下面就是具体的方法。</p>
+        <h1 id="在右键添加cmd中打开菜单项">在右键添加“CMD中打开”菜单项</h1>
+<p>有时候在操作中需要在CMD窗口中打开某个文件夹，当然拷文件夹路径再打开也行的，但是太麻烦了，如果在右键添加一个菜单项可以直接打开就太好了，下面就是具体的方法。</p>
 <p>将下面的代码复制到一个文本文件当中，把文本文件扩展名改成 <strong>.reg</strong>双击导入注册表就可以了</p>
 <pre><code>Windows Registry Editor Version 5.00
 
@@ -497,9 +498,17 @@
 
 [HKEY_CLASSES_ROOT\Folder\shell\Open within CMD\command]
 @=&quot;cmd.exe /k cd %1&quot;
-</code></pre><p>效果如图：</p>
-<p><img src="/2018/05/12/在右键添加-在CMD中打开-菜单项/2018-05-12_152326.png" alt=""></p>
-<p><img src="/2018/05/12/在右键添加-在CMD中打开-菜单项/2018-05-12_152402.png" alt=""></p>
+
+</code></pre>
+<p>效果如图：</p>
+<div class="figure">
+<img src="/2018/05/12/在右键添加-在CMD中打开-菜单项/2018-05-12_152326.png">
+
+</div>
+<div class="figure">
+<img src="/2018/05/12/在右键添加-在CMD中打开-菜单项/2018-05-12_152402.png">
+
+</div>
 
         
     
@@ -626,7 +635,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -900,7 +909,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Arcpy根据模板创建工作空间"><span class="post-toc-number">1.</span> <span class="post-toc-text">Arcpy根据模板创建工作空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">使用方法</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#arcpy根据模板创建工作空间"><span class="post-toc-number">1.</span> <span class="post-toc-text">Arcpy根据模板创建工作空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">使用方法</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -491,133 +491,133 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="Arcpy根据模板创建工作空间"><a href="#Arcpy根据模板创建工作空间" class="headerlink" title="Arcpy根据模板创建工作空间"></a>Arcpy根据模板创建工作空间</h1><p>写其他功能的时候，常常修修补补，后来发现，居然改出了一个不错的类，挺通用的，所以记录下来。</p>
+        <h1 id="arcpy根据模板创建工作空间">Arcpy根据模板创建工作空间</h1>
+<p>写其他功能的时候，常常修修补补，后来发现，居然改出了一个不错的类，挺通用的，所以记录下来。</p>
 <p>Do not talk, show me the code!</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
-<span class="token keyword">import</span> os
-<span class="token keyword">import</span> shutil
-<span class="token keyword">import</span> zipfile
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> arcpy
+<span class="im">import</span> os
+<span class="im">import</span> shutil
+<span class="im">import</span> zipfile
 
 
-<span class="token keyword">class</span> <span class="token class-name">Template</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    Unknown <span class="token operator">=</span> <span class="token number">0</span>
-    MDB <span class="token operator">=</span> <span class="token number">1</span>
-    GDB <span class="token operator">=</span> <span class="token number">2</span>
-    SHP <span class="token operator">=</span> <span class="token number">4</span>
-    ZIP <span class="token operator">=</span> <span class="token number">512</span>
+<span class="kw">class</span> Template(<span class="bu">object</span>):
+    Unknown <span class="op">=</span> <span class="dv">0</span>
+    MDB <span class="op">=</span> <span class="dv">1</span>
+    GDB <span class="op">=</span> <span class="dv">2</span>
+    SHP <span class="op">=</span> <span class="dv">4</span>
+    ZIP <span class="op">=</span> <span class="dv">512</span>
 
-    DEFAULT_TYPE <span class="token operator">=</span> SHP
+    DEFAULT_TYPE <span class="op">=</span> SHP
 
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token string">'shp'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">'''
-        Construct Function
-        :param path: the template's path. class will generate workspace by copy template.
-        :param default: default workspace type. if the path parameter is empty,this parameter will decide which type of
-                            workspace that will be generated.
-        '''</span>
-        self<span class="token punctuation">.</span>path <span class="token operator">=</span> path
-        self<span class="token punctuation">.</span>_db_type <span class="token operator">=</span> self<span class="token punctuation">.</span>_parse_db_type<span class="token punctuation">(</span>default<span class="token punctuation">)</span>
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, path<span class="op">=</span><span class="st">&#39;&#39;</span>, default<span class="op">=</span><span class="st">&#39;shp&#39;</span>):
+        <span class="co">&#39;&#39;&#39;</span>
+<span class="co">        Construct Function</span>
+<span class="co">        :param path: the template&#39;s path. class will generate workspace by copy template.</span>
+<span class="co">        :param default: default workspace type. if the path parameter is empty,this parameter will decide which type of</span>
+<span class="co">                            workspace that will be generated.</span>
+<span class="co">        &#39;&#39;&#39;</span>
+        <span class="va">self</span>.path <span class="op">=</span> path
+        <span class="va">self</span>._db_type <span class="op">=</span> <span class="va">self</span>._parse_db_type(default)
 
-    <span class="token keyword">def</span> <span class="token function">_parse_db_type</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> default<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>path<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>default<span class="token punctuation">,</span> basestring<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                default <span class="token operator">=</span> default<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token keyword">if</span> default <span class="token operator">==</span> <span class="token string">'mdb'</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>MDB
-                <span class="token keyword">elif</span> default <span class="token operator">==</span> <span class="token string">'gdb'</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>GDB
-                <span class="token keyword">elif</span> default <span class="token operator">==</span> <span class="token string">'shp'</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>SHP
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    <span class="token keyword">return</span> Template<span class="token punctuation">.</span>DEFAULT_TYPE
-            <span class="token keyword">return</span> Template<span class="token punctuation">.</span>DEFAULT_TYPE
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'template not exists.'</span><span class="token punctuation">)</span>
-            ext <span class="token operator">=</span> self<span class="token punctuation">.</span>path<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            flag <span class="token operator">=</span> Template<span class="token punctuation">.</span>Unknown
-            <span class="token keyword">if</span> ext <span class="token operator">==</span> <span class="token string">'zip'</span><span class="token punctuation">:</span>
-                flag <span class="token operator">=</span> Template<span class="token punctuation">.</span>ZIP
-                fz <span class="token operator">=</span> zipfile<span class="token punctuation">.</span>ZipFile<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
-                fname <span class="token operator">=</span> fz<span class="token punctuation">.</span>namelist<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-                ext <span class="token operator">=</span> fname<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+    <span class="kw">def</span> _parse_db_type(<span class="va">self</span>, default):
+        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.path:
+            <span class="cf">if</span> <span class="bu">isinstance</span>(default, <span class="bu">basestring</span>):
+                default <span class="op">=</span> default.lower()
+                <span class="cf">if</span> default <span class="op">==</span> <span class="st">&#39;mdb&#39;</span>:
+                    <span class="cf">return</span> Template.MDB
+                <span class="cf">elif</span> default <span class="op">==</span> <span class="st">&#39;gdb&#39;</span>:
+                    <span class="cf">return</span> Template.GDB
+                <span class="cf">elif</span> default <span class="op">==</span> <span class="st">&#39;shp&#39;</span>:
+                    <span class="cf">return</span> Template.SHP
+                <span class="cf">else</span>:
+                    <span class="cf">return</span> Template.DEFAULT_TYPE
+            <span class="cf">return</span> Template.DEFAULT_TYPE
+        <span class="cf">else</span>:
+            <span class="cf">if</span> <span class="kw">not</span> os.path.exists(<span class="va">self</span>.path):
+                <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&#39;template not exists.&#39;</span>)
+            ext <span class="op">=</span> <span class="va">self</span>.path.split(<span class="st">&#39;.&#39;</span>)[<span class="op">-</span><span class="dv">1</span>].lower()
+            flag <span class="op">=</span> Template.Unknown
+            <span class="cf">if</span> ext <span class="op">==</span> <span class="st">&#39;zip&#39;</span>:
+                flag <span class="op">=</span> Template.ZIP
+                fz <span class="op">=</span> zipfile.ZipFile(<span class="va">self</span>.path, <span class="st">&#39;r&#39;</span>)
+                fname <span class="op">=</span> fz.namelist()[<span class="dv">0</span>]
+                ext <span class="op">=</span> fname.split(<span class="st">&#39;.&#39;</span>)[<span class="op">-</span><span class="dv">1</span>].lower()[:<span class="dv">3</span>]
 
-            <span class="token keyword">if</span> ext <span class="token operator">==</span> <span class="token string">'mdb'</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>MDB
-            <span class="token keyword">elif</span> ext <span class="token operator">==</span> <span class="token string">'gdb'</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>GDB
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> flag <span class="token operator">|</span> Template<span class="token punctuation">.</span>SHP
+            <span class="cf">if</span> ext <span class="op">==</span> <span class="st">&#39;mdb&#39;</span>:
+                <span class="cf">return</span> flag <span class="op">|</span> Template.MDB
+            <span class="cf">elif</span> ext <span class="op">==</span> <span class="st">&#39;gdb&#39;</span>:
+                <span class="cf">return</span> flag <span class="op">|</span> Template.GDB
+            <span class="cf">else</span>:
+                <span class="cf">return</span> flag <span class="op">|</span> Template.SHP
 
-    <span class="token keyword">def</span> <span class="token function">clone</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        res <span class="token operator">=</span> <span class="token string">''</span>
-        <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>path<span class="token punctuation">:</span>
-            res <span class="token operator">=</span> self<span class="token punctuation">.</span>create<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>ZIP<span class="token punctuation">:</span>
-                <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
-                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> u<span class="token string">'{0}.{1}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">'mdb'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
-                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> u<span class="token string">'{0}.{1}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">'gdb'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>SHP<span class="token punctuation">:</span>
-                    res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>_copy<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                on <span class="token operator">=</span> self<span class="token punctuation">.</span>_unzip<span class="token punctuation">(</span>output<span class="token punctuation">)</span>
-                res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-                <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
-                    res <span class="token operator">=</span> res <span class="token operator">+</span> <span class="token string">'.gdb'</span>
-                <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
-                    res <span class="token operator">=</span> res <span class="token operator">+</span> <span class="token string">'.mdb'</span>
-                os<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>on<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_decorate<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+    <span class="kw">def</span> clone(<span class="va">self</span>, output, name):
+        res <span class="op">=</span> <span class="st">&#39;&#39;</span>
+        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.path:
+            res <span class="op">=</span> <span class="va">self</span>.create(output, name)
+        <span class="cf">else</span>:
+            <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.ZIP:
+                <span class="cf">if</span> <span class="va">self</span>._db_type <span class="op">==</span> Template.MDB:
+                    res <span class="op">=</span> os.path.join(output, <span class="st">u&#39;</span><span class="sc">{0}</span><span class="st">.</span><span class="sc">{1}</span><span class="st">&#39;</span>.<span class="bu">format</span>(name, <span class="st">&#39;mdb&#39;</span>))
+                <span class="cf">elif</span> <span class="va">self</span>._db_type <span class="op">==</span> Template.GDB:
+                    res <span class="op">=</span> os.path.join(output, <span class="st">u&#39;</span><span class="sc">{0}</span><span class="st">.</span><span class="sc">{1}</span><span class="st">&#39;</span>.<span class="bu">format</span>(name, <span class="st">&#39;gdb&#39;</span>))
+                <span class="cf">elif</span> <span class="va">self</span>._db_type <span class="op">==</span> Template.SHP:
+                    res <span class="op">=</span> os.path.join(output, name)
+                <span class="va">self</span>._copy(<span class="va">self</span>.path, res)
+            <span class="cf">else</span>:
+                on <span class="op">=</span> <span class="va">self</span>._unzip(output)
+                res <span class="op">=</span> os.path.join(output, name)
+                <span class="cf">if</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.GDB:
+                    res <span class="op">=</span> res <span class="op">+</span> <span class="st">&#39;.gdb&#39;</span>
+                <span class="cf">elif</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.MDB:
+                    res <span class="op">=</span> res <span class="op">+</span> <span class="st">&#39;.mdb&#39;</span>
+                os.rename(on, res)
+        <span class="cf">return</span> <span class="va">self</span>._decorate(res)
 
-    <span class="token keyword">def</span> <span class="token function">create</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        res <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
-            arcpy<span class="token punctuation">.</span>CreatePersonalGDB_management<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
-            arcpy<span class="token punctuation">.</span>CreateFileGDB_management<span class="token punctuation">(</span>output<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                os<span class="token punctuation">.</span>mkdir<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_decorate<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+    <span class="kw">def</span> create(<span class="va">self</span>, output, name):
+        res <span class="op">=</span> os.path.join(output, name)
+        <span class="cf">if</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.MDB:
+            arcpy.CreatePersonalGDB_management(output, name)
+        <span class="cf">elif</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.GDB:
+            arcpy.CreateFileGDB_management(output, name)
+        <span class="cf">else</span>:
+            <span class="cf">if</span> <span class="kw">not</span> os.path.isdir(res):
+                os.mkdir(res)
+        <span class="cf">return</span> <span class="va">self</span>._decorate(res)
 
-    <span class="token keyword">def</span> <span class="token function">extention</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        actual_type <span class="token operator">=</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">^</span> Template<span class="token punctuation">.</span>ZIP <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>ZIP <span class="token keyword">else</span> self<span class="token punctuation">.</span>_db_type
-        <span class="token keyword">if</span> actual_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>MDB<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token string">'mdb'</span>
-        <span class="token keyword">elif</span> actual_type <span class="token operator">==</span> Template<span class="token punctuation">.</span>GDB<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token string">'gdb'</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token string">'shp'</span>
+    <span class="kw">def</span> extention(<span class="va">self</span>):
+        actual_type <span class="op">=</span> <span class="va">self</span>._db_type <span class="op">^</span> Template.ZIP <span class="cf">if</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.ZIP <span class="cf">else</span> <span class="va">self</span>._db_type
+        <span class="cf">if</span> actual_type <span class="op">==</span> Template.MDB:
+            <span class="cf">return</span> <span class="st">&#39;mdb&#39;</span>
+        <span class="cf">elif</span> actual_type <span class="op">==</span> Template.GDB:
+            <span class="cf">return</span> <span class="st">&#39;gdb&#39;</span>
+        <span class="cf">else</span>:
+            <span class="cf">return</span> <span class="st">&#39;shp&#39;</span>
 
-    <span class="token keyword">def</span> <span class="token function">_unzip</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> output<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        fz <span class="token operator">=</span> zipfile<span class="token punctuation">.</span>ZipFile<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
-        files <span class="token operator">=</span> fz<span class="token punctuation">.</span>namelist<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        first <span class="token operator">=</span> files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> f <span class="token keyword">in</span> files<span class="token punctuation">:</span>
-            fz<span class="token punctuation">.</span>extract<span class="token punctuation">(</span>f<span class="token punctuation">,</span> output<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>output<span class="token punctuation">,</span> first<span class="token punctuation">)</span>
+    <span class="kw">def</span> _unzip(<span class="va">self</span>, output):
+        fz <span class="op">=</span> zipfile.ZipFile(<span class="va">self</span>.path, <span class="st">&#39;r&#39;</span>)
+        files <span class="op">=</span> fz.namelist()
+        first <span class="op">=</span> files[<span class="dv">0</span>]
+        <span class="cf">for</span> f <span class="kw">in</span> files:
+            fz.extract(f, output)
+        <span class="cf">return</span> os.path.join(output, first)
 
-    <span class="token keyword">def</span> <span class="token function">_copy</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isfile<span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            shutil<span class="token punctuation">.</span>copytree<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span>
+    <span class="kw">def</span> _copy(<span class="va">self</span>, src, dst):
+        <span class="cf">if</span> os.path.isfile(src):
+            shutil.copy(src, dst)
+        <span class="cf">else</span>:
+            shutil.copytree(src, dst)
 
-    <span class="token keyword">def</span> <span class="token function">_decorate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>_db_type <span class="token operator">&amp;</span> Template<span class="token punctuation">.</span>SHP<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> name
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            ext <span class="token operator">=</span> <span class="token string">'.'</span> <span class="token operator">+</span> self<span class="token punctuation">.</span>extention<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span> name <span class="token keyword">if</span> name<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> ext <span class="token keyword">else</span> name <span class="token operator">+</span> ext
-</code></pre>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>Template的构造参数有两个，都是可选的</p>
-<pre class=" language-python"><code class="language-python">t <span class="token operator">=</span> Template<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo\FunData.mdb'</span><span class="token punctuation">)</span>
-t<span class="token punctuation">.</span>clone<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo'</span><span class="token punctuation">,</span><span class="token string">'FunDataClone'</span><span class="token punctuation">)</span>
-t<span class="token punctuation">.</span>create<span class="token punctuation">(</span>r<span class="token string">'E:\GamingSpace\FunAddin\Demo'</span><span class="token punctuation">,</span><span class="token string">'FunDataClone_1'</span><span class="token punctuation">)</span>
-</code></pre>
+    <span class="kw">def</span> _decorate(<span class="va">self</span>, name):
+        <span class="cf">if</span> <span class="va">self</span>._db_type <span class="op">&amp;</span> Template.SHP:
+            <span class="cf">return</span> name
+        <span class="cf">else</span>:
+            ext <span class="op">=</span> <span class="st">&#39;.&#39;</span> <span class="op">+</span> <span class="va">self</span>.extention()
+            <span class="cf">return</span> name <span class="cf">if</span> name[<span class="op">-</span><span class="dv">4</span>:].lower() <span class="op">==</span> ext <span class="cf">else</span> name <span class="op">+</span> ext</code></pre></div>
+<h2 id="使用方法">使用方法</h2>
+<p>Template的构造参数有两个，都是可选的</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">t <span class="op">=</span> Template(<span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo\FunData.mdb&#39;</span>)
+t.clone(<span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo&#39;</span>,<span class="st">&#39;FunDataClone&#39;</span>)
+t.create(<span class="vs">r&#39;E:\GamingSpace\FunAddin\Demo&#39;</span>,<span class="st">&#39;FunDataClone_1&#39;</span>)</code></pre></div>
 
         
     
@@ -744,7 +744,7 @@ t<span class="token punctuation">.</span>create<span class="token punctuation">(
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1018,7 +1018,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>

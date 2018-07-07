@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
     <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
         https://github.com/viosey/hexo-theme-material
@@ -299,12 +299,12 @@
     <!-- Custom Head -->
     
 
-<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
     
         <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
                 
 
                 <!-- Main Container -->
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历Windows所有TypeLib"><span class="post-toc-number">1.</span> <span class="post-toc-text">遍历Windows所有TypeLib</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历windows所有typelib"><span class="post-toc-number">1.</span> <span class="post-toc-text">遍历Windows所有TypeLib</span></a></li></ol>
     </ul>
     
 
@@ -482,65 +482,69 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="遍历Windows所有TypeLib"><a href="#遍历Windows所有TypeLib" class="headerlink" title="遍历Windows所有TypeLib"></a>遍历Windows所有TypeLib</h1><p>刚刚突然灵机一动，要如何才能知道Windows所有注册的COM组件呢？像OleView中显示的那样。</p>
-<p><img src="/2018/05/13/遍历Windows所有TypeLib/2018-05-13_101037.png" alt=""></p>
+        <h1 id="遍历windows所有typelib">遍历Windows所有TypeLib</h1>
+<p>刚刚突然灵机一动，要如何才能知道Windows所有注册的COM组件呢？像OleView中显示的那样。</p>
+<div class="figure">
+<img src="/2018/05/13/遍历Windows所有TypeLib/2018-05-13_101037.png">
+
+</div>
 <p>幸好OleView的代码是公开的，VS2010及以下版本</p>
 <p><code>C:\Program Files (x86)\Microsoft Visual Studio 10.0\Samples\2052\VC2010Samples.zip\C++\MFC\ole\oleview</code></p>
 <p>打开代码，看到其中的<strong>ExpandTypeLibs</strong>函数：</p>
-<pre class=" language-C++"><code class="language-C++">void CObjTreeView::ExpandTypeLibs( NM_TREEVIEW* /* pnmtv */ )
+<div class="sourceCode"><pre class="sourceCode c++"><code class="sourceCode cpp"><span class="dt">void</span> CObjTreeView::ExpandTypeLibs( NM_TREEVIEW* <span class="co">/* pnmtv */</span> )
 {
     HKEY    hkTypeLib ;
-    if (RegOpenKey( HKEY_CLASSES_ROOT, _T("TypeLib"), &hkTypeLib) == ERROR_SUCCESS)
+    <span class="cf">if</span> (RegOpenKey( HKEY_CLASSES_ROOT, _T(<span class="st">&quot;TypeLib&quot;</span>), &amp;hkTypeLib) == ERROR_SUCCESS)
     {
         LONG    cb ;
-        TCHAR    szVer[65] ;
-        TCHAR    szName[64] ;
-        TCHAR    szGUID[64] ;
-        TCHAR    szBuf[256] ;
+        TCHAR    szVer[<span class="dv">65</span>] ;
+        TCHAR    szName[<span class="dv">64</span>] ;
+        TCHAR    szGUID[<span class="dv">64</span>] ;
+        TCHAR    szBuf[<span class="dv">256</span>] ;
         DWORD   dwIndex, dwIndex2 ;
         HKEY    hkGUID ;
 
-        // Enum \TypeInfo
-        for ( dwIndex = 0 ;
-              RegEnumKey( hkTypeLib, dwIndex, szGUID, sizeof(szGUID)) == ERROR_SUCCESS ;
+        <span class="co">// Enum \TypeInfo</span>
+        <span class="cf">for</span> ( dwIndex = <span class="dv">0</span> ;
+              RegEnumKey( hkTypeLib, dwIndex, szGUID, <span class="kw">sizeof</span>(szGUID)) == ERROR_SUCCESS ;
               ++dwIndex )
         {
-            // Gotta open \TypeInfo\szGUID
-            if (RegOpenKey( hkTypeLib, szGUID, &hkGUID ) == ERROR_SUCCESS)
+            <span class="co">// Gotta open \TypeInfo\szGUID</span>
+            <span class="cf">if</span> (RegOpenKey( hkTypeLib, szGUID, &amp;hkGUID ) == ERROR_SUCCESS)
             {
-                // Enum all at this level (major.minor = name)
-                for (dwIndex2 = 0 ;
-                    RegEnumKey( hkGUID, dwIndex2, szVer, sizeof(szVer)) == ERROR_SUCCESS ;
+                <span class="co">// Enum all at this level (major.minor = name)</span>
+                <span class="cf">for</span> (dwIndex2 = <span class="dv">0</span> ;
+                    RegEnumKey( hkGUID, dwIndex2, szVer, <span class="kw">sizeof</span>(szVer)) == ERROR_SUCCESS ;
                     ++dwIndex2 )
                 {
-                    cb = sizeof(szName);
-                    if (RegQueryValue( hkGUID, (LPTSTR)szVer, szName, &cb) == ERROR_SUCCESS)
+                    cb = <span class="kw">sizeof</span>(szName);
+                    <span class="cf">if</span> (RegQueryValue( hkGUID, (LPTSTR)szVer, szName, &amp;cb) == ERROR_SUCCESS)
                     {
-                        // RegQueryValue may not return a null terminated string
-                        szVer[64] = '\0';
-                        _stprintf_s( szBuf, 256, _T("%s (Ver %s)"), (LPTSTR)szName, (LPTSTR)szVer ) ;
+                        <span class="co">// RegQueryValue may not return a null terminated string</span>
+                        szVer[<span class="dv">64</span>] = <span class="st">&#39;</span><span class="sc">\0</span><span class="st">&#39;</span>;
+                        _stprintf_s( szBuf, <span class="dv">256</span>, _T(<span class="st">&quot;</span><span class="sc">%s</span><span class="st"> (Ver </span><span class="sc">%s</span><span class="st">)&quot;</span>), (LPTSTR)szName, (LPTSTR)szVer ) ;
 
-                        CObjectData* lpOD = new CObjectData ;
-                        lpOD->m_nType = CObjectData::typeTypeLib ;
-                        ::CLSIDFromString(CT2OLE(szGUID), &lpOD->m_clsid);
-                        lpOD->m_szProgID[0] = '\0' ;
+                        CObjectData* lpOD = <span class="kw">new</span> CObjectData ;
+                        lpOD-&gt;<span class="va">m_nType</span> = CObjectData::typeTypeLib ;
+                        ::CLSIDFromString(CT2OLE(szGUID), &amp;lpOD-&gt;<span class="va">m_clsid</span>);
+                        lpOD-&gt;<span class="va">m_szProgID</span>[<span class="dv">0</span>] = <span class="st">&#39;</span><span class="sc">\0</span><span class="st">&#39;</span> ;
 
-                        lpOD->m_uiBitmap = BMINDEX(IDB_AUTOMATION) ;
-                        lpOD->m_wMajorVer = (WORD)atoi( szVer ) ;
-                        PTSTR p = strrchr( szVer, '.' ) ;
-                        if (p)
-                            lpOD->m_wMinorVer = (WORD)atoi( p+1 ) ;
-                        else
-                            lpOD->m_wMinorVer = 0 ;
+                        lpOD-&gt;<span class="va">m_uiBitmap</span> = BMINDEX(IDB_AUTOMATION) ;
+                        lpOD-&gt;<span class="va">m_wMajorVer</span> = (WORD)atoi( szVer ) ;
+                        PTSTR p = strrchr( szVer, <span class="st">&#39;.&#39;</span> ) ;
+                        <span class="cf">if</span> (p)
+                            lpOD-&gt;<span class="va">m_wMinorVer</span> = (WORD)atoi( p<span class="dv">+1</span> ) ;
+                        <span class="cf">else</span>
+                            lpOD-&gt;<span class="va">m_wMinorVer</span> = <span class="dv">0</span> ;
 
                         TV_INSERTSTRUCT tvis ;
-                        tvis.hParent = m_hTypeLibs ;
+                        tvis.hParent = <span class="va">m_hTypeLibs</span> ;
                         tvis.hInsertAfter = TVI_SORT ;
                         tvis.item.mask = TVIF_PARAM | TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-                        tvis.item.iImage = tvis.item.iSelectedImage = lpOD->m_uiBitmap ;
+                        tvis.item.iImage = tvis.item.iSelectedImage = lpOD-&gt;<span class="va">m_uiBitmap</span> ;
                         tvis.item.lParam = (LPARAM)(LPVOID)lpOD ;
                         tvis.item.pszText = szBuf ;
-                        GetTreeCtrl().InsertItem( &tvis ) ;
+                        GetTreeCtrl().InsertItem( &amp;tvis ) ;
                     }
                 }
                 RegCloseKey( hkGUID ) ;
@@ -548,8 +552,7 @@
         }
         RegCloseKey( hkTypeLib ) ;
     }
-}
-</code></pre>
+}</code></pre></div>
 <p>可见OleView是通过遍历注册表来实现的，由此可推，COM组件的一些常用的信息都可以通过访问注册表来获取。结合ITypeLib接口，可以反射出COM组件一些信息，有空的话就可以做一些有趣的事情了，比如调用COM组件的动态配置调用。这个功能在PowerShell里好像有。</p>
 
         
@@ -677,7 +680,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -951,7 +954,24 @@ console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viose
 </script>
 
                 </main>
-            </div>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
         </body>
     
 </html>
