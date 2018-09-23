@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Mon Sep 10 2018 15:44:17 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Sep 10 2018 16:19:36 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Sep 10 2018 16:24:00 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/大端法和小端法/index.html",
     "headline": "大端法和小端法",
     "datePublished": "Mon Sep 10 2018 15:44:17 GMT+0800",
-    "dateModified": "Mon Sep 10 2018 16:19:36 GMT+0800",
+    "dateModified": "Mon Sep 10 2018 16:24:00 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -503,6 +503,17 @@
 
 </div>
 <p>在代码中如何知道当前的环境是大端的还是小端的呢？</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> little_endian() <span class="at">const</span>
+{
+    <span class="kw">union</span> le
+    {
+        <span class="dt">int</span> i;
+        <span class="dt">char</span> c;
+    }
+    le ale;
+    ale.i=<span class="dv">1</span>;
+    <span class="cf">return</span> ale.c==<span class="dv">1</span>;
+}</code></pre></div>
 
         
     
@@ -629,7 +640,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
