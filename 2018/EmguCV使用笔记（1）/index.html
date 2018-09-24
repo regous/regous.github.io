@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Sun Sep 23 2018 21:05:28 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Sep 24 2018 18:02:37 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Sep 24 2018 19:38:23 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2018/EmguCV使用笔记（1）/index.html",
     "headline": "EmguCV使用笔记（1）",
     "datePublished": "Sun Sep 23 2018 21:05:28 GMT+0800",
-    "dateModified": "Mon Sep 24 2018 18:02:37 GMT+0800",
+    "dateModified": "Mon Sep 24 2018 19:38:23 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#emgucv使用笔记1"><span class="post-toc-number">1.</span> <span class="post-toc-text">EmguCV使用笔记（1）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#emgucv是什么"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">EmguCV是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么要用emgucv"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">为什么要用EmguCV</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最简陋的播放器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">最简陋的播放器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于-emgucv-的一些使用经验"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">关于 EmguCV 的一些使用经验</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#emgucv使用笔记1"><span class="post-toc-number">1.</span> <span class="post-toc-text">EmguCV使用笔记（1）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#emgucv是什么"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">EmguCV是什么</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最简陋的播放器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">最简陋的播放器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于-emgucv-的一些使用经验"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">关于 EmguCV 的一些使用经验</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -494,12 +494,10 @@
         <h1 id="emgucv使用笔记1">EmguCV使用笔记（1）</h1>
 <h2 id="前言">前言</h2>
 <h3 id="emgucv是什么">EmguCV是什么</h3>
-<p>EmguCV是OpenCV的C#封装，可以直接使用C#来开发。</p>
-<h3 id="为什么要用emgucv">为什么要用EmguCV</h3>
-<p>和同学在做一个项目，他前期储备了一些代码，用C++/MFC写的，调用OpenCV做视频监控的处理，因为要整合一些东西，就把我拉进来，封装原来的代码给C#调用。无意间看了这个库，因此直接放弃了封装C++。他对C#熟。</p>
+<p>EmguCV 是 OpenCV 的 C# 封装，可以直接使用 C# 来开发。</p>
 <h2 id="最简陋的播放器">最简陋的播放器</h2>
-<p>使用EmguCV/WinForm/C#制作一个最简陋的播放器：</p>
-<p>新建一个WinForm工程</p>
+<p>使用 EmguCV/WinForm/C# 制作一个最简陋的播放器：</p>
+<p>新建一个 WinForm 工程</p>
 <div class="figure">
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_211328.png">
 
@@ -508,12 +506,12 @@
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_211451.png">
 
 </div>
-<p>添加EmguCV引用</p>
+<p>添加 EmguCV 引用</p>
 <div class="figure">
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_211603.png">
 
 </div>
-<p>在工具箱里里拖一个PictureBox控件到窗口上</p>
+<p>在工具箱里里拖一个 PictureBox 控件到窗口上</p>
 <div class="figure">
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_211709.png">
 
@@ -522,7 +520,7 @@
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_211823.png">
 
 </div>
-<p>修改PictureBox的对象类型：</p>
+<p>修改 PictureBox 的对象类型：</p>
 <p>由 System.Windows.Forms.PictureBox 改为 Emgu.CV.UI.ImageBox</p>
 <div class="figure">
 <img src="/2018/EmguCV使用笔记（1）/2018-09-23_212127.png">
