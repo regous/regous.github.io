@@ -498,214 +498,193 @@
 <h2 id="最简陋的播放器">最简陋的播放器</h2>
 <p>使用 EmguCV/WinForm/C# 制作一个最简陋的播放器：</p>
 <p>新建一个 WinForm 工程</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_211328.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_211328.png"></p>
 <p>新建工程</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_211451.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_211451.png"></p>
 <p>添加 EmguCV 引用</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_211603.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_211603.png"></p>
 <p>在工具箱里里拖一个 PictureBox 控件到窗口上</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_211709.png">
-
-</div>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_211823.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_211709.png"></p>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_211823.png"></p>
 <p>修改 PictureBox 的对象类型：</p>
 <p>由 System.Windows.Forms.PictureBox 改为 Emgu.CV.UI.ImageBox</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_212127.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_212127.png"></p>
 <p>哦什么能这样改呢？</p>
 <p>因为 Emgu.CV.UI.ImageBox 是从 System.Windows.Forms.PictureBox 派生的。</p>
 <p>修改窗口的代码如下：</p>
-<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs">    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> EmguDemo : Form
-    {
-        <span class="kw">private</span> Emgu.<span class="fu">CV</span>.<span class="fu">VideoCapture</span> _Capture;
-        <span class="kw">private</span> Emgu.<span class="fu">CV</span>.<span class="fu">Mat</span> _Frame;
-        <span class="kw">public</span> <span class="fu">EmguDemo</span>()
-        {
-            <span class="fu">InitializeComponent</span>();
-            pictureBox.<span class="fu">FunctionalMode</span> = Emgu.<span class="fu">CV</span>.<span class="fu">UI</span>.<span class="fu">ImageBox</span>.<span class="fu">FunctionalModeOption</span>.<span class="fu">Minimum</span>;
-        }
-
-        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">EmguDemo_Load</span>(<span class="dt">object</span> sender, EventArgs e)
-        {
-            _Capture = <span class="kw">new</span> Emgu.<span class="fu">CV</span>.<span class="fu">VideoCapture</span>(@<span class="st">&quot;E:\GamingSpace\OpenCVDemo\data\设备-左.mp4&quot;</span>);
-            _Capture.<span class="fu">ImageGrabbed</span> += _Capture_ImageGrabbed;
-            _Frame = <span class="kw">new</span> Emgu.<span class="fu">CV</span>.<span class="fu">Mat</span>();
-            _Capture.<span class="fu">Start</span>();
-        }
-
-        <span class="dt">void</span> _<span class="fu">Capture_ImageGrabbed</span>(<span class="dt">object</span> sender, EventArgs e)
-        {
-            _Capture.<span class="fu">Retrieve</span>(_Frame);
-            pictureBox.<span class="fu">Image</span> = _Frame;
-            System.<span class="fu">Threading</span>.<span class="fu">Thread</span>.<span class="fu">Sleep</span>(<span class="dv">50</span>);
-        }
-    }</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb1-1" data-line-number="1">    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> EmguDemo : Form</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">        <span class="kw">private</span> Emgu.<span class="fu">CV</span>.<span class="fu">VideoCapture</span> _Capture;</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">        <span class="kw">private</span> Emgu.<span class="fu">CV</span>.<span class="fu">Mat</span> _Frame;</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">        <span class="kw">public</span> <span class="fu">EmguDemo</span>()</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        {</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">            <span class="fu">InitializeComponent</span>();</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">            pictureBox.<span class="fu">FunctionalMode</span> = Emgu.<span class="fu">CV</span>.<span class="fu">UI</span>.<span class="fu">ImageBox</span>.<span class="fu">FunctionalModeOption</span>.<span class="fu">Minimum</span>;</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">        }</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">EmguDemo_Load</span>(<span class="dt">object</span> sender, EventArgs e)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        {</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">            _Capture = <span class="kw">new</span> Emgu.<span class="fu">CV</span>.<span class="fu">VideoCapture</span>(@<span class="st">&quot;E:\GamingSpace\OpenCVDemo\data\设备-左.mp4&quot;</span>);</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">            _Capture.<span class="fu">ImageGrabbed</span> += _Capture_ImageGrabbed;</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">            _Frame = <span class="kw">new</span> Emgu.<span class="fu">CV</span>.<span class="fu">Mat</span>();</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">            _Capture.<span class="fu">Start</span>();</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">        }</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">        <span class="dt">void</span> <span class="fu">_Capture_ImageGrabbed</span>(<span class="dt">object</span> sender, EventArgs e)</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">        {</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">            _Capture.<span class="fu">Retrieve</span>(_Frame);</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">            pictureBox.<span class="fu">Image</span> = _Frame;</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">            System.<span class="fu">Threading</span>.<span class="fu">Thread</span>.<span class="fu">Sleep</span>(<span class="dv">50</span>);</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">        }</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">    }</a></code></pre></div>
 <p>VideoCapture 是 EmguCV 的视频捕获类，它有多个构造函数，如果调用默认的构造，那么它将捕获电脑摄像头的影像，这时传入一个 .mp4 文件的路径。VideoCapture 的 ImageGrabbed 事件在它获取一个帧时会触发，在响应函数内，通过 VideoCapture 的 Retrieve 方法获取当前帧，并装当前帧绘制到 PictureBox（ImageBox） 上。这里我是直接调用 VideoCapture 的 Start 方法，让它自己去获取图像，如果想自己去控制节奏的话可以调用 QueryFrame 方法，值得注意的是，调用 QueryFrame 方法时同样触发 ImageGrabbed 事件。</p>
-<div class="figure">
-<img src="/2018/EmguCV使用笔记（1）/2018-09-23_213707.png">
-
-</div>
+<p><img src="/2018/EmguCV使用笔记（1）/2018-09-23_213707.png"></p>
 <p>本实例下载链接: https://pan.baidu.com/s/1KUh8L06U2-Z1ID23PAlelg 提取码: qyj6</p>
 <p>一个最简单的播放器就做好了。</p>
 <h2 id="关于-emgucv-的一些使用经验">关于 EmguCV 的一些使用经验</h2>
-<p>OpenCV 的一些常方法由 CvInvoke 引入，大多数的功能都可以通过 Image<tcolor,tdepth> 类的成员方法来实现。在OpenCV 中，一个方法的操作可以使用 IplImage 和 CvMat 混用，但在 EmguCV 中这样做经常会导致抛出异常，更好的方法使用 Image<tcolor,tdepth> 对象来操作。有必要的时候再转换为矩阵。使用 Image<tcolor,tdepth> 的成员方法进行图像分析时，经常会生一些临时变量，重复的分配内存会造成系统效率的低下，这时如果图像的类型兼容，可以 new 一个中间变量，然后使用 CvInvoke 的方法来操作，实际上，Image<tcolor,tdepth> 的成员函数经常是 new 一些临时对象出来，如果参数兼容，就是调用 CvInvoke 的方法来进行转换分析。所以如果我们可以确认参数没有问题，那就直接 调用 CvInvoke 的方法来进行操作。这也是与C++环境下很不一样的地方，像我一开始持有的心态是：既然在 C++ 下的代码是可以跑的，那么一模一样翻译成 C# 应该也没有问题吧！但是实际上我是吃了很多的苦头才知道可以这样使用的。</tcolor,tdepth></tcolor,tdepth></tcolor,tdepth></tcolor,tdepth></p>
+<p>OpenCV 的一些常方法由 CvInvoke 引入，大多数的功能都可以通过 Image&lt;TColor,TDepth&gt; 类的成员方法来实现。在OpenCV 中，一个方法的操作可以使用 IplImage 和 CvMat 混用，但在 EmguCV 中这样做经常会导致抛出异常，更好的方法使用 Image&lt;TColor,TDepth&gt; 对象来操作。有必要的时候再转换为矩阵。使用 Image&lt;TColor,TDepth&gt; 的成员方法进行图像分析时，经常会生一些临时变量，重复的分配内存会造成系统效率的低下，这时如果图像的类型兼容，可以 new 一个中间变量，然后使用 CvInvoke 的方法来操作，实际上，Image&lt;TColor,TDepth&gt; 的成员函数经常是 new 一些临时对象出来，如果参数兼容，就是调用 CvInvoke 的方法来进行转换分析。所以如果我们可以确认参数没有问题，那就直接 调用 CvInvoke 的方法来进行操作。这也是与C++环境下很不一样的地方，像我一开始持有的心态是：既然在 C++ 下的代码是可以跑的，那么一模一样翻译成 C# 应该也没有问题吧！但是实际上我是吃了很多的苦头才知道可以这样使用的。</p>
 <p>下面的这个类就是是做警戒线分析使用的代码：</p>
-<div class="sourceCode"><pre class="sourceCode c#"><code class="sourceCode cs"><span class="kw">using</span> Emgu.<span class="fu">CV</span>;
-<span class="kw">using</span> Emgu.<span class="fu">CV</span>.<span class="fu">Structure</span>;
-<span class="kw">using</span> System;
-<span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;
-<span class="kw">using</span> System.<span class="fu">Drawing</span>;
-<span class="kw">using</span> System.<span class="fu">Linq</span>;
-<span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;
-<span class="kw">using</span> System.<span class="fu">Text</span>;
-<span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;
-
-<span class="kw">namespace</span> MotionDemo.<span class="fu">Detector</span>
-{
-    <span class="kw">struct</span> Line
-    {
-        <span class="kw">public</span> Point start;
-        <span class="kw">public</span> Point end;
-        <span class="kw">public</span> <span class="fu">Line</span>(Point s,Point e)
-        {
-            start = s;
-            end = e;
-        }
-    }
-    <span class="kw">class</span> GuardLine : IDetect
-    {
-        Image&lt;Gray, Byte&gt; pFrImg; <span class="co">//提取的前景图像，即运动目标  </span>
-        Image&lt;Gray, Byte&gt; pBkImg; <span class="co">//背景图像 </span>
-        Image&lt;Gray, Byte&gt; pAbsDiff; <span class="co">//</span>
-        Image&lt;Gray, Byte&gt; pThreshold;
-        
-        <span class="kw">public</span> Line RefLine { <span class="kw">get</span>; <span class="kw">set</span>; }
-        MCvScalar s;
-        <span class="kw">public</span> Mat <span class="fu">Detect</span>(Mat pFrame)
-        {
-            Image&lt;Bgr, Byte&gt; img = OImage&lt;Bgr, Byte&gt;.<span class="fu">FromMat</span>(pFrame);
-
-            <span class="co">//Image&lt;Bgr,Byte&gt; img = pFrame.ToImage&lt;Bgr, Byte&gt;(false);</span>
-            
-            <span class="kw">if</span> (pBkImg == <span class="kw">null</span>)
-            {
-                pBkImg = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));
-                pFrImg = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));
-                pAbsDiff = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));
-                pThreshold = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));
-                pBkImg.<span class="fu">ConvertFrom</span>&lt;Bgr, Byte&gt;(img);
-            }
-            <span class="kw">else</span>
-            {
-                <span class="co">//警戒线入侵分析得到新的帧</span>
-                <span class="dt">var</span> res = <span class="fu">CalLine</span>(pFrame,img);
-                <span class="kw">return</span> res;
-
-            }
-            <span class="kw">return</span> pFrame;
-        }
-
-        <span class="kw">private</span> Mat <span class="fu">CalLine</span>(Mat pFrame,Image&lt;Bgr,Byte&gt; img)
-        {
-
-            MCvScalar s;
-            <span class="dt">int</span> n = <span class="dv">0</span>;
-            <span class="dt">int</span> minx = <span class="dv">0</span>;
-            <span class="dt">int</span> maxx = <span class="dv">0</span>;
-            Line line2;
-            {
-                pFrImg.<span class="fu">ConvertFrom</span>&lt;Bgr, Byte&gt;(img);
-                <span class="co">//Image&lt;Gray, Byte&gt; pFrMat = pFrImg.AbsDiff(pBkImg);</span>
-                <span class="co">//Image&lt;Gray, Byte&gt; pBiImg = pFrMat.ThresholdBinary(new Gray(10), new Gray(255.0));</span>
-
-                CvInvoke.<span class="fu">AbsDiff</span>(pFrImg, pBkImg, pAbsDiff);
-                CvInvoke.<span class="fu">Threshold</span>(pAbsDiff, pThreshold, <span class="dv">10</span>, <span class="fl">255.0</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">ThresholdType</span>.<span class="fu">Binary</span>);
-
-                pFrImg.<span class="fu">CopyTo</span>(pBkImg);
-                minx = Math.<span class="fu">Min</span>(RefLine.<span class="fu">start</span>.<span class="fu">X</span>, RefLine.<span class="fu">end</span>.<span class="fu">X</span>);
-                maxx = Math.<span class="fu">Max</span>(RefLine.<span class="fu">start</span>.<span class="fu">X</span>, RefLine.<span class="fu">end</span>.<span class="fu">X</span>);
-                <span class="kw">for</span> (<span class="dt">int</span> i = minx; i &lt; maxx; i++)
-                {
-                    line2.<span class="fu">start</span>.<span class="fu">X</span> = i;
-                    line2.<span class="fu">start</span>.<span class="fu">Y</span> = <span class="dv">0</span>;
-                    line2.<span class="fu">end</span>.<span class="fu">X</span> = i;
-                    line2.<span class="fu">end</span>.<span class="fu">Y</span> = <span class="dv">9999</span>;
-                    Point cross = <span class="fu">CrossPoint</span>(RefLine, line2);
-
-                    s = CvInvoke.<span class="fu">cvGet2D</span>(pThreshold, cross.<span class="fu">Y</span>, cross.<span class="fu">X</span>);
-                    <span class="kw">if</span> (s.<span class="fu">V0</span> == <span class="bn">0xff</span>)<span class="co">//0xff为白色的</span>
-                    {
-                        n++;
-                        <span class="kw">if</span> (n &gt; <span class="dv">10</span>) <span class="kw">break</span>;
-                    }
-                }
-            }
-
-            <span class="co">//没有目标入侵</span>
-            <span class="kw">if</span> (n &lt;= <span class="dv">10</span>)
-            {
-                CvInvoke.<span class="fu">Line</span>(pFrame, RefLine.<span class="fu">start</span>, RefLine.<span class="fu">end</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">LineType</span>.<span class="fu">AntiAlias</span>, <span class="dv">0</span>);
-            }
-            <span class="kw">else</span> <span class="co">//有目标入侵</span>
-            {
-                CvInvoke.<span class="fu">Line</span>(pFrame, RefLine.<span class="fu">start</span>, RefLine.<span class="fu">end</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="bn">0x00</span>, <span class="bn">0x00</span>, <span class="bn">0xff</span>), <span class="dv">1</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">LineType</span>.<span class="fu">AntiAlias</span>, <span class="dv">0</span>);
-                CvInvoke.<span class="fu">PutText</span>(pFrame, <span class="st">&quot;warning!&quot;</span>, <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">20</span>), Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">FontFace</span>.<span class="fu">HersheyTriplex</span>, <span class="dv">1</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>));
-            }
-            <span class="kw">return</span> pFrame;
-        }
-
-        <span class="kw">private</span> Point <span class="fu">CrossPoint</span>(Line line1, Line line2)
-        {
-            <span class="co">//    if(!SegmentIntersect(line1.start, line1.end, line2.start, line2.end))  </span>
-            <span class="co">//    {// segments not cross     </span>
-            <span class="co">//        return 0;  </span>
-            <span class="co">//    }  </span>
-            Point pt = <span class="kw">new</span> <span class="fu">Point</span>();
-            <span class="co">// line1&#39;s cpmponent  </span>
-            <span class="dt">double</span> X1 = line1.<span class="fu">end</span>.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span>;<span class="co">//b1  </span>
-            <span class="dt">double</span> Y1 = line1.<span class="fu">end</span>.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span>;<span class="co">//a1  </span>
-            <span class="co">// line2&#39;s cpmponent  </span>
-            <span class="dt">double</span> X2 = line2.<span class="fu">end</span>.<span class="fu">X</span> - line2.<span class="fu">start</span>.<span class="fu">X</span>;<span class="co">//b2  </span>
-            <span class="dt">double</span> Y2 = line2.<span class="fu">end</span>.<span class="fu">Y</span> - line2.<span class="fu">start</span>.<span class="fu">Y</span>;<span class="co">//a2  </span>
-            <span class="co">// distance of 1,2  </span>
-            <span class="dt">double</span> X21 = line2.<span class="fu">start</span>.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span>;
-            <span class="dt">double</span> Y21 = line2.<span class="fu">start</span>.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span>;
-            <span class="co">// determinant  </span>
-            <span class="dt">double</span> D = Y1 * X2 - Y2 * X1;<span class="co">// a1b2-a2b1  </span>
-            <span class="co">//   </span>
-            <span class="kw">if</span> (D == <span class="dv">0</span>)
-                <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">0</span>);
-            <span class="co">// cross point  </span>
-            pt.<span class="fu">X</span> = (<span class="dt">int</span>)((X1 * X2 * Y21 + Y1 * X2 * line1.<span class="fu">start</span>.<span class="fu">X</span> - Y2 * X1 * line2.<span class="fu">start</span>.<span class="fu">X</span>) / D);
-            <span class="co">// on screen y is down increased !   </span>
-            pt.<span class="fu">Y</span> = (<span class="dt">int</span>)(-(Y1 * Y2 * X21 + X1 * Y2 * line1.<span class="fu">start</span>.<span class="fu">Y</span> - X2 * Y1 * line2.<span class="fu">start</span>.<span class="fu">Y</span>) / D);
-            <span class="co">// segments intersect.</span>
-            <span class="kw">if</span> ((Math.<span class="fu">Abs</span>(pt.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span> - X1 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(X1 / <span class="dv">2</span>)) &amp;&amp;
-                (Math.<span class="fu">Abs</span>(pt.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span> - Y1 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(Y1 / <span class="dv">2</span>)) &amp;&amp;
-                (Math.<span class="fu">Abs</span>(pt.<span class="fu">X</span> - line2.<span class="fu">start</span>.<span class="fu">X</span> - X2 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(X2 / <span class="dv">2</span>)) &amp;&amp;
-                (Math.<span class="fu">Abs</span>(pt.<span class="fu">Y</span> - line2.<span class="fu">start</span>.<span class="fu">Y</span> - Y2 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(Y2 / <span class="dv">2</span>)))
-            {
-                <span class="kw">return</span> pt;
-            }
-            <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">0</span>);
-        }
-    }
-}</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">using</span> Emgu.<span class="fu">CV</span>;</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">using</span> Emgu.<span class="fu">CV</span>.<span class="fu">Structure</span>;</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">using</span> System;</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">using</span> System.<span class="fu">Drawing</span>;</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">using</span> System.<span class="fu">Linq</span>;</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">using</span> System.<span class="fu">Runtime</span>.<span class="fu">InteropServices</span>;</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">using</span> System.<span class="fu">Text</span>;</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">namespace</span> MotionDemo.<span class="fu">Detector</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">{</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="kw">struct</span> Line</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    {</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">        <span class="kw">public</span> Point start;</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        <span class="kw">public</span> Point end;</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="kw">public</span> <span class="fu">Line</span>(Point s,Point e)</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        {</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">            start = s;</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">            end = e;</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">        }</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">    }</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">    <span class="kw">class</span> GuardLine : IDetect</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    {</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">        Image&lt;Gray, Byte&gt; pFrImg; <span class="co">//提取的前景图像，即运动目标  </span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">        Image&lt;Gray, Byte&gt; pBkImg; <span class="co">//背景图像 </span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">        Image&lt;Gray, Byte&gt; pAbsDiff; <span class="co">//</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">        Image&lt;Gray, Byte&gt; pThreshold;</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">        </a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">        <span class="kw">public</span> Line RefLine { <span class="kw">get</span>; <span class="kw">set</span>; }</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">        MCvScalar s;</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">        <span class="kw">public</span> Mat <span class="fu">Detect</span>(Mat pFrame)</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">        {</a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">            Image&lt;Bgr, Byte&gt; img = OImage&lt;Bgr, Byte&gt;.<span class="fu">FromMat</span>(pFrame);</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36">            <span class="co">//Image&lt;Bgr,Byte&gt; img = pFrame.ToImage&lt;Bgr, Byte&gt;(false);</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37">            </a>
+<a class="sourceLine" id="cb2-38" data-line-number="38">            <span class="kw">if</span> (pBkImg == <span class="kw">null</span>)</a>
+<a class="sourceLine" id="cb2-39" data-line-number="39">            {</a>
+<a class="sourceLine" id="cb2-40" data-line-number="40">                pBkImg = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));</a>
+<a class="sourceLine" id="cb2-41" data-line-number="41">                pFrImg = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));</a>
+<a class="sourceLine" id="cb2-42" data-line-number="42">                pAbsDiff = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));</a>
+<a class="sourceLine" id="cb2-43" data-line-number="43">                pThreshold = <span class="kw">new</span> Image&lt;Gray, Byte&gt;(<span class="kw">new</span> <span class="fu">Size</span>(pFrame.<span class="fu">Width</span>, pFrame.<span class="fu">Height</span>));</a>
+<a class="sourceLine" id="cb2-44" data-line-number="44">                pBkImg.<span class="fu">ConvertFrom</span>&lt;Bgr, Byte&gt;(img);</a>
+<a class="sourceLine" id="cb2-45" data-line-number="45">            }</a>
+<a class="sourceLine" id="cb2-46" data-line-number="46">            <span class="kw">else</span></a>
+<a class="sourceLine" id="cb2-47" data-line-number="47">            {</a>
+<a class="sourceLine" id="cb2-48" data-line-number="48">                <span class="co">//警戒线入侵分析得到新的帧</span></a>
+<a class="sourceLine" id="cb2-49" data-line-number="49">                <span class="dt">var</span> res = <span class="fu">CalLine</span>(pFrame,img);</a>
+<a class="sourceLine" id="cb2-50" data-line-number="50">                <span class="kw">return</span> res;</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb2-52" data-line-number="52">            }</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53">            <span class="kw">return</span> pFrame;</a>
+<a class="sourceLine" id="cb2-54" data-line-number="54">        }</a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56">        <span class="kw">private</span> Mat <span class="fu">CalLine</span>(Mat pFrame,Image&lt;Bgr,Byte&gt; img)</a>
+<a class="sourceLine" id="cb2-57" data-line-number="57">        {</a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"></a>
+<a class="sourceLine" id="cb2-59" data-line-number="59">            MCvScalar s;</a>
+<a class="sourceLine" id="cb2-60" data-line-number="60">            <span class="dt">int</span> n = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb2-61" data-line-number="61">            <span class="dt">int</span> minx = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb2-62" data-line-number="62">            <span class="dt">int</span> maxx = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb2-63" data-line-number="63">            Line line2;</a>
+<a class="sourceLine" id="cb2-64" data-line-number="64">            {</a>
+<a class="sourceLine" id="cb2-65" data-line-number="65">                pFrImg.<span class="fu">ConvertFrom</span>&lt;Bgr, Byte&gt;(img);</a>
+<a class="sourceLine" id="cb2-66" data-line-number="66">                <span class="co">//Image&lt;Gray, Byte&gt; pFrMat = pFrImg.AbsDiff(pBkImg);</span></a>
+<a class="sourceLine" id="cb2-67" data-line-number="67">                <span class="co">//Image&lt;Gray, Byte&gt; pBiImg = pFrMat.ThresholdBinary(new Gray(10), new Gray(255.0));</span></a>
+<a class="sourceLine" id="cb2-68" data-line-number="68"></a>
+<a class="sourceLine" id="cb2-69" data-line-number="69">                CvInvoke.<span class="fu">AbsDiff</span>(pFrImg, pBkImg, pAbsDiff);</a>
+<a class="sourceLine" id="cb2-70" data-line-number="70">                CvInvoke.<span class="fu">Threshold</span>(pAbsDiff, pThreshold, <span class="dv">10</span>, <span class="fl">255.0</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">ThresholdType</span>.<span class="fu">Binary</span>);</a>
+<a class="sourceLine" id="cb2-71" data-line-number="71"></a>
+<a class="sourceLine" id="cb2-72" data-line-number="72">                pFrImg.<span class="fu">CopyTo</span>(pBkImg);</a>
+<a class="sourceLine" id="cb2-73" data-line-number="73">                minx = Math.<span class="fu">Min</span>(RefLine.<span class="fu">start</span>.<span class="fu">X</span>, RefLine.<span class="fu">end</span>.<span class="fu">X</span>);</a>
+<a class="sourceLine" id="cb2-74" data-line-number="74">                maxx = Math.<span class="fu">Max</span>(RefLine.<span class="fu">start</span>.<span class="fu">X</span>, RefLine.<span class="fu">end</span>.<span class="fu">X</span>);</a>
+<a class="sourceLine" id="cb2-75" data-line-number="75">                <span class="kw">for</span> (<span class="dt">int</span> i = minx; i &lt; maxx; i++)</a>
+<a class="sourceLine" id="cb2-76" data-line-number="76">                {</a>
+<a class="sourceLine" id="cb2-77" data-line-number="77">                    line2.<span class="fu">start</span>.<span class="fu">X</span> = i;</a>
+<a class="sourceLine" id="cb2-78" data-line-number="78">                    line2.<span class="fu">start</span>.<span class="fu">Y</span> = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb2-79" data-line-number="79">                    line2.<span class="fu">end</span>.<span class="fu">X</span> = i;</a>
+<a class="sourceLine" id="cb2-80" data-line-number="80">                    line2.<span class="fu">end</span>.<span class="fu">Y</span> = <span class="dv">9999</span>;</a>
+<a class="sourceLine" id="cb2-81" data-line-number="81">                    Point cross = <span class="fu">CrossPoint</span>(RefLine, line2);</a>
+<a class="sourceLine" id="cb2-82" data-line-number="82"></a>
+<a class="sourceLine" id="cb2-83" data-line-number="83">                    s = CvInvoke.<span class="fu">cvGet2D</span>(pThreshold, cross.<span class="fu">Y</span>, cross.<span class="fu">X</span>);</a>
+<a class="sourceLine" id="cb2-84" data-line-number="84">                    <span class="kw">if</span> (s.<span class="fu">V0</span> == <span class="bn">0xff</span>)<span class="co">//0xff为白色的</span></a>
+<a class="sourceLine" id="cb2-85" data-line-number="85">                    {</a>
+<a class="sourceLine" id="cb2-86" data-line-number="86">                        n++;</a>
+<a class="sourceLine" id="cb2-87" data-line-number="87">                        <span class="kw">if</span> (n &gt; <span class="dv">10</span>) <span class="kw">break</span>;</a>
+<a class="sourceLine" id="cb2-88" data-line-number="88">                    }</a>
+<a class="sourceLine" id="cb2-89" data-line-number="89">                }</a>
+<a class="sourceLine" id="cb2-90" data-line-number="90">            }</a>
+<a class="sourceLine" id="cb2-91" data-line-number="91"></a>
+<a class="sourceLine" id="cb2-92" data-line-number="92">            <span class="co">//没有目标入侵</span></a>
+<a class="sourceLine" id="cb2-93" data-line-number="93">            <span class="kw">if</span> (n &lt;= <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb2-94" data-line-number="94">            {</a>
+<a class="sourceLine" id="cb2-95" data-line-number="95">                CvInvoke.<span class="fu">Line</span>(pFrame, RefLine.<span class="fu">start</span>, RefLine.<span class="fu">end</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">LineType</span>.<span class="fu">AntiAlias</span>, <span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb2-96" data-line-number="96">            }</a>
+<a class="sourceLine" id="cb2-97" data-line-number="97">            <span class="kw">else</span> <span class="co">//有目标入侵</span></a>
+<a class="sourceLine" id="cb2-98" data-line-number="98">            {</a>
+<a class="sourceLine" id="cb2-99" data-line-number="99">                CvInvoke.<span class="fu">Line</span>(pFrame, RefLine.<span class="fu">start</span>, RefLine.<span class="fu">end</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="bn">0x00</span>, <span class="bn">0x00</span>, <span class="bn">0xff</span>), <span class="dv">1</span>, Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">LineType</span>.<span class="fu">AntiAlias</span>, <span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb2-100" data-line-number="100">                CvInvoke.<span class="fu">PutText</span>(pFrame, <span class="st">&quot;warning!&quot;</span>, <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">20</span>), Emgu.<span class="fu">CV</span>.<span class="fu">CvEnum</span>.<span class="fu">FontFace</span>.<span class="fu">HersheyTriplex</span>, <span class="dv">1</span>, <span class="kw">new</span> <span class="fu">MCvScalar</span>(<span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>));</a>
+<a class="sourceLine" id="cb2-101" data-line-number="101">            }</a>
+<a class="sourceLine" id="cb2-102" data-line-number="102">            <span class="kw">return</span> pFrame;</a>
+<a class="sourceLine" id="cb2-103" data-line-number="103">        }</a>
+<a class="sourceLine" id="cb2-104" data-line-number="104"></a>
+<a class="sourceLine" id="cb2-105" data-line-number="105">        <span class="kw">private</span> Point <span class="fu">CrossPoint</span>(Line line1, Line line2)</a>
+<a class="sourceLine" id="cb2-106" data-line-number="106">        {</a>
+<a class="sourceLine" id="cb2-107" data-line-number="107">            <span class="co">//    if(!SegmentIntersect(line1.start, line1.end, line2.start, line2.end))  </span></a>
+<a class="sourceLine" id="cb2-108" data-line-number="108">            <span class="co">//    {// segments not cross     </span></a>
+<a class="sourceLine" id="cb2-109" data-line-number="109">            <span class="co">//        return 0;  </span></a>
+<a class="sourceLine" id="cb2-110" data-line-number="110">            <span class="co">//    }  </span></a>
+<a class="sourceLine" id="cb2-111" data-line-number="111">            Point pt = <span class="kw">new</span> <span class="fu">Point</span>();</a>
+<a class="sourceLine" id="cb2-112" data-line-number="112">            <span class="co">// line1&#39;s cpmponent  </span></a>
+<a class="sourceLine" id="cb2-113" data-line-number="113">            <span class="dt">double</span> X1 = line1.<span class="fu">end</span>.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span>;<span class="co">//b1  </span></a>
+<a class="sourceLine" id="cb2-114" data-line-number="114">            <span class="dt">double</span> Y1 = line1.<span class="fu">end</span>.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span>;<span class="co">//a1  </span></a>
+<a class="sourceLine" id="cb2-115" data-line-number="115">            <span class="co">// line2&#39;s cpmponent  </span></a>
+<a class="sourceLine" id="cb2-116" data-line-number="116">            <span class="dt">double</span> X2 = line2.<span class="fu">end</span>.<span class="fu">X</span> - line2.<span class="fu">start</span>.<span class="fu">X</span>;<span class="co">//b2  </span></a>
+<a class="sourceLine" id="cb2-117" data-line-number="117">            <span class="dt">double</span> Y2 = line2.<span class="fu">end</span>.<span class="fu">Y</span> - line2.<span class="fu">start</span>.<span class="fu">Y</span>;<span class="co">//a2  </span></a>
+<a class="sourceLine" id="cb2-118" data-line-number="118">            <span class="co">// distance of 1,2  </span></a>
+<a class="sourceLine" id="cb2-119" data-line-number="119">            <span class="dt">double</span> X21 = line2.<span class="fu">start</span>.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span>;</a>
+<a class="sourceLine" id="cb2-120" data-line-number="120">            <span class="dt">double</span> Y21 = line2.<span class="fu">start</span>.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span>;</a>
+<a class="sourceLine" id="cb2-121" data-line-number="121">            <span class="co">// determinant  </span></a>
+<a class="sourceLine" id="cb2-122" data-line-number="122">            <span class="dt">double</span> D = Y1 * X2 - Y2 * X1;<span class="co">// a1b2-a2b1  </span></a>
+<a class="sourceLine" id="cb2-123" data-line-number="123">            <span class="co">//   </span></a>
+<a class="sourceLine" id="cb2-124" data-line-number="124">            <span class="kw">if</span> (D == <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb2-125" data-line-number="125">                <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb2-126" data-line-number="126">            <span class="co">// cross point  </span></a>
+<a class="sourceLine" id="cb2-127" data-line-number="127">            pt.<span class="fu">X</span> = (<span class="dt">int</span>)((X1 * X2 * Y21 + Y1 * X2 * line1.<span class="fu">start</span>.<span class="fu">X</span> - Y2 * X1 * line2.<span class="fu">start</span>.<span class="fu">X</span>) / D);</a>
+<a class="sourceLine" id="cb2-128" data-line-number="128">            <span class="co">// on screen y is down increased !   </span></a>
+<a class="sourceLine" id="cb2-129" data-line-number="129">            pt.<span class="fu">Y</span> = (<span class="dt">int</span>)(-(Y1 * Y2 * X21 + X1 * Y2 * line1.<span class="fu">start</span>.<span class="fu">Y</span> - X2 * Y1 * line2.<span class="fu">start</span>.<span class="fu">Y</span>) / D);</a>
+<a class="sourceLine" id="cb2-130" data-line-number="130">            <span class="co">// segments intersect.</span></a>
+<a class="sourceLine" id="cb2-131" data-line-number="131">            <span class="kw">if</span> ((Math.<span class="fu">Abs</span>(pt.<span class="fu">X</span> - line1.<span class="fu">start</span>.<span class="fu">X</span> - X1 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(X1 / <span class="dv">2</span>)) &amp;&amp;</a>
+<a class="sourceLine" id="cb2-132" data-line-number="132">                (Math.<span class="fu">Abs</span>(pt.<span class="fu">Y</span> - line1.<span class="fu">start</span>.<span class="fu">Y</span> - Y1 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(Y1 / <span class="dv">2</span>)) &amp;&amp;</a>
+<a class="sourceLine" id="cb2-133" data-line-number="133">                (Math.<span class="fu">Abs</span>(pt.<span class="fu">X</span> - line2.<span class="fu">start</span>.<span class="fu">X</span> - X2 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(X2 / <span class="dv">2</span>)) &amp;&amp;</a>
+<a class="sourceLine" id="cb2-134" data-line-number="134">                (Math.<span class="fu">Abs</span>(pt.<span class="fu">Y</span> - line2.<span class="fu">start</span>.<span class="fu">Y</span> - Y2 / <span class="dv">2</span>) &lt;= Math.<span class="fu">Abs</span>(Y2 / <span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb2-135" data-line-number="135">            {</a>
+<a class="sourceLine" id="cb2-136" data-line-number="136">                <span class="kw">return</span> pt;</a>
+<a class="sourceLine" id="cb2-137" data-line-number="137">            }</a>
+<a class="sourceLine" id="cb2-138" data-line-number="138">            <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Point</span>(<span class="dv">0</span>, <span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb2-139" data-line-number="139">        }</a>
+<a class="sourceLine" id="cb2-140" data-line-number="140">    }</a>
+<a class="sourceLine" id="cb2-141" data-line-number="141">}</a></code></pre></div>
 
         
     
@@ -832,7 +811,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         

@@ -492,46 +492,44 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <h1 id="在arcmap的字段计算器里进行操作">在ArcMap的字段计算器里进行操作</h1>
-<div class="figure">
-<img src="/2017/通过ARCPY给FEATURE设置GUID/20171016161909.jpg" alt="20171016161909">
-<p class="caption">20171016161909</p>
-</div>
+<figure>
+<img src="/2017/通过ARCPY给FEATURE设置GUID/20171016161909.jpg" alt="20171016161909"><figcaption>20171016161909</figcaption>
+</figure>
 <p>结果如图</p>
-<div class="figure">
-<img src="/2017/通过ARCPY给FEATURE设置GUID/20171016162044.jpg" alt="20171016162044">
-<p class="caption">20171016162044</p>
-</div>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> uuid
-<span class="kw">def</span> new_guid():
-    <span class="cf">return</span> <span class="bu">str</span>(uuid.uuid1())</code></pre></div>
+<figure>
+<img src="/2017/通过ARCPY给FEATURE设置GUID/20171016162044.jpg" alt="20171016162044"><figcaption>20171016162044</figcaption>
+</figure>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> uuid</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">def</span> new_guid():</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">return</span> <span class="bu">str</span>(uuid.uuid1())</a></code></pre></div>
 <p>另存为文件：</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> uuid
-
-<span class="kw">def</span> new_guid():
-
-    <span class="cf">return</span> <span class="bu">str</span>(uuid.uuid1())
-
-__esri_field_calculator_splitter__
-new_guid()</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">import</span> uuid</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">def</span> new_guid():</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="cf">return</span> <span class="bu">str</span>(uuid.uuid1())</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">__esri_field_calculator_splitter__</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">new_guid()</a></code></pre></div>
 <h1 id="在arcpy中跑">在Arcpy中跑</h1>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> arcpy
-<span class="im">import</span> uuid
-
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    code_block<span class="op">=</span><span class="st">&#39;&#39;&#39;import uuid</span>
-<span class="st">def new_guid():</span>
-<span class="st">    return str(uuid.uuid1())</span>
-<span class="st">&#39;&#39;&#39;</span>
-    arcpy.env.workspace<span class="op">=</span><span class="vs">r&#39;Data.gdb&#39;</span>
-    fcs<span class="op">=</span>arcpy.ListFeatureClasses()
-    <span class="cf">for</span> fc <span class="kw">in</span> fcs:
-        fields<span class="op">=</span>arcpy.ListFields(fc)
-        globalid <span class="op">=</span> <span class="bu">next</span>((x <span class="cf">for</span> x <span class="kw">in</span> fields <span class="cf">if</span> x.name <span class="op">==</span> <span class="st">&#39;GLOBALID&#39;</span>), <span class="va">None</span>)
-        <span class="cf">if</span> globalid:
-            <span class="bu">print</span>(<span class="st">&#39;set </span><span class="sc">{0}</span><span class="st"> GLOBALID field&#39;</span>.<span class="bu">format</span>(fc))
-            arcpy.CalculateField_management(fc, globalid.name, <span class="st">&quot;new_guid()&quot;</span>, <span class="st">&quot;PYTHON&quot;</span>, code_block)
-        <span class="cf">else</span>:
-            <span class="bu">print</span>(<span class="st">&#39;</span><span class="sc">{0}</span><span class="st"> has not GLOBALID field&#39;</span>.<span class="bu">format</span>(fc))</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="im">import</span> arcpy</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="im">import</span> uuid</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    code_block<span class="op">=</span><span class="st">&#39;&#39;&#39;import uuid</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">def new_guid():</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">    return str(uuid.uuid1())</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">&#39;&#39;&#39;</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">    arcpy.env.workspace<span class="op">=</span><span class="vs">r&#39;Data.gdb&#39;</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">    fcs<span class="op">=</span>arcpy.ListFeatureClasses()</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="cf">for</span> fc <span class="kw">in</span> fcs:</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">        fields<span class="op">=</span>arcpy.ListFields(fc)</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">        globalid <span class="op">=</span> <span class="bu">next</span>((x <span class="cf">for</span> x <span class="kw">in</span> fields <span class="cf">if</span> x.name <span class="op">==</span> <span class="st">&#39;GLOBALID&#39;</span>), <span class="va">None</span>)</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">        <span class="cf">if</span> globalid:</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">            <span class="bu">print</span>(<span class="st">&#39;set </span><span class="sc">{0}</span><span class="st"> GLOBALID field&#39;</span>.<span class="bu">format</span>(fc))</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">            arcpy.CalculateField_management(fc, globalid.name, <span class="st">&quot;new_guid()&quot;</span>, <span class="st">&quot;PYTHON&quot;</span>, code_block)</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">        <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb3-18" data-line-number="18">            <span class="bu">print</span>(<span class="st">&#39;</span><span class="sc">{0}</span><span class="st"> has not GLOBALID field&#39;</span>.<span class="bu">format</span>(fc))</a></code></pre></div>
 
         
     
@@ -552,7 +550,7 @@ new_guid()</code></pre></div>
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/C++多线程学习笔记_A/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/修改swashbuckle，升级swaggerui/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -658,7 +656,7 @@ new_guid()</code></pre></div>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
