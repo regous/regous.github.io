@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Tue Mar 12 2019 09:31:47 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Mar 12 2019 09:31:47 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Mar 18 2019 09:29:44 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2019/解决高DPI下截图位置不正确的问题/index.html",
     "headline": "解决高DPI下截图位置不正确的问题",
     "datePublished": "Tue Mar 12 2019 09:31:47 GMT+0800",
-    "dateModified": "Tue Mar 12 2019 09:31:47 GMT+0800",
+    "dateModified": "Mon Mar 18 2019 09:29:44 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -342,6 +342,15 @@
 
     <!-- Left aligned menu below button -->
     
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决高dpi下截图位置不正确的问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决高DPI下截图位置不正确的问题</span></a></li></ol>
+    </ul>
     
 
 
@@ -473,7 +482,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <h1 id="解决高dpi下截图位置不正确的问题">解决高DPI下截图位置不正确的问题</h1>
+<p>使用 python 对 Windows 的窗口进行截图，在高 DPI 的显示器下怎么截都不对，后来才知道，在高 DPI 下操作系统对窗口进行了缩放，因此参过 Win32 API获取的窗口坐标不是实际的屏幕坐标，解决的方法就是在方法调用前，调用函数设置进程对高 DPI 敏感。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">import</span> ctypes</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">def</span> SetProcessDPIAware():</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    ctypes.windll.user32.SetProcessDPIAware()</a></code></pre></div>
 
         
     
