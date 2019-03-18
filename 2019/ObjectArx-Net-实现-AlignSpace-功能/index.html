@@ -37,7 +37,7 @@
     
     <title>
         
-            记一次除BUG过程 | 
+            ObjectArx.Net 实现 AlignSpace 功能 | 
         
         生命不息，折腾不止
     </title>
@@ -49,7 +49,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",ObjectArx.Net">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,18 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="记一次除BUG过程 | 生命不息，折腾不止">
+    <meta property="og:title" content="ObjectArx.Net 实现 AlignSpace 功能 | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    
+    <meta property="og:article:tag" content="ObjectArx.Net"> 
 
     
-        <meta property="article:published_time" content="Mon Dec 10 2018 20:51:49 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Dec 10 2018 22:53:37 GMT+0800" />
+        <meta property="article:published_time" content="Mon Mar 18 2019 09:07:33 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Mar 18 2019 09:23:26 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="记一次除BUG过程 | 生命不息，折腾不止">
+    <meta name="twitter:title" content="ObjectArx.Net 实现 AlignSpace 功能 | 生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +250,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html" />
+        <link rel="canonical" href="http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -262,10 +262,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html",
-    "headline": "记一次除BUG过程",
-    "datePublished": "Mon Dec 10 2018 20:51:49 GMT+0800",
-    "dateModified": "Mon Dec 10 2018 22:53:37 GMT+0800",
+    "mainEntityOfPage": "http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html",
+    "headline": "ObjectArx.Net 实现 AlignSpace 功能",
+    "datePublished": "Mon Mar 18 2019 09:07:33 GMT+0800",
+    "dateModified": "Mon Mar 18 2019 09:23:26 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +283,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": "",
+    "keywords": ",ObjectArx.Net",
     "description": "你好，明天",
 }
 </script>
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#记一次除bug过程"><span class="post-toc-number">1.</span> <span class="post-toc-text">记一次除BUG过程</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#objectarx.net-实现-alignspace-功能"><span class="post-toc-number">1.</span> <span class="post-toc-text">ObjectArx.Net 实现 AlignSpace 功能</span></a></li></ol>
     </ul>
     
 
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                记一次除BUG过程
+                ObjectArx.Net 实现 AlignSpace 功能
             </p>
         </div>
 
@@ -400,7 +400,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>风之痕</strong>
-        <span>12月 10, 2018</span>
+        <span>3月 18, 2019</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -418,6 +418,15 @@
 
     <!-- Tags (bookmark) -->
     
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/ObjectArx-Net/">ObjectArx.Net</a>
+    </ul>
+    
 
     <!-- Share -->
     <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
@@ -431,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=记一次除BUG过程&url=http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=ObjectArx.Net 实现 AlignSpace 功能&url=http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -440,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=记一次除BUG过程&url=http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=ObjectArx.Net 实现 AlignSpace 功能&url=http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -449,7 +458,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -458,7 +467,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2018/Archive/记一次除BUG过程/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2019/ObjectArx-Net-实现-AlignSpace-功能/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -482,28 +491,51 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="记一次除bug过程">记一次除BUG过程</h1>
-<p>今天领导要安装测试我们的软件。但是在他的电脑之上出现在很严重的问题，现象如下：</p>
-<ul>
-<li>开始平台软件上没有问题（假象）</li>
-<li>安装我们的插件之后，某个功能出现崩溃之后，再用平台的其他功能全不可用</li>
-<li>卸载之后，平台软件又再次可用（假象）</li>
-<li>我们的软件即使手动删除所有的文件之后依然如此，删除注册表相关选项之后貌似又再次可用</li>
-</ul>
-<p>最后的测试结果是，即使卸载了我们的插件之后平台软件问题依然如故。我的思考：这个问题目前只出现在一个台电脑之上，最大的可能是平台软件的问题。但是据领导说安装平台软件之后依然如此，这时我是懵的。打算接下来就是从网上重新下载一个版本来安装后再试。这时同学来了，说可能是系统安全软件的问题，我醍醐灌顶，是啊，以前我也见到过若干这样莫名其妙的问题，明明做了上百次的测试，但是在某些电脑之上就是不可能，难道要给这台电脑安装调试器吗？最后有几次都是因为360的原因，把360暂时关掉之后就没有问题了。好久没有做实施测试的事情，我居然忘了这个事情。</p>
-<p>最后同学重新找来一个安装包，关闭了安全软件之后依然不行，之后无奈同学到搜索引擎查找相关问题，搜索关键字很精准，很快就找到了类似的问题，参照网友的解决方法，问题解决。</p>
-<p>这次给我的震动还是挺大的：一是安全软件视角，二是精准的关键字。我一向不喜欢做实施的工作，现在看来做过实施与没有做实施差别还是很大的，出现类似的问题是，他能够很快地找出问题的解决方法，而我还一直懵着。如果没有他的帮忙，我今晚都不知道需要多久才能发现这个问题。</p>
-<p>事情的脉络总是到解决之后才清晰的显现出来：</p>
-<p>但是如果回到3个小时之后，有哪些线索指向了最后的解决方法呢？</p>
-<ul>
-<li>不是插件的原因
-<ul>
-<li>这台电脑是特例，这外插件在其他的电脑没有问题</li>
-<li>卸载插件之后，平台软件依然会出现问题</li>
-</ul></li>
-<li>平台软件是2012年之后的产品，那时Win10还未上市-&gt;可能是兼容性问题（后面排除）</li>
-</ul>
-<p>最后发现的原因其他也应该是兼容性的问题，电脑安装了.net 4.7 。加上一点配置之后，问题解决了。</p>
+        <h1 id="objectarx.net-实现-alignspace-功能">ObjectArx.Net 实现 AlignSpace 功能</h1>
+<p>先来看一下，ExpressTools 的 AlignSpace 功能的作用：</p>
+<p><img src="/2019/ObjectArx-Net-实现-AlignSpace-功能/AlignSpace.gif"></p>
+<p>这个用代码实现也比较简单：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb1-1" data-line-number="1">        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">AlignSpace</span>(Viewport pVp, Point3d model_space_p1, Point3d model_space_p2, Point3d paper_space_p1, Point3d paper_space_p2)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">        {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">            <span class="dt">double</span> dScaleFactor = model_space_p2.<span class="fu">Dist2d</span>(model_space_p1) / paper_space_p1.<span class="fu">Dist2d</span>(paper_space_p2);</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">            pVp.<span class="fu">ViewHeight</span> = pVp.<span class="fu">Height</span> * dScaleFactor;</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">            <span class="dt">double</span> dExpectAngle = paper_space_p1.<span class="fu">GetAngleToXAxis</span>(paper_space_p2);</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">            <span class="dt">double</span> dOriginAngle = model_space_p1.<span class="fu">GetAngleToXAxis</span>(model_space_p2);</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">            <span class="kw">while</span> (dExpectAngle &lt; dOriginAngle)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">                dExpectAngle += RadianTool.<span class="fu">PI2</span>;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">            <span class="dt">double</span> dTwistAngle = dExpectAngle - dOriginAngle;</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">            <span class="dt">double</span> dReference = AngleTool.<span class="fu">ToRadian</span>(<span class="dv">40</span>);</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">            pVp.<span class="fu">ViewDirection</span> = <span class="kw">new</span> <span class="fu">Vector3d</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">            <span class="dt">double</span> dViewportCenterAngle = paper_space_p1.<span class="fu">GetAngleToXAxis</span>(pVp.<span class="fu">CenterPoint</span>);</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">            <span class="dt">double</span> dViewTargetAngle = dViewportCenterAngle - dTwistAngle;</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">            Point3d pViewTarget = model_space_p1.<span class="fu">Polar</span>(dViewTargetAngle, paper_space_p1.<span class="fu">Dist2d</span>(pVp.<span class="fu">CenterPoint</span>) * dScaleFactor);</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">            pVp.<span class="fu">ViewTarget</span> = pViewTarget;</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">            pVp.<span class="fu">ViewCenter</span> = <span class="kw">new</span> <span class="fu">Point2d</span>(<span class="dv">0</span>, <span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">            pVp.<span class="fu">TwistAngle</span> = dTwistAngle;</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">        }</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">double</span> <span class="fu">Dist2d</span>(<span class="kw">this</span> Point3d pt, Point3d other)</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">        {</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">            <span class="kw">return</span> Math.<span class="fu">Sqrt</span>(Math.<span class="fu">Pow</span>(pt.<span class="fu">X</span> - other.<span class="fu">X</span>, <span class="dv">2</span>) + Math.<span class="fu">Pow</span>(pt.<span class="fu">Y</span> - other.<span class="fu">Y</span>, <span class="dv">2</span>));</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">        }</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb1-29" data-line-number="29">        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">double</span> <span class="fu">GetAngleToXAxis</span>(<span class="kw">this</span> Point3d from, Point3d to)</a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">        {</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">            Vector2d vectord = <span class="kw">new</span> <span class="fu">Vector2d</span>(to.<span class="fu">X</span> - from.<span class="fu">X</span>, to.<span class="fu">Y</span> - from.<span class="fu">Y</span>);</a>
+<a class="sourceLine" id="cb1-32" data-line-number="32">            <span class="kw">return</span> vectord.<span class="fu">Angle</span>;</a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">        }</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb1-35" data-line-number="35">        <span class="kw">public</span> <span class="kw">static</span> Point3d <span class="fu">Polar</span>(Point3d basePoint, <span class="dt">double</span> angle, <span class="dt">double</span> distance)</a>
+<a class="sourceLine" id="cb1-36" data-line-number="36">        {</a>
+<a class="sourceLine" id="cb1-37" data-line-number="37">            <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Point3d</span>(</a>
+<a class="sourceLine" id="cb1-38" data-line-number="38">                basePoint.<span class="fu">X</span> + distance * Math.<span class="fu">Cos</span>(angle),</a>
+<a class="sourceLine" id="cb1-39" data-line-number="39">                basePoint.<span class="fu">Y</span> + distance * Math.<span class="fu">Sin</span>(angle),</a>
+<a class="sourceLine" id="cb1-40" data-line-number="40">                basePoint.<span class="fu">Z</span>);</a>
+<a class="sourceLine" id="cb1-41" data-line-number="41">        }</a></code></pre></div>
 
         
     
@@ -524,21 +556,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/Archive/解决VS调试AutoCAD时，文字不显示的问题/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/Archive/提升效率小技巧：切换代码视图/" id="post_nav-older" class="next-content">
+        <a href="/2019/解决高DPI下截图位置不正确的问题/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
