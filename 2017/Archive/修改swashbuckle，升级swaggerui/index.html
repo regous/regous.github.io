@@ -499,94 +499,94 @@
 <h2 id="swashbuckle">swashbuckle</h2>
 <p>打开解决方案，将除了Swashbuckle.Core之外的工程移除掉，将Swashbuckle.Core，再将swagger-ui，如图：</p>
 <figure>
-<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085320.jpg" alt="20171017085320"><figcaption>20171017085320</figcaption>
+<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085320.jpg" alt=""><figcaption>20171017085320</figcaption>
 </figure>
 <p>将拷进来的文件包含到工程当中，修改文件生成操作为“嵌入的资源”</p>
 <figure>
-<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085613.jpg" alt="20171017085613"><figcaption>20171017085613</figcaption>
+<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085613.jpg" alt=""><figcaption>20171017085613</figcaption>
 </figure>
 <figure>
-<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085641.jpg" alt="20171017085641"><figcaption>20171017085641</figcaption>
+<img src="/2017/Archive/修改swashbuckle，升级swaggerui/20171017085641.jpg" alt=""><figcaption>20171017085641</figcaption>
 </figure>
 <p>至此，文件准备完毕。接下来就要修改代码了。</p>
 <p>##修改SwaggerUiConfig类</p>
 <p>添加新拷进来的文件来资源，由</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">// Use some custom versions to support config and extensionless paths</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">CustomAsset</span>(<span class="st">&quot;css/typography-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">// Use some custom versions to support config and extensionless paths</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;css/typography-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;</span>);</span></code></pre></div>
 <p>改为：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// Use some custom versions to support config and extensionless paths</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">//CustomAsset(&quot;css/typography-css&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;);</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-16x16-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-16x16.png&quot;</span>);</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-32x32-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-32x32.png&quot;</span>);</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">//CustomAsset(&quot;index.html&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;);</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="fu">CustomAsset</span>(<span class="st">&quot;oauth2-redirect-html&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.oauth2-redirect.html&quot;</span>);</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="fu">CustomAsset</span>(<span class="st">&quot;css/open-sans-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.open-sans.css&quot;</span>);</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js&quot;</span>);</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js.map&quot;</span>);</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js&quot;</span>);</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js.map&quot;</span>);</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="fu">CustomAsset</span>(<span class="st">&quot;css/swagger-ui-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css&quot;</span>);</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-css-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css.map&quot;</span>);</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js&quot;</span>);</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js.map&quot;</span>);</a></code></pre></div>
-<p>CustomAsset函数第一个参数相当于键，同时也是作为URL的一部分，因此不能带’.’，否则IIS会以文件的方式进行处理，但是这些文件，我们是以嵌入的资源进行处理的。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Use some custom versions to support config and extensionless paths</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="dt">var</span> thisAssembly = <span class="fu">GetType</span>().<span class="fu">Assembly</span>;</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;index&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;</span>, isTemplate: <span class="kw">true</span>);</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;css/screen-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.screen.css&quot;</span>);</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">//CustomAsset(&quot;css/typography-css&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.typography.css&quot;);</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-16x16-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-16x16.png&quot;</span>);</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;img/favicon-32x32-png&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.favicon-32x32.png&quot;</span>);</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">//CustomAsset(&quot;index.html&quot;, thisAssembly, &quot;Swashbuckle.SwaggerUi.CustomAssets.index.html&quot;);</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;oauth2-redirect-html&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.oauth2-redirect.html&quot;</span>);</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;css/open-sans-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.open-sans.css&quot;</span>);</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js&quot;</span>);</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-bundle-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-bundle.js.map&quot;</span>);</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js&quot;</span>);</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-standalone-preset-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui-standalone-preset.js.map&quot;</span>);</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;css/swagger-ui-css&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css&quot;</span>);</span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-css-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.css.map&quot;</span>);</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js&quot;</span>);</span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">CustomAsset</span>(<span class="st">&quot;js/swagger-ui-js-map&quot;</span>, thisAssembly, <span class="st">&quot;Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js.map&quot;</span>);</span></code></pre></div>
+<p>CustomAsset函数第一个参数相当于键，同时也是作为URL的一部分，因此不能带'.'，否则IIS会以文件的方式进行处理，但是这些文件，我们是以嵌入的资源进行处理的。</p>
 <h2 id="修改index.html">修改index.html</h2>
 <p>修改参数的URL路径，由：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" data-line-number="1">url<span class="op">:</span> <span class="st">&quot;http://petstore.swagger.io/v2/swagger.json&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1"></a>url<span class="op">:</span> <span class="st">&quot;http://petstore.swagger.io/v2/swagger.json&quot;</span></span></code></pre></div>
 <p>改为：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1">url<span class="op">:</span> <span class="st">&#39;%(Url)&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1"></a>url<span class="op">:</span> <span class="st">&#39;%(Url)&#39;</span></span></code></pre></div>
 <p>由：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;./swagger-ui.css&quot;</span> <span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-32x32.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-16x16.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-bundle.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-standalone-preset.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;./swagger-ui.css&quot;</span> <span class="kw">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-32x32.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;./favicon-16x16.png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-bundle.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;./swagger-ui-standalone-preset.js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></span></code></pre></div>
 <p>改为：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&#39;css/swagger-ui-css&#39;</span><span class="ot"> rel=</span><span class="st">&#39;stylesheet&#39;</span><span class="ot"> type=</span><span class="st">&#39;text/css&#39;</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-16x16-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-32x32-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-bundle-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&#39;css/swagger-ui-css&#39;</span><span class="ot"> rel=</span><span class="st">&#39;stylesheet&#39;</span><span class="ot"> type=</span><span class="st">&#39;text/css&#39;</span> <span class="kw">/&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-16x16-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;32x32&quot;</span> <span class="kw">/&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;icon&quot;</span><span class="ot"> type=</span><span class="st">&quot;image/png&quot;</span><span class="ot"> href=</span><span class="st">&quot;img/favicon-32x32-png&quot;</span><span class="ot"> sizes=</span><span class="st">&quot;16x16&quot;</span> <span class="kw">/&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-bundle-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;js/swagger-ui-standalone-preset-js&quot;</span><span class="kw">&gt;</span> <span class="kw">&lt;/script&gt;</span></span></code></pre></div>
 <p>如果<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">无法访问，则通过你懂的，下载到本地再添加到工程的资源里。</p>
 <p>js/css/png的href与CustomAsset函数的第一个参数相同。</p>
 <p>##设置%(Url)</p>
 <p>在EmbeddedAssetProvider.GetEmbeddedResourceStreamFor里</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">private</span> Stream <span class="fu">GetEmbeddedResourceStreamFor</span>(EmbeddedAssetDescriptor resourceDescriptor, <span class="dt">string</span> rootUrl)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">{</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="dt">var</span> stream = resourceDescriptor.<span class="fu">Assembly</span>.<span class="fu">GetManifestResourceStream</span>(resourceDescriptor.<span class="fu">Name</span>);</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="kw">if</span> (stream == <span class="kw">null</span>)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">AssetNotFound</span>(String.<span class="fu">Format</span>(<span class="st">&quot;Embedded resource not found - {0}&quot;</span>, resourceDescriptor.<span class="fu">Name</span>));</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw">if</span> (resourceDescriptor.<span class="fu">IsTemplate</span>)</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">    {</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">        <span class="dt">var</span> templateParams = _templateParams</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">            .<span class="fu">Union</span>(<span class="kw">new</span>[] { </a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(RootUrl)&quot;</span>, rootUrl), </a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(Url)&quot;</span>, <span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">&quot;{0}/{1}&quot;</span>, rootUrl, _templateParams[<span class="st">&quot;%(DiscoveryPaths)&quot;</span>].<span class="fu">Split</span>(<span class="ch">&#39;|&#39;</span>)[<span class="dv">0</span>])) </a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">            })</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">            .<span class="fu">ToDictionary</span>(entry =&gt; entry.<span class="fu">Key</span>, entry =&gt; entry.<span class="fu">Value</span>);</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">        <span class="kw">return</span> stream.<span class="fu">FindAndReplace</span>(templateParams);</a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">    }</a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">    <span class="kw">return</span> stream;</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">}</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">private</span> Stream <span class="fu">GetEmbeddedResourceStreamFor</span>(EmbeddedAssetDescriptor resourceDescriptor, <span class="dt">string</span> rootUrl)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>{</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="dt">var</span> stream = resourceDescriptor.<span class="fu">Assembly</span>.<span class="fu">GetManifestResourceStream</span>(resourceDescriptor.<span class="fu">Name</span>);</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="kw">if</span> (stream == <span class="kw">null</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">AssetNotFound</span>(String.<span class="fu">Format</span>(<span class="st">&quot;Embedded resource not found - {0}&quot;</span>, resourceDescriptor.<span class="fu">Name</span>));</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>    <span class="kw">if</span> (resourceDescriptor.<span class="fu">IsTemplate</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    {</span>
+<span id="cb7-9"><a href="#cb7-9"></a>        <span class="dt">var</span> templateParams = _templateParams</span>
+<span id="cb7-10"><a href="#cb7-10"></a>            .<span class="fu">Union</span>(<span class="kw">new</span>[] { </span>
+<span id="cb7-11"><a href="#cb7-11"></a>                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(RootUrl)&quot;</span>, rootUrl), </span>
+<span id="cb7-12"><a href="#cb7-12"></a>                <span class="kw">new</span> KeyValuePair&lt;<span class="dt">string</span>, <span class="dt">string</span>&gt;(<span class="st">&quot;%(Url)&quot;</span>, <span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">&quot;{0}/{1}&quot;</span>, rootUrl, _templateParams[<span class="st">&quot;%(DiscoveryPaths)&quot;</span>].<span class="fu">Split</span>(<span class="ch">&#39;|&#39;</span>)[<span class="dv">0</span>])) </span>
+<span id="cb7-13"><a href="#cb7-13"></a>            })</span>
+<span id="cb7-14"><a href="#cb7-14"></a>            .<span class="fu">ToDictionary</span>(entry =&gt; entry.<span class="fu">Key</span>, entry =&gt; entry.<span class="fu">Value</span>);</span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a>        <span class="kw">return</span> stream.<span class="fu">FindAndReplace</span>(templateParams);</span>
+<span id="cb7-17"><a href="#cb7-17"></a>    }</span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a>    <span class="kw">return</span> stream;</span>
+<span id="cb7-20"><a href="#cb7-20"></a>}</span></code></pre></div>
 <p>改完编译通过后，移除原来对Swashbuckle.Core的引用，再引用自己的编译的Swashbuckle.Core.dll就可以了。</p>
 <p>如果多文件上传，可以这样</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="dt">&quot;in&quot;</span><span class="fu">:</span> <span class="st">&quot;formData&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;file to upload&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="dt">&quot;required&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">    <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">}</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="fu">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="dt">&quot;in&quot;</span><span class="fu">:</span> <span class="st">&quot;formData&quot;</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;file to upload&quot;</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="dt">&quot;required&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;file&quot;</span><span class="fu">}</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">}</span></span></code></pre></div>
 
         
     
@@ -607,7 +607,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/Archive/仿os-walk实现arcpy-walk实现遍历空间数据库/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/Archive/C++多线程学习笔记_A/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -621,7 +621,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2017/Archive/C++多线程学习笔记_A/" id="post_nav-older" class="next-content">
+        <a href="/2017/Archive/通过ARCPY给FEATURE设置GUID/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -713,7 +713,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         

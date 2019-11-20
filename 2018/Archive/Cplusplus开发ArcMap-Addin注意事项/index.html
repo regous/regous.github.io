@@ -496,133 +496,133 @@
 <p>ArcGIS 10之后渐渐就不鼓励使用C++开发Add-in插件了，用C#开发很简单的事情，在C++里会很麻烦，比如在config.esriaddinx文件里配一个Toolbar很简单的，但是在C++里没有明显的方法，如果是在自定义里配一个Toolbar，这个Toolbar是保存的MXD文档里的，如果不打开这个MXD文件，配置的Toolbar就不会显示出现，而在config.esriaddinx文件里却没有这个问题。这次做一个东西，只能用使用C++，实施的同事要求能做成一个安装包，所以只好功能在C++里写，然后在外面再套一层C#写的插件，并配置一个Toolbar。这样才解决了安装的问题，否则每一台电脑手动去配置一个Toolbar是不可能的，而如果命令没有加载的ArcMap里，任何想作为入口的代码都不会执行。</p>
 <h3 id="dockablewindow">DockableWindow</h3>
 <p>DockableWindow实现比较简单，ATL简单对象实现了IDockableWindowDef接口的方法，但是必须的要添对象的类型</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1">    BEGIN_CATEGORY_MAP(CDemoDockWindow)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    END_CATEGORY_MAP()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>    BEGIN_CATEGORY_MAP(CDemoDockWindow)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    END_CATEGORY_MAP()</span></code></pre></div>
 <p>同时，这个DLL必须要用EsriRegasm.exe注册，如果仅仅是使用Regsvr32.exe注册的话，是无法创建出窗口了（花了一天多的时间才搞明白这个事情，不知道EsriRegasm.exe在背地里干了什么）。</p>
 <p>完整代码</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// DemoDockWindow.h : CDemoDockWindow 的声明</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="pp">#pragma once</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="pp">#include </span><span class="im">&quot;DlgDockWindow.h&quot;</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="pp">#endif</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">using</span> <span class="kw">namespace</span> ATL;</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">// CDemoDockWindow</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw">class</span> ATL_NO_VTABLE CDemoDockWindow :</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">    <span class="kw">public</span> CComCoClass&lt;CDemoDockWindow, &amp;CLSID_DemoDockWindow&gt;,</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">    <span class="kw">public</span> IDispatchImpl&lt;IDemoDockWindow, &amp;IID_IDemoDockWindow, &amp;LIBID_iDataPluginLib, <span class="co">/*wMajor =*/</span> <span class="dv">1</span>, <span class="co">/*wMinor =*/</span> <span class="dv">0</span>&gt;,</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="kw">public</span> IDockableWindowDef</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">{</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">    CDemoDockWindow() :<span class="va">m_pDlgDockWindow</span>(<span class="kw">nullptr</span>)</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">    {</a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">        </a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">    }</a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">    DECLARE_REGISTRY_RESOURCEID(IDR_DEMODOCKWINDOW)</a>
-<a class="sourceLine" id="cb2-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb2-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb2-35" data-line-number="35">    BEGIN_COM_MAP(CDemoDockWindow)</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36">        COM_INTERFACE_ENTRY(IDemoDockWindow)</a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">        COM_INTERFACE_ENTRY(IDispatch)</a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">        COM_INTERFACE_ENTRY(IDockableWindowDef)</a>
-<a class="sourceLine" id="cb2-39" data-line-number="39">    END_COM_MAP()</a>
-<a class="sourceLine" id="cb2-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb2-41" data-line-number="41">    BEGIN_CATEGORY_MAP(CDemoDockWindow)</a>
-<a class="sourceLine" id="cb2-42" data-line-number="42">        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</a>
-<a class="sourceLine" id="cb2-43" data-line-number="43">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</a>
-<a class="sourceLine" id="cb2-44" data-line-number="44">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</a>
-<a class="sourceLine" id="cb2-45" data-line-number="45">        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</a>
-<a class="sourceLine" id="cb2-46" data-line-number="46">    END_CATEGORY_MAP()</a>
-<a class="sourceLine" id="cb2-47" data-line-number="47"></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48">    DECLARE_PROTECT_FINAL_CONSTRUCT()</a>
-<a class="sourceLine" id="cb2-49" data-line-number="49"></a>
-<a class="sourceLine" id="cb2-50" data-line-number="50">    HRESULT FinalConstruct()</a>
-<a class="sourceLine" id="cb2-51" data-line-number="51">    {</a>
-<a class="sourceLine" id="cb2-52" data-line-number="52">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-53" data-line-number="53">    }</a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"></a>
-<a class="sourceLine" id="cb2-55" data-line-number="55">    <span class="dt">void</span> FinalRelease()</a>
-<a class="sourceLine" id="cb2-56" data-line-number="56">    {</a>
-<a class="sourceLine" id="cb2-57" data-line-number="57">    }</a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"></a>
-<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-60" data-line-number="60"></a>
-<a class="sourceLine" id="cb2-61" data-line-number="61">    CDlgDockWindow* <span class="va">m_pDlgDockWindow</span>;</a>
-<a class="sourceLine" id="cb2-62" data-line-number="62"></a>
-<a class="sourceLine" id="cb2-63" data-line-number="63"></a>
-<a class="sourceLine" id="cb2-64" data-line-number="64">    <span class="co">// IDockableWindowDef Methods</span></a>
-<a class="sourceLine" id="cb2-65" data-line-number="65"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-66" data-line-number="66">    STDMETHOD(OnCreate)(LPDISPATCH hook)</a>
-<a class="sourceLine" id="cb2-67" data-line-number="67">    {</a>
-<a class="sourceLine" id="cb2-68" data-line-number="68">        IApplicationPtr ipApplication;</a>
-<a class="sourceLine" id="cb2-69" data-line-number="69">        ipApplication = hook;</a>
-<a class="sourceLine" id="cb2-70" data-line-number="70">        OLE_HANDLE AppOLEHandle;</a>
-<a class="sourceLine" id="cb2-71" data-line-number="71">        HRESULT hr = ipApplication-&gt;get_hWnd(&amp;AppOLEHandle);</a>
-<a class="sourceLine" id="cb2-72" data-line-number="72">        HWND hwnd = (HWND)AppOLEHandle;</a>
-<a class="sourceLine" id="cb2-73" data-line-number="73">        USING_MFC;</a>
-<a class="sourceLine" id="cb2-74" data-line-number="74">        <span class="va">m_pDlgDockWindow</span> = <span class="kw">new</span> CDlgDockWindow();</a>
-<a class="sourceLine" id="cb2-75" data-line-number="75">        <span class="va">m_pDlgDockWindow</span>-&gt;Create(CDlgDockWindow::IDD, CWnd::FromHandle(hwnd));</a>
-<a class="sourceLine" id="cb2-76" data-line-number="76">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-77" data-line-number="77">    }</a>
-<a class="sourceLine" id="cb2-78" data-line-number="78">    STDMETHOD(get_ChildHWND)(OLE_HANDLE * hWnd)</a>
-<a class="sourceLine" id="cb2-79" data-line-number="79">    {</a>
-<a class="sourceLine" id="cb2-80" data-line-number="80">        *hWnd = (OLE_HANDLE)<span class="va">m_pDlgDockWindow</span>-&gt;<span class="va">m_hWnd</span>;</a>
-<a class="sourceLine" id="cb2-81" data-line-number="81">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-82" data-line-number="82">    }</a>
-<a class="sourceLine" id="cb2-83" data-line-number="83">    STDMETHOD(get_Name)(BSTR * Name)</a>
-<a class="sourceLine" id="cb2-84" data-line-number="84">    {</a>
-<a class="sourceLine" id="cb2-85" data-line-number="85">        *Name = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));</a>
-<a class="sourceLine" id="cb2-86" data-line-number="86">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-87" data-line-number="87">    }</a>
-<a class="sourceLine" id="cb2-88" data-line-number="88">    STDMETHOD(get_Caption)(BSTR * Caption)</a>
-<a class="sourceLine" id="cb2-89" data-line-number="89">    {</a>
-<a class="sourceLine" id="cb2-90" data-line-number="90">        *Caption = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));</a>
-<a class="sourceLine" id="cb2-91" data-line-number="91">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-92" data-line-number="92">    }</a>
-<a class="sourceLine" id="cb2-93" data-line-number="93">    STDMETHOD(OnDestroy)()</a>
-<a class="sourceLine" id="cb2-94" data-line-number="94">    {</a>
-<a class="sourceLine" id="cb2-95" data-line-number="95">        USING_MFC;</a>
-<a class="sourceLine" id="cb2-96" data-line-number="96">        <span class="cf">if</span> (<span class="va">m_pDlgDockWindow</span> != <span class="kw">nullptr</span>&amp;&amp;TRUE == ::IsWindow(<span class="va">m_pDlgDockWindow</span>-&gt;GetSafeHwnd()))</a>
-<a class="sourceLine" id="cb2-97" data-line-number="97">        {</a>
-<a class="sourceLine" id="cb2-98" data-line-number="98">            <span class="va">m_pDlgDockWindow</span>-&gt;DestroyWindow();</a>
-<a class="sourceLine" id="cb2-99" data-line-number="99">            <span class="va">m_pDlgDockWindow</span> = <span class="kw">nullptr</span>;</a>
-<a class="sourceLine" id="cb2-100" data-line-number="100">        }</a>
-<a class="sourceLine" id="cb2-101" data-line-number="101">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-102" data-line-number="102">    }</a>
-<a class="sourceLine" id="cb2-103" data-line-number="103">    STDMETHOD(get_UserData)(VARIANT * data)</a>
-<a class="sourceLine" id="cb2-104" data-line-number="104">    {</a>
-<a class="sourceLine" id="cb2-105" data-line-number="105">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb2-106" data-line-number="106">    }</a>
-<a class="sourceLine" id="cb2-107" data-line-number="107">};</a>
-<a class="sourceLine" id="cb2-108" data-line-number="108"></a>
-<a class="sourceLine" id="cb2-109" data-line-number="109">OBJECT_ENTRY_AUTO(__uuidof(DemoDockWindow), CDemoDockWindow)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// DemoDockWindow.h : CDemoDockWindow 的声明</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#pragma once</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="pp">#include </span><span class="im">&quot;DlgDockWindow.h&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="pp">#endif</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="kw">using</span> <span class="kw">namespace</span> ATL;</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">// CDemoDockWindow</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="kw">class</span> ATL_NO_VTABLE CDemoDockWindow :</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="kw">public</span> CComCoClass&lt;CDemoDockWindow, &amp;CLSID_DemoDockWindow&gt;,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="kw">public</span> IDispatchImpl&lt;IDemoDockWindow, &amp;IID_IDemoDockWindow, &amp;LIBID_iDataPluginLib, <span class="co">/*wMajor =*/</span> <span class="dv">1</span>, <span class="co">/*wMinor =*/</span> <span class="dv">0</span>&gt;,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="kw">public</span> IDockableWindowDef</span>
+<span id="cb2-25"><a href="#cb2-25"></a>{</span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="kw">public</span>:</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    CDemoDockWindow() :<span class="va">m_pDlgDockWindow</span>(<span class="kw">nullptr</span>)</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    {</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        </span>
+<span id="cb2-30"><a href="#cb2-30"></a>    }</span>
+<span id="cb2-31"><a href="#cb2-31"></a></span>
+<span id="cb2-32"><a href="#cb2-32"></a>    DECLARE_REGISTRY_RESOURCEID(IDR_DEMODOCKWINDOW)</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a></span>
+<span id="cb2-35"><a href="#cb2-35"></a>    BEGIN_COM_MAP(CDemoDockWindow)</span>
+<span id="cb2-36"><a href="#cb2-36"></a>        COM_INTERFACE_ENTRY(IDemoDockWindow)</span>
+<span id="cb2-37"><a href="#cb2-37"></a>        COM_INTERFACE_ENTRY(IDispatch)</span>
+<span id="cb2-38"><a href="#cb2-38"></a>        COM_INTERFACE_ENTRY(IDockableWindowDef)</span>
+<span id="cb2-39"><a href="#cb2-39"></a>    END_COM_MAP()</span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a>    BEGIN_CATEGORY_MAP(CDemoDockWindow)</span>
+<span id="cb2-42"><a href="#cb2-42"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</span>
+<span id="cb2-43"><a href="#cb2-43"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</span>
+<span id="cb2-44"><a href="#cb2-44"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</span>
+<span id="cb2-45"><a href="#cb2-45"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</span>
+<span id="cb2-46"><a href="#cb2-46"></a>    END_CATEGORY_MAP()</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a>    DECLARE_PROTECT_FINAL_CONSTRUCT()</span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a>    HRESULT FinalConstruct()</span>
+<span id="cb2-51"><a href="#cb2-51"></a>    {</span>
+<span id="cb2-52"><a href="#cb2-52"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-53"><a href="#cb2-53"></a>    }</span>
+<span id="cb2-54"><a href="#cb2-54"></a></span>
+<span id="cb2-55"><a href="#cb2-55"></a>    <span class="dt">void</span> FinalRelease()</span>
+<span id="cb2-56"><a href="#cb2-56"></a>    {</span>
+<span id="cb2-57"><a href="#cb2-57"></a>    }</span>
+<span id="cb2-58"><a href="#cb2-58"></a></span>
+<span id="cb2-59"><a href="#cb2-59"></a><span class="kw">public</span>:</span>
+<span id="cb2-60"><a href="#cb2-60"></a></span>
+<span id="cb2-61"><a href="#cb2-61"></a>    CDlgDockWindow* <span class="va">m_pDlgDockWindow</span>;</span>
+<span id="cb2-62"><a href="#cb2-62"></a></span>
+<span id="cb2-63"><a href="#cb2-63"></a></span>
+<span id="cb2-64"><a href="#cb2-64"></a>    <span class="co">// IDockableWindowDef Methods</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="kw">public</span>:</span>
+<span id="cb2-66"><a href="#cb2-66"></a>    STDMETHOD(OnCreate)(LPDISPATCH hook)</span>
+<span id="cb2-67"><a href="#cb2-67"></a>    {</span>
+<span id="cb2-68"><a href="#cb2-68"></a>        IApplicationPtr ipApplication;</span>
+<span id="cb2-69"><a href="#cb2-69"></a>        ipApplication = hook;</span>
+<span id="cb2-70"><a href="#cb2-70"></a>        OLE_HANDLE AppOLEHandle;</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        HRESULT hr = ipApplication-&gt;get_hWnd(&amp;AppOLEHandle);</span>
+<span id="cb2-72"><a href="#cb2-72"></a>        HWND hwnd = (HWND)AppOLEHandle;</span>
+<span id="cb2-73"><a href="#cb2-73"></a>        USING_MFC;</span>
+<span id="cb2-74"><a href="#cb2-74"></a>        <span class="va">m_pDlgDockWindow</span> = <span class="kw">new</span> CDlgDockWindow();</span>
+<span id="cb2-75"><a href="#cb2-75"></a>        <span class="va">m_pDlgDockWindow</span>-&gt;Create(CDlgDockWindow::IDD, CWnd::FromHandle(hwnd));</span>
+<span id="cb2-76"><a href="#cb2-76"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-77"><a href="#cb2-77"></a>    }</span>
+<span id="cb2-78"><a href="#cb2-78"></a>    STDMETHOD(get_ChildHWND)(OLE_HANDLE * hWnd)</span>
+<span id="cb2-79"><a href="#cb2-79"></a>    {</span>
+<span id="cb2-80"><a href="#cb2-80"></a>        *hWnd = (OLE_HANDLE)<span class="va">m_pDlgDockWindow</span>-&gt;<span class="va">m_hWnd</span>;</span>
+<span id="cb2-81"><a href="#cb2-81"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-82"><a href="#cb2-82"></a>    }</span>
+<span id="cb2-83"><a href="#cb2-83"></a>    STDMETHOD(get_Name)(BSTR * Name)</span>
+<span id="cb2-84"><a href="#cb2-84"></a>    {</span>
+<span id="cb2-85"><a href="#cb2-85"></a>        *Name = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));</span>
+<span id="cb2-86"><a href="#cb2-86"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-87"><a href="#cb2-87"></a>    }</span>
+<span id="cb2-88"><a href="#cb2-88"></a>    STDMETHOD(get_Caption)(BSTR * Caption)</span>
+<span id="cb2-89"><a href="#cb2-89"></a>    {</span>
+<span id="cb2-90"><a href="#cb2-90"></a>        *Caption = ::SysAllocString(_T(<span class="st">&quot;DemoDockWindow&quot;</span>));</span>
+<span id="cb2-91"><a href="#cb2-91"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-92"><a href="#cb2-92"></a>    }</span>
+<span id="cb2-93"><a href="#cb2-93"></a>    STDMETHOD(OnDestroy)()</span>
+<span id="cb2-94"><a href="#cb2-94"></a>    {</span>
+<span id="cb2-95"><a href="#cb2-95"></a>        USING_MFC;</span>
+<span id="cb2-96"><a href="#cb2-96"></a>        <span class="cf">if</span> (<span class="va">m_pDlgDockWindow</span> != <span class="kw">nullptr</span>&amp;&amp;TRUE == ::IsWindow(<span class="va">m_pDlgDockWindow</span>-&gt;GetSafeHwnd()))</span>
+<span id="cb2-97"><a href="#cb2-97"></a>        {</span>
+<span id="cb2-98"><a href="#cb2-98"></a>            <span class="va">m_pDlgDockWindow</span>-&gt;DestroyWindow();</span>
+<span id="cb2-99"><a href="#cb2-99"></a>            <span class="va">m_pDlgDockWindow</span> = <span class="kw">nullptr</span>;</span>
+<span id="cb2-100"><a href="#cb2-100"></a>        }</span>
+<span id="cb2-101"><a href="#cb2-101"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-102"><a href="#cb2-102"></a>    }</span>
+<span id="cb2-103"><a href="#cb2-103"></a>    STDMETHOD(get_UserData)(VARIANT * data)</span>
+<span id="cb2-104"><a href="#cb2-104"></a>    {</span>
+<span id="cb2-105"><a href="#cb2-105"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb2-106"><a href="#cb2-106"></a>    }</span>
+<span id="cb2-107"><a href="#cb2-107"></a>};</span>
+<span id="cb2-108"><a href="#cb2-108"></a></span>
+<span id="cb2-109"><a href="#cb2-109"></a>OBJECT_ENTRY_AUTO(__uuidof(DemoDockWindow), CDemoDockWindow)</span></code></pre></div>
 <h3 id="调用mfc窗口前">调用MFC窗口前</h3>
 <p>必须添加USING_MFC，否则窗口创建会出错。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#define USING_MFC AFX_MANAGE_STATE(AfxGetStaticModuleState());</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#define USING_MFC </span>AFX_MANAGE_STATE(AfxGetStaticModuleState());</span></code></pre></div>
 <h3 id="关于图标">关于图标</h3>
 <p>貌似只能用.bmp的资源，至少.ico的资源我使用的时间没有成功。用C#的话，直接使用.png文件就好了。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1">    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">    {</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">        *Bitmap = (OLE_HANDLE)::LoadBitmap(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDB_BITMAP_ANACONDA));;</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    }</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a>    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    {</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        *Bitmap = (OLE_HANDLE)::LoadBitmap(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDB_BITMAP_ANACONDA));;</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    }</span></code></pre></div>
 
         
     
@@ -749,7 +749,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         

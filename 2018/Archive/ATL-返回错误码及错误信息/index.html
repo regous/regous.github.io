@@ -501,27 +501,27 @@
 <p><img src="/2018/Archive/ATL-返回错误码及错误信息/2018-10-01_123412.png"></p>
 <p><img src="/2018/Archive/ATL-返回错误码及错误信息/2018-10-01_123432.png"></p>
 <h3 id="添加一个只返回错误的空方法">添加一个只返回错误的空方法</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1">STDMETHODIMP CIDemoInterface::ErrorMethod()</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">{</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="co">// </span><span class="al">TODO</span><span class="co">:  在此添加实现代码</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="cf">return</span> Error(<span class="st">&quot;鬼才知道&quot;</span>, __uuidof(IIDemoInterface), HRESULT_FROM_WIN32(<span class="dv">-20181001</span>));</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>STDMETHODIMP CIDemoInterface::ErrorMethod()</span>
+<span id="cb1-2"><a href="#cb1-2"></a>{</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="co">// </span><span class="al">TODO</span><span class="co">:  在此添加实现代码</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="cf">return</span> Error(<span class="st">&quot;鬼才知道&quot;</span>, __uuidof(IIDemoInterface), HRESULT_FROM_WIN32(-<span class="dv">20181001</span>));</span>
+<span id="cb1-5"><a href="#cb1-5"></a>}</span></code></pre></div>
 <p>在使用 <strong>HRESULT_FROM_WIN32</strong> 宏时，值必须要小于0，否则这个宏会转换成其他莫名其妙的数值。</p>
 <p>只需要这样的一行，就能向调用方传递错误的信息，这个信息在 C++ 里是，HRESULT ！= S_OK，而是 C# 中则抛出异常。但是无论如何，总是比通过增加一个参数的方式强。</p>
 <h3 id="建一个工程来测试">建一个工程来测试</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><a class="sourceLine" id="cb2-1" data-line-number="1">        <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span>(<span class="dt">string</span>[] args)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">        {</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">            <span class="kw">try</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">            {</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">                ErrorDemoLib.<span class="fu">IIDemoInterface</span> pDI = <span class="kw">new</span> ErrorDemoLib.<span class="fu">IDemoInterfaceClass</span>();</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">                pDI.<span class="fu">ErrorMethod</span>();</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">            }</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">            <span class="kw">catch</span>(Exception e)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">            {</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">                Console.<span class="fu">WriteLine</span>(<span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">&quot;code:{0} message:{1}&quot;</span>,e.<span class="fu">HResult</span>,e.<span class="fu">Message</span>));</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">            }</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">        }</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1"></a>        <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span>(<span class="dt">string</span>[] args)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>        {</span>
+<span id="cb2-3"><a href="#cb2-3"></a>            <span class="kw">try</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>            {</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                ErrorDemoLib.<span class="fu">IIDemoInterface</span> pDI = <span class="kw">new</span> ErrorDemoLib.<span class="fu">IDemoInterfaceClass</span>();</span>
+<span id="cb2-6"><a href="#cb2-6"></a>                pDI.<span class="fu">ErrorMethod</span>();</span>
+<span id="cb2-7"><a href="#cb2-7"></a>            }</span>
+<span id="cb2-8"><a href="#cb2-8"></a>            <span class="kw">catch</span>(Exception e)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>            {</span>
+<span id="cb2-10"><a href="#cb2-10"></a>                Console.<span class="fu">WriteLine</span>(<span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">&quot;code:{0} message:{1}&quot;</span>,e.<span class="fu">HResult</span>,e.<span class="fu">Message</span>));</span>
+<span id="cb2-11"><a href="#cb2-11"></a>            }</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>        }</span></code></pre></div>
 <p><img src="/2018/Archive/ATL-返回错误码及错误信息/2018-10-01_124704.png"></p>
 <p>本实例代码：</p>
 <p>链接：https://pan.baidu.com/s/1i1ucUdMqXAMmpZgwNjAFyA 提取码：lso8</p>
@@ -651,7 +651,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         

@@ -509,135 +509,135 @@
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-04-12_093147.png"></p>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-04-12_093241.png"></p>
 <p>添加实现类型</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1">BEGIN_CATEGORY_MAP(__uuidof(CATID_ControlsCommands))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">    IMPLEMENTED_CATEGORY(__uuidof(CATID_MxCommands))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">END_CATEGORY_MAP()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>BEGIN_CATEGORY_MAP(__uuidof(CATID_ControlsCommands))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    IMPLEMENTED_CATEGORY(__uuidof(CATID_MxCommands))</span>
+<span id="cb1-3"><a href="#cb1-3"></a>END_CATEGORY_MAP()</span></code></pre></div>
 <p>实现相应的接口方法后完整代码如下：</p>
 <p><strong>注意esriICommand</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// DemoCommand.h : CDemoCommand 的声明</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="pp">#pragma once</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="pp">#endif</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw">using</span> <span class="kw">namespace</span> ATL;</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">// CDemoCommand</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw">class</span> ATL_NO_VTABLE CDemoCommand :</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">    <span class="kw">public</span> CComCoClass&lt;CDemoCommand, &amp;CLSID_DemoCommand&gt;,</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="kw">public</span> IDemoCommand,</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">    <span class="kw">public</span> esriICommand</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">{</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">    CDemoCommand()</a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">    {</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">    }</a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">    DECLARE_REGISTRY_RESOURCEID(IDR_DEMOCOMMAND)</a>
-<a class="sourceLine" id="cb2-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb2-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb2-35" data-line-number="35">    BEGIN_COM_MAP(CDemoCommand)</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36">        COM_INTERFACE_ENTRY(IDemoCommand)</a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">        COM_INTERFACE_ENTRY(esriICommand)</a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">    END_COM_MAP()</a>
-<a class="sourceLine" id="cb2-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb2-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb2-41" data-line-number="41"></a>
-<a class="sourceLine" id="cb2-42" data-line-number="42">    DECLARE_PROTECT_FINAL_CONSTRUCT()</a>
-<a class="sourceLine" id="cb2-43" data-line-number="43"></a>
-<a class="sourceLine" id="cb2-44" data-line-number="44">    HRESULT FinalConstruct()</a>
-<a class="sourceLine" id="cb2-45" data-line-number="45">    {</a>
-<a class="sourceLine" id="cb2-46" data-line-number="46">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-47" data-line-number="47">    }</a>
-<a class="sourceLine" id="cb2-48" data-line-number="48"></a>
-<a class="sourceLine" id="cb2-49" data-line-number="49">    <span class="dt">void</span> FinalRelease()</a>
-<a class="sourceLine" id="cb2-50" data-line-number="50">    {</a>
-<a class="sourceLine" id="cb2-51" data-line-number="51">    }</a>
-<a class="sourceLine" id="cb2-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-54" data-line-number="54">    IHookHelperPtr <span class="va">m_ipHookHelper</span>;</a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"></a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-57" data-line-number="57">    <span class="co">// ICommand Methods</span></a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-59" data-line-number="59">    STDMETHOD(get_Enabled)(VARIANT_BOOL * Enabled)</a>
-<a class="sourceLine" id="cb2-60" data-line-number="60">    {</a>
-<a class="sourceLine" id="cb2-61" data-line-number="61">        *Enabled = VARIANT_TRUE;</a>
-<a class="sourceLine" id="cb2-62" data-line-number="62">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-63" data-line-number="63">    }</a>
-<a class="sourceLine" id="cb2-64" data-line-number="64">    STDMETHOD(get_Checked)(VARIANT_BOOL * Checked)</a>
-<a class="sourceLine" id="cb2-65" data-line-number="65">    {</a>
-<a class="sourceLine" id="cb2-66" data-line-number="66">        *Checked = VARIANT_FALSE;</a>
-<a class="sourceLine" id="cb2-67" data-line-number="67">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-68" data-line-number="68">    }</a>
-<a class="sourceLine" id="cb2-69" data-line-number="69">    STDMETHOD(get_Name)(BSTR * Name)</a>
-<a class="sourceLine" id="cb2-70" data-line-number="70">    {</a>
-<a class="sourceLine" id="cb2-71" data-line-number="71">        *Name = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</a>
-<a class="sourceLine" id="cb2-72" data-line-number="72">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-73" data-line-number="73">    }</a>
-<a class="sourceLine" id="cb2-74" data-line-number="74">    STDMETHOD(get_Caption)(BSTR * Caption)</a>
-<a class="sourceLine" id="cb2-75" data-line-number="75">    {</a>
-<a class="sourceLine" id="cb2-76" data-line-number="76">        *Caption = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</a>
-<a class="sourceLine" id="cb2-77" data-line-number="77">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-78" data-line-number="78">    }</a>
-<a class="sourceLine" id="cb2-79" data-line-number="79">    STDMETHOD(get_Tooltip)(BSTR * Tooltip)</a>
-<a class="sourceLine" id="cb2-80" data-line-number="80">    {</a>
-<a class="sourceLine" id="cb2-81" data-line-number="81">        *Tooltip = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令提示信息&quot;</span>));</a>
-<a class="sourceLine" id="cb2-82" data-line-number="82">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-83" data-line-number="83">    }</a>
-<a class="sourceLine" id="cb2-84" data-line-number="84">    STDMETHOD(get_Message)(BSTR * Message)</a>
-<a class="sourceLine" id="cb2-85" data-line-number="85">    {</a>
-<a class="sourceLine" id="cb2-86" data-line-number="86">        *Message = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令提示信息&quot;</span>));</a>
-<a class="sourceLine" id="cb2-87" data-line-number="87">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-88" data-line-number="88">    }</a>
-<a class="sourceLine" id="cb2-89" data-line-number="89">    STDMETHOD(get_HelpFile)(BSTR * HelpFile)</a>
-<a class="sourceLine" id="cb2-90" data-line-number="90">    {</a>
-<a class="sourceLine" id="cb2-91" data-line-number="91">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb2-92" data-line-number="92">    }</a>
-<a class="sourceLine" id="cb2-93" data-line-number="93">    STDMETHOD(get_HelpContextID)(<span class="dt">long</span> * helpID)</a>
-<a class="sourceLine" id="cb2-94" data-line-number="94">    {</a>
-<a class="sourceLine" id="cb2-95" data-line-number="95">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb2-96" data-line-number="96">    }</a>
-<a class="sourceLine" id="cb2-97" data-line-number="97">    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)</a>
-<a class="sourceLine" id="cb2-98" data-line-number="98">    {</a>
-<a class="sourceLine" id="cb2-99" data-line-number="99">        *Bitmap = (OLE_HANDLE)::LoadBitmap(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDB_BITMAP_COMMAND));;</a>
-<a class="sourceLine" id="cb2-100" data-line-number="100">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb2-101" data-line-number="101">    }</a>
-<a class="sourceLine" id="cb2-102" data-line-number="102">    STDMETHOD(get_Category)(BSTR * categoryName)</a>
-<a class="sourceLine" id="cb2-103" data-line-number="103">    {</a>
-<a class="sourceLine" id="cb2-104" data-line-number="104">        *categoryName = ::SysAllocString(_T(<span class="st">&quot;CplusplusDemo&quot;</span>));</a>
-<a class="sourceLine" id="cb2-105" data-line-number="105">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-106" data-line-number="106">    }</a>
-<a class="sourceLine" id="cb2-107" data-line-number="107">    STDMETHOD(OnCreate)(LPDISPATCH Hook)</a>
-<a class="sourceLine" id="cb2-108" data-line-number="108">    {</a>
-<a class="sourceLine" id="cb2-109" data-line-number="109">        <span class="va">m_ipHookHelper</span>.CreateInstance(CLSID_HookHelper);</a>
-<a class="sourceLine" id="cb2-110" data-line-number="110">        HRESULT hr = <span class="va">m_ipHookHelper</span>-&gt;putref_Hook(Hook);</a>
-<a class="sourceLine" id="cb2-111" data-line-number="111">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-112" data-line-number="112">    }</a>
-<a class="sourceLine" id="cb2-113" data-line-number="113">    STDMETHOD(OnClick)()</a>
-<a class="sourceLine" id="cb2-114" data-line-number="114">    {</a>
-<a class="sourceLine" id="cb2-115" data-line-number="115">        USING_MFC;</a>
-<a class="sourceLine" id="cb2-116" data-line-number="116">        INFORMATION_MESSAGE_BOX(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</a>
-<a class="sourceLine" id="cb2-117" data-line-number="117">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb2-118" data-line-number="118">    }</a>
-<a class="sourceLine" id="cb2-119" data-line-number="119">};</a>
-<a class="sourceLine" id="cb2-120" data-line-number="120"></a>
-<a class="sourceLine" id="cb2-121" data-line-number="121">OBJECT_ENTRY_AUTO(__uuidof(DemoCommand), CDemoCommand)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// DemoCommand.h : CDemoCommand 的声明</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#pragma once</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="pp">#endif</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="kw">using</span> <span class="kw">namespace</span> ATL;</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">// CDemoCommand</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="kw">class</span> ATL_NO_VTABLE CDemoCommand :</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="kw">public</span> CComCoClass&lt;CDemoCommand, &amp;CLSID_DemoCommand&gt;,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="kw">public</span> IDemoCommand,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="kw">public</span> esriICommand</span>
+<span id="cb2-26"><a href="#cb2-26"></a>{</span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="kw">public</span>:</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    CDemoCommand()</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    {</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    }</span>
+<span id="cb2-31"><a href="#cb2-31"></a></span>
+<span id="cb2-32"><a href="#cb2-32"></a>    DECLARE_REGISTRY_RESOURCEID(IDR_DEMOCOMMAND)</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a></span>
+<span id="cb2-35"><a href="#cb2-35"></a>    BEGIN_COM_MAP(CDemoCommand)</span>
+<span id="cb2-36"><a href="#cb2-36"></a>        COM_INTERFACE_ENTRY(IDemoCommand)</span>
+<span id="cb2-37"><a href="#cb2-37"></a>        COM_INTERFACE_ENTRY(esriICommand)</span>
+<span id="cb2-38"><a href="#cb2-38"></a>    END_COM_MAP()</span>
+<span id="cb2-39"><a href="#cb2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a></span>
+<span id="cb2-42"><a href="#cb2-42"></a>    DECLARE_PROTECT_FINAL_CONSTRUCT()</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a>    HRESULT FinalConstruct()</span>
+<span id="cb2-45"><a href="#cb2-45"></a>    {</span>
+<span id="cb2-46"><a href="#cb2-46"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-47"><a href="#cb2-47"></a>    }</span>
+<span id="cb2-48"><a href="#cb2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49"></a>    <span class="dt">void</span> FinalRelease()</span>
+<span id="cb2-50"><a href="#cb2-50"></a>    {</span>
+<span id="cb2-51"><a href="#cb2-51"></a>    }</span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="kw">public</span>:</span>
+<span id="cb2-54"><a href="#cb2-54"></a>    IHookHelperPtr <span class="va">m_ipHookHelper</span>;</span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="kw">public</span>:</span>
+<span id="cb2-57"><a href="#cb2-57"></a>    <span class="co">// ICommand Methods</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="kw">public</span>:</span>
+<span id="cb2-59"><a href="#cb2-59"></a>    STDMETHOD(get_Enabled)(VARIANT_BOOL * Enabled)</span>
+<span id="cb2-60"><a href="#cb2-60"></a>    {</span>
+<span id="cb2-61"><a href="#cb2-61"></a>        *Enabled = VARIANT_TRUE;</span>
+<span id="cb2-62"><a href="#cb2-62"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-63"><a href="#cb2-63"></a>    }</span>
+<span id="cb2-64"><a href="#cb2-64"></a>    STDMETHOD(get_Checked)(VARIANT_BOOL * Checked)</span>
+<span id="cb2-65"><a href="#cb2-65"></a>    {</span>
+<span id="cb2-66"><a href="#cb2-66"></a>        *Checked = VARIANT_FALSE;</span>
+<span id="cb2-67"><a href="#cb2-67"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-68"><a href="#cb2-68"></a>    }</span>
+<span id="cb2-69"><a href="#cb2-69"></a>    STDMETHOD(get_Name)(BSTR * Name)</span>
+<span id="cb2-70"><a href="#cb2-70"></a>    {</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        *Name = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</span>
+<span id="cb2-72"><a href="#cb2-72"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-73"><a href="#cb2-73"></a>    }</span>
+<span id="cb2-74"><a href="#cb2-74"></a>    STDMETHOD(get_Caption)(BSTR * Caption)</span>
+<span id="cb2-75"><a href="#cb2-75"></a>    {</span>
+<span id="cb2-76"><a href="#cb2-76"></a>        *Caption = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</span>
+<span id="cb2-77"><a href="#cb2-77"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-78"><a href="#cb2-78"></a>    }</span>
+<span id="cb2-79"><a href="#cb2-79"></a>    STDMETHOD(get_Tooltip)(BSTR * Tooltip)</span>
+<span id="cb2-80"><a href="#cb2-80"></a>    {</span>
+<span id="cb2-81"><a href="#cb2-81"></a>        *Tooltip = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令提示信息&quot;</span>));</span>
+<span id="cb2-82"><a href="#cb2-82"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-83"><a href="#cb2-83"></a>    }</span>
+<span id="cb2-84"><a href="#cb2-84"></a>    STDMETHOD(get_Message)(BSTR * Message)</span>
+<span id="cb2-85"><a href="#cb2-85"></a>    {</span>
+<span id="cb2-86"><a href="#cb2-86"></a>        *Message = ::SysAllocString(_T(<span class="st">&quot;C++Demo命令提示信息&quot;</span>));</span>
+<span id="cb2-87"><a href="#cb2-87"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-88"><a href="#cb2-88"></a>    }</span>
+<span id="cb2-89"><a href="#cb2-89"></a>    STDMETHOD(get_HelpFile)(BSTR * HelpFile)</span>
+<span id="cb2-90"><a href="#cb2-90"></a>    {</span>
+<span id="cb2-91"><a href="#cb2-91"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb2-92"><a href="#cb2-92"></a>    }</span>
+<span id="cb2-93"><a href="#cb2-93"></a>    STDMETHOD(get_HelpContextID)(<span class="dt">long</span> * helpID)</span>
+<span id="cb2-94"><a href="#cb2-94"></a>    {</span>
+<span id="cb2-95"><a href="#cb2-95"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb2-96"><a href="#cb2-96"></a>    }</span>
+<span id="cb2-97"><a href="#cb2-97"></a>    STDMETHOD(get_Bitmap)(OLE_HANDLE * Bitmap)</span>
+<span id="cb2-98"><a href="#cb2-98"></a>    {</span>
+<span id="cb2-99"><a href="#cb2-99"></a>        *Bitmap = (OLE_HANDLE)::LoadBitmap(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDB_BITMAP_COMMAND));;</span>
+<span id="cb2-100"><a href="#cb2-100"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb2-101"><a href="#cb2-101"></a>    }</span>
+<span id="cb2-102"><a href="#cb2-102"></a>    STDMETHOD(get_Category)(BSTR * categoryName)</span>
+<span id="cb2-103"><a href="#cb2-103"></a>    {</span>
+<span id="cb2-104"><a href="#cb2-104"></a>        *categoryName = ::SysAllocString(_T(<span class="st">&quot;CplusplusDemo&quot;</span>));</span>
+<span id="cb2-105"><a href="#cb2-105"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-106"><a href="#cb2-106"></a>    }</span>
+<span id="cb2-107"><a href="#cb2-107"></a>    STDMETHOD(OnCreate)(LPDISPATCH Hook)</span>
+<span id="cb2-108"><a href="#cb2-108"></a>    {</span>
+<span id="cb2-109"><a href="#cb2-109"></a>        <span class="va">m_ipHookHelper</span>.CreateInstance(CLSID_HookHelper);</span>
+<span id="cb2-110"><a href="#cb2-110"></a>        HRESULT hr = <span class="va">m_ipHookHelper</span>-&gt;putref_Hook(Hook);</span>
+<span id="cb2-111"><a href="#cb2-111"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-112"><a href="#cb2-112"></a>    }</span>
+<span id="cb2-113"><a href="#cb2-113"></a>    STDMETHOD(OnClick)()</span>
+<span id="cb2-114"><a href="#cb2-114"></a>    {</span>
+<span id="cb2-115"><a href="#cb2-115"></a>        USING_MFC;</span>
+<span id="cb2-116"><a href="#cb2-116"></a>        INFORMATION_MESSAGE_BOX(_T(<span class="st">&quot;C++Demo命令&quot;</span>));</span>
+<span id="cb2-117"><a href="#cb2-117"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb2-118"><a href="#cb2-118"></a>    }</span>
+<span id="cb2-119"><a href="#cb2-119"></a>};</span>
+<span id="cb2-120"><a href="#cb2-120"></a></span>
+<span id="cb2-121"><a href="#cb2-121"></a>OBJECT_ENTRY_AUTO(__uuidof(DemoCommand), CDemoCommand)</span></code></pre></div>
 <p>解释：</p>
 <p>​ esriICommand从哪来？AO的原命令接口为ICommand，但是因为ICommand与VS SDK定义的接口重名，因此改为esriICommand</p>
-<p><code>#import &lt;esriSystemUI.olb&gt; raw_interfaces_only, raw_native_types, no_namespace, named_guids exclude(&quot;ICursor&quot;, &quot;IProgressDialog&quot;) rename(&quot;ICommand&quot;, &quot;esriICommand&quot;)</code></p>
+<p><code>#import &lt;esriSystemUI.olb&gt; raw_interfaces_only, raw_native_types, no_namespace, named_guids exclude("ICursor", "IProgressDialog") rename("ICommand", "esriICommand")</code></p>
 <p>USING_MFC宏定义</p>
 <p><code>#define USING_MFC AFX_MANAGE_STATE(AfxGetStaticModuleState());</code></p>
 <p>这是为什么调用这个语句呢？具体与资源切换有关，无论如何，如果要弹出MFC的对话框，必须要进行资源切换，否则对话框创建就会出错。</p>
@@ -662,111 +662,111 @@
 <p>与添加命令类似，主要的不同是实现的接口，在ICommand的基础上，增加了ITool</p>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-05-12_073749.png"></p>
 <p>另外，这个接口方法要返回<strong>VARIANT_TRUE</strong>，否则，无法切换成其他的工具。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1">STDMETHOD(Deactivate)(VARIANT_BOOL * complete)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">{</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    *complete = VARIANT_TRUE;</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>STDMETHOD(Deactivate)(VARIANT_BOOL * complete)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    *complete = VARIANT_TRUE;</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">return</span> S_OK;</span>
+<span id="cb3-5"><a href="#cb3-5"></a>}</span></code></pre></div>
 <h2 id="添加工具条">添加工具条</h2>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-05-12_080723.png"></p>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-05-12_080808.png"></p>
 <p>代码如下：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">// DemoToolbar.h : CDemoToolbar 的声明</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="pp">#pragma once</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="pp">#endif</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="kw">using</span> <span class="kw">namespace</span> ATL;</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">// CDemoToolbar</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="kw">class</span> ATL_NO_VTABLE CDemoToolbar :</a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</a>
-<a class="sourceLine" id="cb4-23" data-line-number="23">    <span class="kw">public</span> CComCoClass&lt;CDemoToolbar, &amp;CLSID_DemoToolbar&gt;,</a>
-<a class="sourceLine" id="cb4-24" data-line-number="24">    <span class="kw">public</span> IDemoToolbar,</a>
-<a class="sourceLine" id="cb4-25" data-line-number="25">    <span class="kw">public</span> IToolBarDef</a>
-<a class="sourceLine" id="cb4-26" data-line-number="26">{</a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb4-28" data-line-number="28">    CDemoToolbar()</a>
-<a class="sourceLine" id="cb4-29" data-line-number="29">    {</a>
-<a class="sourceLine" id="cb4-30" data-line-number="30">    }</a>
-<a class="sourceLine" id="cb4-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb4-32" data-line-number="32">    DECLARE_REGISTRY_RESOURCEID(IDR_DEMOTOOLBAR)</a>
-<a class="sourceLine" id="cb4-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb4-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb4-35" data-line-number="35">    BEGIN_COM_MAP(CDemoToolbar)</a>
-<a class="sourceLine" id="cb4-36" data-line-number="36">        COM_INTERFACE_ENTRY(IDemoToolbar)</a>
-<a class="sourceLine" id="cb4-37" data-line-number="37">        COM_INTERFACE_ENTRY(IToolBarDef)</a>
-<a class="sourceLine" id="cb4-38" data-line-number="38">    END_COM_MAP()</a>
-<a class="sourceLine" id="cb4-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb4-40" data-line-number="40">    BEGIN_CATEGORY_MAP(__uuidof(CATID_ControlsToolbars))</a>
-<a class="sourceLine" id="cb4-41" data-line-number="41">        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxCommandBars))</a>
-<a class="sourceLine" id="cb4-42" data-line-number="42">    END_CATEGORY_MAP()</a>
-<a class="sourceLine" id="cb4-43" data-line-number="43"></a>
-<a class="sourceLine" id="cb4-44" data-line-number="44">    DECLARE_PROTECT_FINAL_CONSTRUCT()</a>
-<a class="sourceLine" id="cb4-45" data-line-number="45"></a>
-<a class="sourceLine" id="cb4-46" data-line-number="46">    HRESULT FinalConstruct()</a>
-<a class="sourceLine" id="cb4-47" data-line-number="47">    {</a>
-<a class="sourceLine" id="cb4-48" data-line-number="48">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb4-49" data-line-number="49">    }</a>
-<a class="sourceLine" id="cb4-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb4-51" data-line-number="51">    <span class="dt">void</span> FinalRelease()</a>
-<a class="sourceLine" id="cb4-52" data-line-number="52">    {</a>
-<a class="sourceLine" id="cb4-53" data-line-number="53">    }</a>
-<a class="sourceLine" id="cb4-54" data-line-number="54"></a>
-<a class="sourceLine" id="cb4-55" data-line-number="55"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb4-56" data-line-number="56">    <span class="co">// IToolBarDef Methods</span></a>
-<a class="sourceLine" id="cb4-57" data-line-number="57"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb4-58" data-line-number="58">    STDMETHOD(get_ItemCount)(<span class="dt">long</span> * numItems)</a>
-<a class="sourceLine" id="cb4-59" data-line-number="59">    {</a>
-<a class="sourceLine" id="cb4-60" data-line-number="60">        *numItems = <span class="dv">2</span>;</a>
-<a class="sourceLine" id="cb4-61" data-line-number="61">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb4-62" data-line-number="62">    }</a>
-<a class="sourceLine" id="cb4-63" data-line-number="63">    STDMETHOD(GetItemInfo)(<span class="dt">long</span> pos, IItemDef * itemDef)</a>
-<a class="sourceLine" id="cb4-64" data-line-number="64">    {</a>
-<a class="sourceLine" id="cb4-65" data-line-number="65">        <span class="cf">if</span> (itemDef == NULL)</a>
-<a class="sourceLine" id="cb4-66" data-line-number="66">            <span class="cf">return</span> E_POINTER;</a>
-<a class="sourceLine" id="cb4-67" data-line-number="67">        HRESULT hr = S_FALSE;</a>
-<a class="sourceLine" id="cb4-68" data-line-number="68">        <span class="cf">switch</span> (pos)</a>
-<a class="sourceLine" id="cb4-69" data-line-number="69">        {</a>
-<a class="sourceLine" id="cb4-70" data-line-number="70">        <span class="cf">case</span> <span class="dv">0</span>:</a>
-<a class="sourceLine" id="cb4-71" data-line-number="71">            hr = itemDef-&gt;put_ID(CComBSTR(<span class="st">L&quot;DemoCplusplusArcmapAddin.DemoCommand&quot;</span>));</a>
-<a class="sourceLine" id="cb4-72" data-line-number="72">            <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb4-73" data-line-number="73">        <span class="cf">case</span> <span class="dv">1</span>:</a>
-<a class="sourceLine" id="cb4-74" data-line-number="74">            hr = itemDef-&gt;put_ID(CComBSTR(<span class="st">L&quot;DemoCplusplusArcmapAddin.DemoTool&quot;</span>));</a>
-<a class="sourceLine" id="cb4-75" data-line-number="75">            <span class="cf">break</span>;</a>
-<a class="sourceLine" id="cb4-76" data-line-number="76">        <span class="cf">default</span>:</a>
-<a class="sourceLine" id="cb4-77" data-line-number="77">            <span class="cf">return</span> E_INVALIDARG;</a>
-<a class="sourceLine" id="cb4-78" data-line-number="78">        }</a>
-<a class="sourceLine" id="cb4-79" data-line-number="79">        <span class="cf">if</span> (FAILED(hr)) <span class="cf">return</span> hr;</a>
-<a class="sourceLine" id="cb4-80" data-line-number="80">        hr = itemDef-&gt;put_Group(VARIANT_FALSE);</a>
-<a class="sourceLine" id="cb4-81" data-line-number="81">        <span class="cf">if</span> (FAILED(hr)) <span class="cf">return</span> hr;</a>
-<a class="sourceLine" id="cb4-82" data-line-number="82">        <span class="cf">return</span> E_NOTIMPL;</a>
-<a class="sourceLine" id="cb4-83" data-line-number="83">    }</a>
-<a class="sourceLine" id="cb4-84" data-line-number="84">    STDMETHOD(get_Name)(BSTR * Name)</a>
-<a class="sourceLine" id="cb4-85" data-line-number="85">    {</a>
-<a class="sourceLine" id="cb4-86" data-line-number="86">        *Name = ::SysAllocString(_T(<span class="st">&quot;C++DemoToolbar&quot;</span>));</a>
-<a class="sourceLine" id="cb4-87" data-line-number="87">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb4-88" data-line-number="88">    }</a>
-<a class="sourceLine" id="cb4-89" data-line-number="89">    STDMETHOD(get_Caption)(BSTR * Name)</a>
-<a class="sourceLine" id="cb4-90" data-line-number="90">    {</a>
-<a class="sourceLine" id="cb4-91" data-line-number="91">        *Name = ::SysAllocString(_T(<span class="st">&quot;C++DemoToolbar&quot;</span>));</a>
-<a class="sourceLine" id="cb4-92" data-line-number="92">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb4-93" data-line-number="93">    }</a>
-<a class="sourceLine" id="cb4-94" data-line-number="94">};</a>
-<a class="sourceLine" id="cb4-95" data-line-number="95"></a>
-<a class="sourceLine" id="cb4-96" data-line-number="96">OBJECT_ENTRY_AUTO(__uuidof(DemoToolbar), CDemoToolbar)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">// DemoToolbar.h : CDemoToolbar 的声明</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="pp">#pragma once</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="pp">#endif</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="kw">using</span> <span class="kw">namespace</span> ATL;</span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">// CDemoToolbar</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="kw">class</span> ATL_NO_VTABLE CDemoToolbar :</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</span>
+<span id="cb4-23"><a href="#cb4-23"></a>    <span class="kw">public</span> CComCoClass&lt;CDemoToolbar, &amp;CLSID_DemoToolbar&gt;,</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="kw">public</span> IDemoToolbar,</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="kw">public</span> IToolBarDef</span>
+<span id="cb4-26"><a href="#cb4-26"></a>{</span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="kw">public</span>:</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    CDemoToolbar()</span>
+<span id="cb4-29"><a href="#cb4-29"></a>    {</span>
+<span id="cb4-30"><a href="#cb4-30"></a>    }</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a>    DECLARE_REGISTRY_RESOURCEID(IDR_DEMOTOOLBAR)</span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a>    BEGIN_COM_MAP(CDemoToolbar)</span>
+<span id="cb4-36"><a href="#cb4-36"></a>        COM_INTERFACE_ENTRY(IDemoToolbar)</span>
+<span id="cb4-37"><a href="#cb4-37"></a>        COM_INTERFACE_ENTRY(IToolBarDef)</span>
+<span id="cb4-38"><a href="#cb4-38"></a>    END_COM_MAP()</span>
+<span id="cb4-39"><a href="#cb4-39"></a></span>
+<span id="cb4-40"><a href="#cb4-40"></a>    BEGIN_CATEGORY_MAP(__uuidof(CATID_ControlsToolbars))</span>
+<span id="cb4-41"><a href="#cb4-41"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxCommandBars))</span>
+<span id="cb4-42"><a href="#cb4-42"></a>    END_CATEGORY_MAP()</span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>    DECLARE_PROTECT_FINAL_CONSTRUCT()</span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>    HRESULT FinalConstruct()</span>
+<span id="cb4-47"><a href="#cb4-47"></a>    {</span>
+<span id="cb4-48"><a href="#cb4-48"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb4-49"><a href="#cb4-49"></a>    }</span>
+<span id="cb4-50"><a href="#cb4-50"></a></span>
+<span id="cb4-51"><a href="#cb4-51"></a>    <span class="dt">void</span> FinalRelease()</span>
+<span id="cb4-52"><a href="#cb4-52"></a>    {</span>
+<span id="cb4-53"><a href="#cb4-53"></a>    }</span>
+<span id="cb4-54"><a href="#cb4-54"></a></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="kw">public</span>:</span>
+<span id="cb4-56"><a href="#cb4-56"></a>    <span class="co">// IToolBarDef Methods</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a><span class="kw">public</span>:</span>
+<span id="cb4-58"><a href="#cb4-58"></a>    STDMETHOD(get_ItemCount)(<span class="dt">long</span> * numItems)</span>
+<span id="cb4-59"><a href="#cb4-59"></a>    {</span>
+<span id="cb4-60"><a href="#cb4-60"></a>        *numItems = <span class="dv">2</span>;</span>
+<span id="cb4-61"><a href="#cb4-61"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb4-62"><a href="#cb4-62"></a>    }</span>
+<span id="cb4-63"><a href="#cb4-63"></a>    STDMETHOD(GetItemInfo)(<span class="dt">long</span> pos, IItemDef * itemDef)</span>
+<span id="cb4-64"><a href="#cb4-64"></a>    {</span>
+<span id="cb4-65"><a href="#cb4-65"></a>        <span class="cf">if</span> (itemDef == NULL)</span>
+<span id="cb4-66"><a href="#cb4-66"></a>            <span class="cf">return</span> E_POINTER;</span>
+<span id="cb4-67"><a href="#cb4-67"></a>        HRESULT hr = S_FALSE;</span>
+<span id="cb4-68"><a href="#cb4-68"></a>        <span class="cf">switch</span> (pos)</span>
+<span id="cb4-69"><a href="#cb4-69"></a>        {</span>
+<span id="cb4-70"><a href="#cb4-70"></a>        <span class="cf">case</span> <span class="dv">0</span>:</span>
+<span id="cb4-71"><a href="#cb4-71"></a>            hr = itemDef-&gt;put_ID(CComBSTR(<span class="st">L&quot;DemoCplusplusArcmapAddin.DemoCommand&quot;</span>));</span>
+<span id="cb4-72"><a href="#cb4-72"></a>            <span class="cf">break</span>;</span>
+<span id="cb4-73"><a href="#cb4-73"></a>        <span class="cf">case</span> <span class="dv">1</span>:</span>
+<span id="cb4-74"><a href="#cb4-74"></a>            hr = itemDef-&gt;put_ID(CComBSTR(<span class="st">L&quot;DemoCplusplusArcmapAddin.DemoTool&quot;</span>));</span>
+<span id="cb4-75"><a href="#cb4-75"></a>            <span class="cf">break</span>;</span>
+<span id="cb4-76"><a href="#cb4-76"></a>        <span class="cf">default</span>:</span>
+<span id="cb4-77"><a href="#cb4-77"></a>            <span class="cf">return</span> E_INVALIDARG;</span>
+<span id="cb4-78"><a href="#cb4-78"></a>        }</span>
+<span id="cb4-79"><a href="#cb4-79"></a>        <span class="cf">if</span> (FAILED(hr)) <span class="cf">return</span> hr;</span>
+<span id="cb4-80"><a href="#cb4-80"></a>        hr = itemDef-&gt;put_Group(VARIANT_FALSE);</span>
+<span id="cb4-81"><a href="#cb4-81"></a>        <span class="cf">if</span> (FAILED(hr)) <span class="cf">return</span> hr;</span>
+<span id="cb4-82"><a href="#cb4-82"></a>        <span class="cf">return</span> E_NOTIMPL;</span>
+<span id="cb4-83"><a href="#cb4-83"></a>    }</span>
+<span id="cb4-84"><a href="#cb4-84"></a>    STDMETHOD(get_Name)(BSTR * Name)</span>
+<span id="cb4-85"><a href="#cb4-85"></a>    {</span>
+<span id="cb4-86"><a href="#cb4-86"></a>        *Name = ::SysAllocString(_T(<span class="st">&quot;C++DemoToolbar&quot;</span>));</span>
+<span id="cb4-87"><a href="#cb4-87"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb4-88"><a href="#cb4-88"></a>    }</span>
+<span id="cb4-89"><a href="#cb4-89"></a>    STDMETHOD(get_Caption)(BSTR * Name)</span>
+<span id="cb4-90"><a href="#cb4-90"></a>    {</span>
+<span id="cb4-91"><a href="#cb4-91"></a>        *Name = ::SysAllocString(_T(<span class="st">&quot;C++DemoToolbar&quot;</span>));</span>
+<span id="cb4-92"><a href="#cb4-92"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb4-93"><a href="#cb4-93"></a>    }</span>
+<span id="cb4-94"><a href="#cb4-94"></a>};</span>
+<span id="cb4-95"><a href="#cb4-95"></a></span>
+<span id="cb4-96"><a href="#cb4-96"></a>OBJECT_ENTRY_AUTO(__uuidof(DemoToolbar), CDemoToolbar)</span></code></pre></div>
 <p>效果如图：</p>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-05-12_081628.png"></p>
 <h2 id="添加停靠窗体">添加停靠窗体</h2>
@@ -776,157 +776,157 @@
 <p>略</p>
 <h3 id="停靠窗口显隐开关">停靠窗口显隐开关</h3>
 <p>添加一个显示和隐藏窗体的命令，这里直接修改<strong>DemoCommand</strong>，将之作为可停靠窗体的显隐开关。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1">    STDMETHOD(OnClick)()</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">    {</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">        USING_MFC;</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">        <span class="co">//INFORMATION_MESSAGE_BOX(_T(&quot;C++Demo命令&quot;));</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">        IDispatchPtr ipDispath;</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">        <span class="va">m_ipHookHelper</span>-&gt;get_Hook(&amp;ipDispath);</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">        IDockableWindowManagerPtr ipDockableWindowManager = ipDispath;</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">        </a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">        IUIDPtr ipUID(CLSID_UID);</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">        </a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">        TCHAR* pszClsid;</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">        ::StringFromCLSID(CLSID_DemoDockableWindow, &amp;pszClsid);</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">        CComVariant vVariant(pszClsid);</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">        ipUID-&gt;put_Value(vVariant);</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">        <span class="co">//ipUID-&gt;put_Value(_variant_t(L&quot;{D9A9C2BB-854C-4F0F-83F0-DD5B8FA3FE81}&quot;));</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18">        IDockableWindowPtr ipDockableWindow;</a>
-<a class="sourceLine" id="cb5-19" data-line-number="19">        HRESULT hr = ipDockableWindowManager-&gt;GetDockableWindow(ipUID, &amp;ipDockableWindow);</a>
-<a class="sourceLine" id="cb5-20" data-line-number="20">        <span class="cf">if</span> (hr == S_OK&amp;&amp;ipDockableWindow != NULL)</a>
-<a class="sourceLine" id="cb5-21" data-line-number="21">        {</a>
-<a class="sourceLine" id="cb5-22" data-line-number="22">            VARIANT_BOOL vbVisible = VARIANT_FALSE;</a>
-<a class="sourceLine" id="cb5-23" data-line-number="23">            ipDockableWindow-&gt;IsVisible(&amp;vbVisible);</a>
-<a class="sourceLine" id="cb5-24" data-line-number="24">            <span class="cf">if</span> (vbVisible == VARIANT_FALSE)</a>
-<a class="sourceLine" id="cb5-25" data-line-number="25">                ipDockableWindow-&gt;Show(VARIANT_TRUE);</a>
-<a class="sourceLine" id="cb5-26" data-line-number="26">            <span class="cf">else</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27">                ipDockableWindow-&gt;Show(VARIANT_FALSE);</a>
-<a class="sourceLine" id="cb5-28" data-line-number="28">        }</a>
-<a class="sourceLine" id="cb5-29" data-line-number="29">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb5-30" data-line-number="30">    }</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a>    STDMETHOD(OnClick)()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    {</span>
+<span id="cb5-3"><a href="#cb5-3"></a>        USING_MFC;</span>
+<span id="cb5-4"><a href="#cb5-4"></a>        <span class="co">//INFORMATION_MESSAGE_BOX(_T(&quot;C++Demo命令&quot;));</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>        IDispatchPtr ipDispath;</span>
+<span id="cb5-6"><a href="#cb5-6"></a>        <span class="va">m_ipHookHelper</span>-&gt;get_Hook(&amp;ipDispath);</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        IDockableWindowManagerPtr ipDockableWindowManager = ipDispath;</span>
+<span id="cb5-8"><a href="#cb5-8"></a>        </span>
+<span id="cb5-9"><a href="#cb5-9"></a>        IUIDPtr ipUID(CLSID_UID);</span>
+<span id="cb5-10"><a href="#cb5-10"></a>        </span>
+<span id="cb5-11"><a href="#cb5-11"></a>        TCHAR* pszClsid;</span>
+<span id="cb5-12"><a href="#cb5-12"></a>        ::StringFromCLSID(CLSID_DemoDockableWindow, &amp;pszClsid);</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        CComVariant vVariant(pszClsid);</span>
+<span id="cb5-14"><a href="#cb5-14"></a>        ipUID-&gt;put_Value(vVariant);</span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a>        <span class="co">//ipUID-&gt;put_Value(_variant_t(L&quot;{D9A9C2BB-854C-4F0F-83F0-DD5B8FA3FE81}&quot;));</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a>        IDockableWindowPtr ipDockableWindow;</span>
+<span id="cb5-19"><a href="#cb5-19"></a>        HRESULT hr = ipDockableWindowManager-&gt;GetDockableWindow(ipUID, &amp;ipDockableWindow);</span>
+<span id="cb5-20"><a href="#cb5-20"></a>        <span class="cf">if</span> (hr == S_OK&amp;&amp;ipDockableWindow != NULL)</span>
+<span id="cb5-21"><a href="#cb5-21"></a>        {</span>
+<span id="cb5-22"><a href="#cb5-22"></a>            VARIANT_BOOL vbVisible = VARIANT_FALSE;</span>
+<span id="cb5-23"><a href="#cb5-23"></a>            ipDockableWindow-&gt;IsVisible(&amp;vbVisible);</span>
+<span id="cb5-24"><a href="#cb5-24"></a>            <span class="cf">if</span> (vbVisible == VARIANT_FALSE)</span>
+<span id="cb5-25"><a href="#cb5-25"></a>                ipDockableWindow-&gt;Show(VARIANT_TRUE);</span>
+<span id="cb5-26"><a href="#cb5-26"></a>            <span class="cf">else</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>                ipDockableWindow-&gt;Show(VARIANT_FALSE);</span>
+<span id="cb5-28"><a href="#cb5-28"></a>        }</span>
+<span id="cb5-29"><a href="#cb5-29"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    }</span></code></pre></div>
 <p>类代码</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">// DemoDockableWindow.h : CDemoDockableWindow 的声明</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="pp">#pragma once</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="pp">#include </span><span class="im">&quot;DlgDockableWindow.h&quot;</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="pp">#endif</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="kw">using</span> <span class="kw">namespace</span> ATL;</a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">// CDemoDockableWindow</span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="kw">class</span> ATL_NO_VTABLE CDemoDockableWindow :</a>
-<a class="sourceLine" id="cb6-23" data-line-number="23">    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</a>
-<a class="sourceLine" id="cb6-24" data-line-number="24">    <span class="kw">public</span> CComCoClass&lt;CDemoDockableWindow, &amp;CLSID_DemoDockableWindow&gt;,</a>
-<a class="sourceLine" id="cb6-25" data-line-number="25">    <span class="kw">public</span> IDemoDockableWindow,</a>
-<a class="sourceLine" id="cb6-26" data-line-number="26">    <span class="kw">public</span> IDockableWindowDef</a>
-<a class="sourceLine" id="cb6-27" data-line-number="27">{</a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb6-29" data-line-number="29">    CDemoDockableWindow() :<span class="va">m_pDlg</span>(NULL)</a>
-<a class="sourceLine" id="cb6-30" data-line-number="30">    {</a>
-<a class="sourceLine" id="cb6-31" data-line-number="31">    }</a>
-<a class="sourceLine" id="cb6-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb6-33" data-line-number="33">    DECLARE_REGISTRY_RESOURCEID(IDR_DEMODOCKABLEWINDOW)</a>
-<a class="sourceLine" id="cb6-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb6-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb6-36" data-line-number="36">    BEGIN_COM_MAP(CDemoDockableWindow)</a>
-<a class="sourceLine" id="cb6-37" data-line-number="37">        COM_INTERFACE_ENTRY(IDemoDockableWindow)</a>
-<a class="sourceLine" id="cb6-38" data-line-number="38">        COM_INTERFACE_ENTRY(IDockableWindowDef)</a>
-<a class="sourceLine" id="cb6-39" data-line-number="39">    END_COM_MAP()</a>
-<a class="sourceLine" id="cb6-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb6-41" data-line-number="41">    BEGIN_CATEGORY_MAP(CDemoDockableWindow)</a>
-<a class="sourceLine" id="cb6-42" data-line-number="42">        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</a>
-<a class="sourceLine" id="cb6-43" data-line-number="43">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</a>
-<a class="sourceLine" id="cb6-44" data-line-number="44">        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</a>
-<a class="sourceLine" id="cb6-45" data-line-number="45">        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</a>
-<a class="sourceLine" id="cb6-46" data-line-number="46">    END_CATEGORY_MAP()</a>
-<a class="sourceLine" id="cb6-47" data-line-number="47"></a>
-<a class="sourceLine" id="cb6-48" data-line-number="48">    DECLARE_PROTECT_FINAL_CONSTRUCT()</a>
-<a class="sourceLine" id="cb6-49" data-line-number="49"></a>
-<a class="sourceLine" id="cb6-50" data-line-number="50">    HRESULT FinalConstruct()</a>
-<a class="sourceLine" id="cb6-51" data-line-number="51">    {</a>
-<a class="sourceLine" id="cb6-52" data-line-number="52">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-53" data-line-number="53">    }</a>
-<a class="sourceLine" id="cb6-54" data-line-number="54"></a>
-<a class="sourceLine" id="cb6-55" data-line-number="55">    <span class="dt">void</span> FinalRelease()</a>
-<a class="sourceLine" id="cb6-56" data-line-number="56">    {</a>
-<a class="sourceLine" id="cb6-57" data-line-number="57">    }</a>
-<a class="sourceLine" id="cb6-58" data-line-number="58"><span class="kw">private</span>:</a>
-<a class="sourceLine" id="cb6-59" data-line-number="59">    CDlgDockableWindow* <span class="va">m_pDlg</span>;</a>
-<a class="sourceLine" id="cb6-60" data-line-number="60">    IHookHelperPtr <span class="va">m_ipHookHelper</span>;</a>
-<a class="sourceLine" id="cb6-61" data-line-number="61"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb6-62" data-line-number="62"></a>
-<a class="sourceLine" id="cb6-63" data-line-number="63"></a>
-<a class="sourceLine" id="cb6-64" data-line-number="64"></a>
-<a class="sourceLine" id="cb6-65" data-line-number="65"></a>
-<a class="sourceLine" id="cb6-66" data-line-number="66">    <span class="co">// IDockableWindowDef Methods</span></a>
-<a class="sourceLine" id="cb6-67" data-line-number="67"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb6-68" data-line-number="68">    STDMETHOD(OnCreate)(LPDISPATCH hook)</a>
-<a class="sourceLine" id="cb6-69" data-line-number="69">    {</a>
-<a class="sourceLine" id="cb6-70" data-line-number="70">        <span class="va">m_ipHookHelper</span>.CreateInstance(CLSID_HookHelper);</a>
-<a class="sourceLine" id="cb6-71" data-line-number="71">        HRESULT hr = <span class="va">m_ipHookHelper</span>-&gt;putref_Hook(hook);</a>
-<a class="sourceLine" id="cb6-72" data-line-number="72">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-73" data-line-number="73">    }</a>
-<a class="sourceLine" id="cb6-74" data-line-number="74">    STDMETHOD(get_ChildHWND)(OLE_HANDLE * hWnd)</a>
-<a class="sourceLine" id="cb6-75" data-line-number="75">    {</a>
-<a class="sourceLine" id="cb6-76" data-line-number="76">        USING_MFC;</a>
-<a class="sourceLine" id="cb6-77" data-line-number="77">        <span class="cf">if</span> (<span class="va">m_pDlg</span> == NULL)</a>
-<a class="sourceLine" id="cb6-78" data-line-number="78">        {</a>
-<a class="sourceLine" id="cb6-79" data-line-number="79">            <span class="va">m_pDlg</span> = <span class="kw">new</span> CDlgDockableWindow();</a>
-<a class="sourceLine" id="cb6-80" data-line-number="80">            <span class="va">m_pDlg</span>-&gt;Create(CDlgDockableWindow::IDD);</a>
-<a class="sourceLine" id="cb6-81" data-line-number="81">        }</a>
-<a class="sourceLine" id="cb6-82" data-line-number="82">        *hWnd = (OLE_HANDLE)<span class="va">m_pDlg</span>-&gt;<span class="va">m_hWnd</span>;</a>
-<a class="sourceLine" id="cb6-83" data-line-number="83">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-84" data-line-number="84">    }</a>
-<a class="sourceLine" id="cb6-85" data-line-number="85">    STDMETHOD(get_Name)(BSTR * Name)</a>
-<a class="sourceLine" id="cb6-86" data-line-number="86">    {</a>
-<a class="sourceLine" id="cb6-87" data-line-number="87">        *Name = ::SysAllocString(<span class="st">L&quot;DemoDockableWindow&quot;</span>);</a>
-<a class="sourceLine" id="cb6-88" data-line-number="88">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-89" data-line-number="89">    }</a>
-<a class="sourceLine" id="cb6-90" data-line-number="90">    STDMETHOD(get_Caption)(BSTR * Caption)</a>
-<a class="sourceLine" id="cb6-91" data-line-number="91">    {</a>
-<a class="sourceLine" id="cb6-92" data-line-number="92">        *Caption = ::SysAllocString(<span class="st">L&quot;Demo停靠窗体&quot;</span>);</a>
-<a class="sourceLine" id="cb6-93" data-line-number="93">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-94" data-line-number="94">    }</a>
-<a class="sourceLine" id="cb6-95" data-line-number="95">    STDMETHOD(OnDestroy)()</a>
-<a class="sourceLine" id="cb6-96" data-line-number="96">    {</a>
-<a class="sourceLine" id="cb6-97" data-line-number="97">        USING_MFC;</a>
-<a class="sourceLine" id="cb6-98" data-line-number="98">        <span class="cf">if</span> (<span class="va">m_pDlg</span> != NULL&amp;&amp;TRUE == ::IsWindow(<span class="va">m_pDlg</span>-&gt;GetSafeHwnd()))</a>
-<a class="sourceLine" id="cb6-99" data-line-number="99">        {</a>
-<a class="sourceLine" id="cb6-100" data-line-number="100">            <span class="va">m_pDlg</span>-&gt;DestroyWindow();</a>
-<a class="sourceLine" id="cb6-101" data-line-number="101">            <span class="va">m_pDlg</span> = NULL;</a>
-<a class="sourceLine" id="cb6-102" data-line-number="102">        }</a>
-<a class="sourceLine" id="cb6-103" data-line-number="103">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-104" data-line-number="104">    }</a>
-<a class="sourceLine" id="cb6-105" data-line-number="105">    STDMETHOD(get_UserData)(VARIANT * data)</a>
-<a class="sourceLine" id="cb6-106" data-line-number="106">    {</a>
-<a class="sourceLine" id="cb6-107" data-line-number="107">        ::VariantInit(data);</a>
-<a class="sourceLine" id="cb6-108" data-line-number="108">        <span class="cf">return</span> S_OK;</a>
-<a class="sourceLine" id="cb6-109" data-line-number="109">    }</a>
-<a class="sourceLine" id="cb6-110" data-line-number="110">};</a>
-<a class="sourceLine" id="cb6-111" data-line-number="111"></a>
-<a class="sourceLine" id="cb6-112" data-line-number="112">OBJECT_ENTRY_AUTO(__uuidof(DemoDockableWindow), CDemoDockableWindow)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">// DemoDockableWindow.h : CDemoDockableWindow 的声明</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="pp">#pragma once</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="pp">#include </span><span class="im">&quot;resource.h&quot;</span><span class="pp">       </span><span class="co">// 主符号</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="pp">#include </span><span class="im">&quot;DemoCplusplusArcmapAddin_i.h&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="pp">#include </span><span class="im">&quot;DlgDockableWindow.h&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="pp">#if defined(_WIN32_WCE) &amp;&amp; !defined(_CE_DCOM) &amp;&amp; !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="pp">#error &quot;Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="pp">#endif</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="kw">using</span> <span class="kw">namespace</span> ATL;</span>
+<span id="cb6-18"><a href="#cb6-18"></a></span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">// CDemoDockableWindow</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="kw">class</span> ATL_NO_VTABLE CDemoDockableWindow :</span>
+<span id="cb6-23"><a href="#cb6-23"></a>    <span class="kw">public</span> CComObjectRootEx&lt;CComSingleThreadModel&gt;,</span>
+<span id="cb6-24"><a href="#cb6-24"></a>    <span class="kw">public</span> CComCoClass&lt;CDemoDockableWindow, &amp;CLSID_DemoDockableWindow&gt;,</span>
+<span id="cb6-25"><a href="#cb6-25"></a>    <span class="kw">public</span> IDemoDockableWindow,</span>
+<span id="cb6-26"><a href="#cb6-26"></a>    <span class="kw">public</span> IDockableWindowDef</span>
+<span id="cb6-27"><a href="#cb6-27"></a>{</span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="kw">public</span>:</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    CDemoDockableWindow() :<span class="va">m_pDlg</span>(NULL)</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    {</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    }</span>
+<span id="cb6-32"><a href="#cb6-32"></a></span>
+<span id="cb6-33"><a href="#cb6-33"></a>    DECLARE_REGISTRY_RESOURCEID(IDR_DEMODOCKABLEWINDOW)</span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a></span>
+<span id="cb6-36"><a href="#cb6-36"></a>    BEGIN_COM_MAP(CDemoDockableWindow)</span>
+<span id="cb6-37"><a href="#cb6-37"></a>        COM_INTERFACE_ENTRY(IDemoDockableWindow)</span>
+<span id="cb6-38"><a href="#cb6-38"></a>        COM_INTERFACE_ENTRY(IDockableWindowDef)</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    END_COM_MAP()</span>
+<span id="cb6-40"><a href="#cb6-40"></a></span>
+<span id="cb6-41"><a href="#cb6-41"></a>    BEGIN_CATEGORY_MAP(CDemoDockableWindow)</span>
+<span id="cb6-42"><a href="#cb6-42"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</span>
+<span id="cb6-43"><a href="#cb6-43"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GxDockableWindows))</span>
+<span id="cb6-44"><a href="#cb6-44"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_GMxDockableWindows))</span>
+<span id="cb6-45"><a href="#cb6-45"></a>        IMPLEMENTED_CATEGORY(__uuidof(CATID_SxDockableWindows))</span>
+<span id="cb6-46"><a href="#cb6-46"></a>    END_CATEGORY_MAP()</span>
+<span id="cb6-47"><a href="#cb6-47"></a></span>
+<span id="cb6-48"><a href="#cb6-48"></a>    DECLARE_PROTECT_FINAL_CONSTRUCT()</span>
+<span id="cb6-49"><a href="#cb6-49"></a></span>
+<span id="cb6-50"><a href="#cb6-50"></a>    HRESULT FinalConstruct()</span>
+<span id="cb6-51"><a href="#cb6-51"></a>    {</span>
+<span id="cb6-52"><a href="#cb6-52"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-53"><a href="#cb6-53"></a>    }</span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a>    <span class="dt">void</span> FinalRelease()</span>
+<span id="cb6-56"><a href="#cb6-56"></a>    {</span>
+<span id="cb6-57"><a href="#cb6-57"></a>    }</span>
+<span id="cb6-58"><a href="#cb6-58"></a><span class="kw">private</span>:</span>
+<span id="cb6-59"><a href="#cb6-59"></a>    CDlgDockableWindow* <span class="va">m_pDlg</span>;</span>
+<span id="cb6-60"><a href="#cb6-60"></a>    IHookHelperPtr <span class="va">m_ipHookHelper</span>;</span>
+<span id="cb6-61"><a href="#cb6-61"></a><span class="kw">public</span>:</span>
+<span id="cb6-62"><a href="#cb6-62"></a></span>
+<span id="cb6-63"><a href="#cb6-63"></a></span>
+<span id="cb6-64"><a href="#cb6-64"></a></span>
+<span id="cb6-65"><a href="#cb6-65"></a></span>
+<span id="cb6-66"><a href="#cb6-66"></a>    <span class="co">// IDockableWindowDef Methods</span></span>
+<span id="cb6-67"><a href="#cb6-67"></a><span class="kw">public</span>:</span>
+<span id="cb6-68"><a href="#cb6-68"></a>    STDMETHOD(OnCreate)(LPDISPATCH hook)</span>
+<span id="cb6-69"><a href="#cb6-69"></a>    {</span>
+<span id="cb6-70"><a href="#cb6-70"></a>        <span class="va">m_ipHookHelper</span>.CreateInstance(CLSID_HookHelper);</span>
+<span id="cb6-71"><a href="#cb6-71"></a>        HRESULT hr = <span class="va">m_ipHookHelper</span>-&gt;putref_Hook(hook);</span>
+<span id="cb6-72"><a href="#cb6-72"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-73"><a href="#cb6-73"></a>    }</span>
+<span id="cb6-74"><a href="#cb6-74"></a>    STDMETHOD(get_ChildHWND)(OLE_HANDLE * hWnd)</span>
+<span id="cb6-75"><a href="#cb6-75"></a>    {</span>
+<span id="cb6-76"><a href="#cb6-76"></a>        USING_MFC;</span>
+<span id="cb6-77"><a href="#cb6-77"></a>        <span class="cf">if</span> (<span class="va">m_pDlg</span> == NULL)</span>
+<span id="cb6-78"><a href="#cb6-78"></a>        {</span>
+<span id="cb6-79"><a href="#cb6-79"></a>            <span class="va">m_pDlg</span> = <span class="kw">new</span> CDlgDockableWindow();</span>
+<span id="cb6-80"><a href="#cb6-80"></a>            <span class="va">m_pDlg</span>-&gt;Create(CDlgDockableWindow::IDD);</span>
+<span id="cb6-81"><a href="#cb6-81"></a>        }</span>
+<span id="cb6-82"><a href="#cb6-82"></a>        *hWnd = (OLE_HANDLE)<span class="va">m_pDlg</span>-&gt;<span class="va">m_hWnd</span>;</span>
+<span id="cb6-83"><a href="#cb6-83"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-84"><a href="#cb6-84"></a>    }</span>
+<span id="cb6-85"><a href="#cb6-85"></a>    STDMETHOD(get_Name)(BSTR * Name)</span>
+<span id="cb6-86"><a href="#cb6-86"></a>    {</span>
+<span id="cb6-87"><a href="#cb6-87"></a>        *Name = ::SysAllocString(<span class="st">L&quot;DemoDockableWindow&quot;</span>);</span>
+<span id="cb6-88"><a href="#cb6-88"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-89"><a href="#cb6-89"></a>    }</span>
+<span id="cb6-90"><a href="#cb6-90"></a>    STDMETHOD(get_Caption)(BSTR * Caption)</span>
+<span id="cb6-91"><a href="#cb6-91"></a>    {</span>
+<span id="cb6-92"><a href="#cb6-92"></a>        *Caption = ::SysAllocString(<span class="st">L&quot;Demo停靠窗体&quot;</span>);</span>
+<span id="cb6-93"><a href="#cb6-93"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-94"><a href="#cb6-94"></a>    }</span>
+<span id="cb6-95"><a href="#cb6-95"></a>    STDMETHOD(OnDestroy)()</span>
+<span id="cb6-96"><a href="#cb6-96"></a>    {</span>
+<span id="cb6-97"><a href="#cb6-97"></a>        USING_MFC;</span>
+<span id="cb6-98"><a href="#cb6-98"></a>        <span class="cf">if</span> (<span class="va">m_pDlg</span> != NULL&amp;&amp;TRUE == ::IsWindow(<span class="va">m_pDlg</span>-&gt;GetSafeHwnd()))</span>
+<span id="cb6-99"><a href="#cb6-99"></a>        {</span>
+<span id="cb6-100"><a href="#cb6-100"></a>            <span class="va">m_pDlg</span>-&gt;DestroyWindow();</span>
+<span id="cb6-101"><a href="#cb6-101"></a>            <span class="va">m_pDlg</span> = NULL;</span>
+<span id="cb6-102"><a href="#cb6-102"></a>        }</span>
+<span id="cb6-103"><a href="#cb6-103"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-104"><a href="#cb6-104"></a>    }</span>
+<span id="cb6-105"><a href="#cb6-105"></a>    STDMETHOD(get_UserData)(VARIANT * data)</span>
+<span id="cb6-106"><a href="#cb6-106"></a>    {</span>
+<span id="cb6-107"><a href="#cb6-107"></a>        ::VariantInit(data);</span>
+<span id="cb6-108"><a href="#cb6-108"></a>        <span class="cf">return</span> S_OK;</span>
+<span id="cb6-109"><a href="#cb6-109"></a>    }</span>
+<span id="cb6-110"><a href="#cb6-110"></a>};</span>
+<span id="cb6-111"><a href="#cb6-111"></a></span>
+<span id="cb6-112"><a href="#cb6-112"></a>OBJECT_ENTRY_AUTO(__uuidof(DemoDockableWindow), CDemoDockableWindow)</span></code></pre></div>
 <p>效果如图</p>
 <p><img src="/2018/Archive/Cplusplus开发ArcMap-Addin/2018-05-12_092044.png"></p>
 <p><strong>重要</strong></p>
 <ul>
 <li><p>要用esriRegasm.exe注册</p></li>
-<li><div class="sourceCode" id="cb7"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"> BEGIN_CATEGORY_MAP(CDemoDockableWindow)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"> END_CATEGORY_MAP()</a></code></pre></div>
+<li><div class="sourceCode" id="cb7"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a> BEGIN_CATEGORY_MAP(CDemoDockableWindow)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  IMPLEMENTED_CATEGORY(__uuidof(CATID_MxDockableWindows))</span>
+<span id="cb7-3"><a href="#cb7-3"></a> END_CATEGORY_MAP()</span></code></pre></div>
 <p><strong>以上两者缺一不可</strong></p></li>
 </ul>
 <p>以前的博客 <a href="http://ithinking.cc/2018/04/06/Cplusplus开发ArcMap-Addin注意事项">Cplusplus开发ArcMap-Addin注意事项</a></p>
@@ -1056,7 +1056,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
