@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Mon Nov 04 2019 10:09:17 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Dec 09 2019 09:29:15 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Dec 09 2019 09:42:28 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2019/C-：调用子进程并获取控制台输出/index.html",
     "headline": "C#：调用子进程并获取控制台输出",
     "datePublished": "Mon Nov 04 2019 10:09:17 GMT+0800",
-    "dateModified": "Mon Dec 09 2019 09:29:15 GMT+0800",
+    "dateModified": "Mon Dec 09 2019 09:42:28 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c调用子进程并获取控制台输出"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#：调用子进程并获取控制台输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#要干什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">要干什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关键点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用者类"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">调用者类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ui代码"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">UI代码</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c调用子进程并获取控制台输出"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#：调用子进程并获取控制台输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#要干什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">要干什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关键点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用者类"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">调用者类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ui代码"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">UI代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#效果"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">效果</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -749,76 +749,75 @@
         xmlns:local=&quot;clr-namespace:Sharp.Utils.Wpf.Terminal.Demo&quot;
         mc:Ignorable=&quot;d&quot;
         xmlns:smt=&quot;clr-namespace:Simple.Wpf.Terminal;assembly=Simple.Wpf.Terminal&quot;
-        Title=&quot;MainWindow&quot; Height=&quot;450&quot; Width=&quot;800&quot;&gt;
+        Title=&quot;MainWindow&quot; Height=&quot;450&quot; Width=&quot;800&quot; Icon=&quot;Resources/terminator.png&quot;&gt;
     &lt;Grid&gt;
         &lt;Grid.RowDefinitions&gt;
             &lt;RowDefinition Height=&quot;*&quot;/&gt;
             &lt;RowDefinition Height=&quot;Auto&quot;/&gt;
         &lt;/Grid.RowDefinitions&gt;
-        &lt;smt:Terminal ItemsSource=&quot;{Binding Path=Entries}&quot;/&gt;
-        &lt;Button Click=&quot;Button_Click&quot; Grid.Row=&quot;1&quot; Height=&quot;30&quot; Margin=&quot;10,10&quot;&gt;调用&lt;/Button&gt;
+        &lt;Grid.ColumnDefinitions&gt;
+            &lt;ColumnDefinition Width=&quot;*&quot;/&gt;
+            &lt;ColumnDefinition Width=&quot;*&quot;/&gt;
+        &lt;/Grid.ColumnDefinitions&gt;
+        &lt;smt:Terminal Grid.ColumnSpan=&quot;2&quot; ItemsSource=&quot;{Binding Path=Entries}&quot;/&gt;
+        &lt;Button Click=&quot;Async_Click&quot; Grid.Row=&quot;1&quot; Grid.Column=&quot;0&quot; Height=&quot;30&quot; Margin=&quot;10,10&quot;&gt;不等待调用&lt;/Button&gt;
+        &lt;Button Click=&quot;Sync_Click&quot; Grid.Row=&quot;1&quot; Grid.Column=&quot;1&quot; Height=&quot;30&quot; Margin=&quot;10,10&quot;&gt;等待调用&lt;/Button&gt;
     &lt;/Grid&gt;
 &lt;/Window&gt;</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">using</span> System;</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">ObjectModel</span>;</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">using</span> System.<span class="fu">Windows</span>;</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Controls</span>;</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Data</span>;</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Documents</span>;</span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Input</span>;</span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Media</span>;</span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Media</span>.<span class="fu">Imaging</span>;</span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Navigation</span>;</span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Shapes</span>;</span>
-<span id="cb3-16"><a href="#cb3-16"></a></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">namespace</span> Sharp.<span class="fu">Utils</span>.<span class="fu">Wpf</span>.<span class="fu">Terminal</span>.<span class="fu">Demo</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>{</span>
-<span id="cb3-19"><a href="#cb3-19"></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a>    <span class="co">/// MainWindow.xaml 的交互逻辑</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> MainWindow : Window</span>
-<span id="cb3-23"><a href="#cb3-23"></a>    {</span>
-<span id="cb3-24"><a href="#cb3-24"></a>        <span class="kw">public</span> <span class="fu">MainWindow</span>()</span>
-<span id="cb3-25"><a href="#cb3-25"></a>        {</span>
-<span id="cb3-26"><a href="#cb3-26"></a>            <span class="fu">InitializeComponent</span>();</span>
-<span id="cb3-27"><a href="#cb3-27"></a>            DataContext = <span class="kw">this</span>;</span>
-<span id="cb3-28"><a href="#cb3-28"></a>            <span class="kw">this</span>.<span class="fu">Loaded</span> += MainWindow_Loaded;</span>
-<span id="cb3-29"><a href="#cb3-29"></a>        }</span>
-<span id="cb3-30"><a href="#cb3-30"></a></span>
-<span id="cb3-31"><a href="#cb3-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">MainWindow_Loaded</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
-<span id="cb3-32"><a href="#cb3-32"></a>        {</span>
-<span id="cb3-33"><a href="#cb3-33"></a>            </span>
-<span id="cb3-34"><a href="#cb3-34"></a>        }</span>
-<span id="cb3-35"><a href="#cb3-35"></a></span>
-<span id="cb3-36"><a href="#cb3-36"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Invoker_StandardOutputChanged</span>(<span class="dt">object</span> sender, OutputChangedEvent e)</span>
-<span id="cb3-37"><a href="#cb3-37"></a>        {</span>
-<span id="cb3-38"><a href="#cb3-38"></a>            Entries.<span class="fu">Add</span>(e.<span class="fu">Content</span>);            </span>
-<span id="cb3-39"><a href="#cb3-39"></a>        }</span>
-<span id="cb3-40"><a href="#cb3-40"></a></span>
-<span id="cb3-41"><a href="#cb3-41"></a>        <span class="kw">public</span> ObservableCollection&lt;<span class="dt">string</span>&gt; Entries</span>
-<span id="cb3-42"><a href="#cb3-42"></a>        {</span>
-<span id="cb3-43"><a href="#cb3-43"></a>            <span class="kw">get</span> { <span class="kw">return</span> (ObservableCollection&lt;<span class="dt">string</span>&gt;)<span class="fu">GetValue</span>(EntriesProperty); }</span>
-<span id="cb3-44"><a href="#cb3-44"></a>            <span class="kw">set</span> { <span class="fu">SetValue</span>(EntriesProperty, value); }</span>
-<span id="cb3-45"><a href="#cb3-45"></a>        }</span>
-<span id="cb3-46"><a href="#cb3-46"></a></span>
-<span id="cb3-47"><a href="#cb3-47"></a>        <span class="co">// Using a DependencyProperty as the backing store for Entries.  This enables animation, styling, binding, etc...</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty EntriesProperty =</span>
-<span id="cb3-49"><a href="#cb3-49"></a>            DependencyProperty.<span class="fu">Register</span>(<span class="st">&quot;Entries&quot;</span>, <span class="kw">typeof</span>(ObservableCollection&lt;<span class="dt">string</span>&gt;), <span class="kw">typeof</span>(MainWindow), <span class="kw">new</span> <span class="fu">PropertyMetadata</span>(<span class="kw">null</span>));</span>
-<span id="cb3-50"><a href="#cb3-50"></a></span>
-<span id="cb3-51"><a href="#cb3-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Button_Click</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
-<span id="cb3-52"><a href="#cb3-52"></a>        {</span>
-<span id="cb3-53"><a href="#cb3-53"></a>            Invoker invoker = <span class="kw">new</span> <span class="fu">Invoker</span>();</span>
-<span id="cb3-54"><a href="#cb3-54"></a>            invoker.<span class="fu">StandardOutputChanged</span> += Invoker_StandardOutputChanged;</span>
-<span id="cb3-55"><a href="#cb3-55"></a>            Entries = <span class="kw">new</span> ObservableCollection&lt;<span class="dt">string</span>&gt;();</span>
-<span id="cb3-56"><a href="#cb3-56"></a>            invoker.<span class="fu">StartAsync</span>(@<span class="st">&quot;C:\Windows\System32\PING.EXE&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;127.0.0.1&quot;</span>);</span>
-<span id="cb3-57"><a href="#cb3-57"></a>            <span class="co">//invoker.Start(@&quot;C:\Windows\System32\PING.EXE&quot;, &quot;&quot;, () =&gt; System.Windows.Forms.Application.DoEvents(), &quot;127.0.0.1&quot;);</span></span>
-<span id="cb3-58"><a href="#cb3-58"></a>        }</span>
-<span id="cb3-59"><a href="#cb3-59"></a>    }</span>
-<span id="cb3-60"><a href="#cb3-60"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">ObjectModel</span>;</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">using</span> System.<span class="fu">Windows</span>;</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">namespace</span> Sharp.<span class="fu">Utils</span>.<span class="fu">Wpf</span>.<span class="fu">Terminal</span>.<span class="fu">Demo</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>{</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co">/// MainWindow.xaml 的交互逻辑</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> MainWindow : Window</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    {</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        <span class="kw">public</span> <span class="fu">MainWindow</span>()</span>
+<span id="cb3-12"><a href="#cb3-12"></a>        {</span>
+<span id="cb3-13"><a href="#cb3-13"></a>            <span class="fu">InitializeComponent</span>();</span>
+<span id="cb3-14"><a href="#cb3-14"></a>            DataContext = <span class="kw">this</span>;</span>
+<span id="cb3-15"><a href="#cb3-15"></a>            <span class="kw">this</span>.<span class="fu">Loaded</span> += MainWindow_Loaded;</span>
+<span id="cb3-16"><a href="#cb3-16"></a>        }</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">MainWindow_Loaded</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>        {</span>
+<span id="cb3-20"><a href="#cb3-20"></a>            Entries = <span class="kw">new</span> ObservableCollection&lt;<span class="dt">string</span>&gt;();</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        }</span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Invoker_StandardOutputChanged</span>(<span class="dt">object</span> sender, OutputChangedEvent e)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        {</span>
+<span id="cb3-25"><a href="#cb3-25"></a>            Entries.<span class="fu">Add</span>(e.<span class="fu">Content</span>);            </span>
+<span id="cb3-26"><a href="#cb3-26"></a>        }</span>
+<span id="cb3-27"><a href="#cb3-27"></a></span>
+<span id="cb3-28"><a href="#cb3-28"></a>        <span class="kw">public</span> ObservableCollection&lt;<span class="dt">string</span>&gt; Entries</span>
+<span id="cb3-29"><a href="#cb3-29"></a>        {</span>
+<span id="cb3-30"><a href="#cb3-30"></a>            <span class="kw">get</span> { <span class="kw">return</span> (ObservableCollection&lt;<span class="dt">string</span>&gt;)<span class="fu">GetValue</span>(EntriesProperty); }</span>
+<span id="cb3-31"><a href="#cb3-31"></a>            <span class="kw">set</span> { <span class="fu">SetValue</span>(EntriesProperty, value); }</span>
+<span id="cb3-32"><a href="#cb3-32"></a>        }</span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a>        <span class="co">// Using a DependencyProperty as the backing store for Entries.  This enables animation, styling, binding, etc...</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty EntriesProperty =</span>
+<span id="cb3-36"><a href="#cb3-36"></a>            DependencyProperty.<span class="fu">Register</span>(<span class="st">&quot;Entries&quot;</span>, <span class="kw">typeof</span>(ObservableCollection&lt;<span class="dt">string</span>&gt;), <span class="kw">typeof</span>(MainWindow), <span class="kw">new</span> <span class="fu">PropertyMetadata</span>(<span class="kw">null</span>));</span>
+<span id="cb3-37"><a href="#cb3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Async_Click</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
+<span id="cb3-39"><a href="#cb3-39"></a>        {</span>
+<span id="cb3-40"><a href="#cb3-40"></a>            Invoker invoker = <span class="kw">new</span> <span class="fu">Invoker</span>();</span>
+<span id="cb3-41"><a href="#cb3-41"></a>            invoker.<span class="fu">StandardOutputChanged</span> += Invoker_StandardOutputChanged;</span>
+<span id="cb3-42"><a href="#cb3-42"></a>            invoker.<span class="fu">StartAsync</span>(@<span class="st">&quot;C:\Windows\System32\PING.EXE&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;127.0.0.1&quot;</span>);</span>
+<span id="cb3-43"><a href="#cb3-43"></a>           </span>
+<span id="cb3-44"><a href="#cb3-44"></a>        }</span>
+<span id="cb3-45"><a href="#cb3-45"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Sync_Click</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
+<span id="cb3-46"><a href="#cb3-46"></a>        {</span>
+<span id="cb3-47"><a href="#cb3-47"></a>            Invoker invoker = <span class="kw">new</span> <span class="fu">Invoker</span>();</span>
+<span id="cb3-48"><a href="#cb3-48"></a>            invoker.<span class="fu">StandardOutputChanged</span> += Invoker_StandardOutputChanged;</span>
+<span id="cb3-49"><a href="#cb3-49"></a>            invoker.<span class="fu">Start</span>(@<span class="st">&quot;C:\Windows\System32\PING.EXE&quot;</span>, <span class="st">&quot;&quot;</span>, () =&gt; System.<span class="fu">Windows</span>.<span class="fu">Forms</span>.<span class="fu">Application</span>.<span class="fu">DoEvents</span>(), <span class="st">&quot;127.0.0.1&quot;</span>);</span>
+<span id="cb3-50"><a href="#cb3-50"></a>        }</span>
+<span id="cb3-51"><a href="#cb3-51"></a>    }</span>
+<span id="cb3-52"><a href="#cb3-52"></a>}</span></code></pre></div>
+<h3 id="效果">效果</h3>
+<p><img src="/2019/C-：调用子进程并获取控制台输出/pic.gif"></p>
 
         
     
