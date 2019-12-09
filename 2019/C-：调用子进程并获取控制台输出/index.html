@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Mon Nov 04 2019 10:09:17 GMT+0800" />
-        <meta property="article:modified_time" content="Mon Nov 04 2019 10:53:56 GMT+0800" />
+        <meta property="article:modified_time" content="Mon Dec 09 2019 09:29:15 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://ithinking.cc/2019/C-：调用子进程并获取控制台输出/index.html",
     "headline": "C#：调用子进程并获取控制台输出",
     "datePublished": "Mon Nov 04 2019 10:09:17 GMT+0800",
-    "dateModified": "Mon Nov 04 2019 10:53:56 GMT+0800",
+    "dateModified": "Mon Dec 09 2019 09:29:15 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c调用子进程并获取控制台输出"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#：调用子进程并获取控制台输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#要干什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">要干什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关键点</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c调用子进程并获取控制台输出"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#：调用子进程并获取控制台输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#要干什么"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">要干什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关键点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用者类"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">调用者类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ui代码"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">UI代码</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -486,7 +486,339 @@
 <h2 id="要干什么">要干什么</h2>
 <p>调用一个脚本执行任务，并且将控制台内容重定向到本进程中一个类似控制台的窗口上，并等待子进程完成任务。</p>
 <h2 id="关键点">关键点</h2>
-<p>因为进程是WPF进程，为了界面上的平滑，不能阻塞主线程。如果阻塞了主线程，控制台就无法实时输出了进程的输出。</p>
+<p>因为进程是WPF进程，为了界面上的平滑，不能阻塞主线程。如果阻塞了主线程，控制台就无法实时输出了进程的输出。所以子进程的启动必须在子线程中，然后主线程，启动一个窗口显示子进程的命令行输出。</p>
+<h2 id="实现">实现</h2>
+<h3 id="调用者类">调用者类</h3>
+<p>调用者类使用 BackgroundWorker 类在后台启动子进程并重定向标准输出，在子进程运行的时候抓取子进程的输出，并以事件的方式传回给主线程。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">using</span> System;</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">using</span> System.<span class="fu">ComponentModel</span>;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">using</span> System.<span class="fu">Diagnostics</span>;</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">namespace</span> Sharp.<span class="fu">Utils</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>{</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="kw">public</span> <span class="kw">class</span> OutputChangedEvent : EventArgs</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    {</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        <span class="kw">internal</span> <span class="fu">OutputChangedEvent</span>(<span class="dt">string</span> content)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        {</span>
+<span id="cb1-15"><a href="#cb1-15"></a>            Content = content;</span>
+<span id="cb1-16"><a href="#cb1-16"></a>        }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        <span class="kw">public</span> <span class="dt">string</span> Content { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; }</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    }</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="kw">public</span> <span class="kw">enum</span> WorkerStatus</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    {</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        NotStart = <span class="dv">-100</span>,</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        Cancelled = <span class="dv">-99</span>,</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        Exception = <span class="dv">-98</span>,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        Normal = <span class="dv">0</span>,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        ProcessError</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    }</span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="kw">public</span> <span class="kw">class</span> Invoker : IDisposable</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    {</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        <span class="kw">private</span> <span class="kw">enum</span> OutputStateType { StandardOutput, StandardError }</span>
+<span id="cb1-33"><a href="#cb1-33"></a>        <span class="kw">private</span> <span class="kw">class</span> OutputState</span>
+<span id="cb1-34"><a href="#cb1-34"></a>        {</span>
+<span id="cb1-35"><a href="#cb1-35"></a>            <span class="kw">public</span> <span class="fu">OutputState</span>(OutputStateType type, <span class="dt">string</span> data)</span>
+<span id="cb1-36"><a href="#cb1-36"></a>            {</span>
+<span id="cb1-37"><a href="#cb1-37"></a>                Type = type;</span>
+<span id="cb1-38"><a href="#cb1-38"></a>                Data = data;</span>
+<span id="cb1-39"><a href="#cb1-39"></a>            }</span>
+<span id="cb1-40"><a href="#cb1-40"></a>            <span class="kw">public</span> OutputStateType Type { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; }</span>
+<span id="cb1-41"><a href="#cb1-41"></a>            <span class="kw">public</span> <span class="dt">string</span> Data { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; }</span>
+<span id="cb1-42"><a href="#cb1-42"></a>        }</span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a>        <span class="kw">public</span> <span class="kw">event</span> EventHandler&lt;OutputChangedEvent&gt; StandardOutputChanged;</span>
+<span id="cb1-45"><a href="#cb1-45"></a>        <span class="kw">public</span> <span class="kw">event</span> EventHandler&lt;OutputChangedEvent&gt; StandardErrorChanged;</span>
+<span id="cb1-46"><a href="#cb1-46"></a>        <span class="kw">public</span> <span class="kw">event</span> EventHandler&lt;RunWorkerCompletedEventArgs&gt; RunWorkerCompleted;</span>
+<span id="cb1-47"><a href="#cb1-47"></a></span>
+<span id="cb1-48"><a href="#cb1-48"></a>        <span class="kw">protected</span> System.<span class="fu">Threading</span>.<span class="fu">EventWaitHandle</span> WaitHandle = <span class="kw">new</span> System.<span class="fu">Threading</span>.<span class="fu">EventWaitHandle</span>(<span class="kw">false</span>, System.<span class="fu">Threading</span>.<span class="fu">EventResetMode</span>.<span class="fu">ManualReset</span>);</span>
+<span id="cb1-49"><a href="#cb1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50"></a>        <span class="kw">private</span> BackgroundWorker _Worker = <span class="kw">new</span> <span class="fu">BackgroundWorker</span>();</span>
+<span id="cb1-51"><a href="#cb1-51"></a>        <span class="kw">public</span> WorkerStatus Status { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; } = WorkerStatus.<span class="fu">NotStart</span>;</span>
+<span id="cb1-52"><a href="#cb1-52"></a>        <span class="kw">public</span> <span class="dt">int</span> ExitCode { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; } = <span class="dt">int</span>.<span class="fu">MinValue</span>;</span>
+<span id="cb1-53"><a href="#cb1-53"></a>        <span class="kw">public</span> <span class="dt">bool</span> IsBusy =&gt; _Worker.<span class="fu">IsBusy</span>;</span>
+<span id="cb1-54"><a href="#cb1-54"></a>        <span class="kw">public</span> <span class="dt">bool</span> IsCompleted { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; } = <span class="kw">false</span>;</span>
+<span id="cb1-55"><a href="#cb1-55"></a>        <span class="kw">public</span> <span class="fu">Invoker</span>()</span>
+<span id="cb1-56"><a href="#cb1-56"></a>        {</span>
+<span id="cb1-57"><a href="#cb1-57"></a>            <span class="fu">InitializeBackgroundWorker</span>();</span>
+<span id="cb1-58"><a href="#cb1-58"></a>        }</span>
+<span id="cb1-59"><a href="#cb1-59"></a></span>
+<span id="cb1-60"><a href="#cb1-60"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">InitializeBackgroundWorker</span>()</span>
+<span id="cb1-61"><a href="#cb1-61"></a>        {</span>
+<span id="cb1-62"><a href="#cb1-62"></a>            _Worker.<span class="fu">WorkerReportsProgress</span> = <span class="kw">true</span>;</span>
+<span id="cb1-63"><a href="#cb1-63"></a>            _Worker.<span class="fu">WorkerSupportsCancellation</span> = <span class="kw">true</span>;</span>
+<span id="cb1-64"><a href="#cb1-64"></a>            _Worker.<span class="fu">DoWork</span> += <span class="kw">new</span> <span class="fu">DoWorkEventHandler</span>(DoWork);</span>
+<span id="cb1-65"><a href="#cb1-65"></a>            _Worker.<span class="fu">ProgressChanged</span> += <span class="kw">new</span> <span class="fu">ProgressChangedEventHandler</span>(OnProgessChanged);</span>
+<span id="cb1-66"><a href="#cb1-66"></a>            _Worker.<span class="fu">RunWorkerCompleted</span> += <span class="kw">new</span> <span class="fu">RunWorkerCompletedEventHandler</span>(OnWorkerCompleted);</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        }</span>
+<span id="cb1-68"><a href="#cb1-68"></a></span>
+<span id="cb1-69"><a href="#cb1-69"></a>        </span>
+<span id="cb1-70"><a href="#cb1-70"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a>        <span class="co">/// 启动子进程，不等待进程执行完毕</span></span>
+<span id="cb1-72"><a href="#cb1-72"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;executable&quot;</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;workingdirectory&quot;</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb1-75"><a href="#cb1-75"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;cmdparas&quot;</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a>        <span class="kw">public</span> <span class="kw">virtual</span> <span class="dt">void</span> <span class="fu">StartAsync</span>(<span class="dt">string</span> executable, <span class="dt">string</span> workingdirectory, <span class="kw">params</span> <span class="dt">object</span>[] cmdparas)</span>
+<span id="cb1-77"><a href="#cb1-77"></a>        {</span>
+<span id="cb1-78"><a href="#cb1-78"></a>            _Worker.<span class="fu">RunWorkerAsync</span>(<span class="kw">new</span> Tuple&lt;<span class="dt">string</span>, <span class="dt">string</span>, <span class="dt">object</span>[]&gt;(executable, workingdirectory, cmdparas));</span>
+<span id="cb1-79"><a href="#cb1-79"></a>        }</span>
+<span id="cb1-80"><a href="#cb1-80"></a></span>
+<span id="cb1-81"><a href="#cb1-81"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a>        <span class="co">/// 启动子进程，并等待进程执行完毕</span></span>
+<span id="cb1-83"><a href="#cb1-83"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-84"><a href="#cb1-84"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;executable&quot;</span><span class="kw">&gt;</span><span class="co">可执行程序或脚本</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-85"><a href="#cb1-85"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;workingdirectory&quot;</span><span class="kw">&gt;</span><span class="co">工作目录&lt;/param&gt;</span></span>
+<span id="cb1-86"><a href="#cb1-86"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;doevent&quot;</span><span class="kw">&gt;</span><span class="co">() =&gt; System.Windows.Forms.Application.DoEvents()</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-87"><a href="#cb1-87"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;cmdparas&quot;</span><span class="kw">&gt;</span><span class="co">命令行参数</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-88"><a href="#cb1-88"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb1-89"><a href="#cb1-89"></a>        <span class="co">/// </span><span class="kw">&lt;remarks&gt;</span></span>
+<span id="cb1-90"><a href="#cb1-90"></a>        <span class="co">/// 因为在等待的进程执行完毕的同时不能阻塞主线程，因此必须调用 System.Windows.Forms.Application.DoEvents() 更新 UI，因为这是一个库，不想引用</span></span>
+<span id="cb1-91"><a href="#cb1-91"></a>        <span class="co">/// System.Windows.Forms，因为这个方法从外部传入</span></span>
+<span id="cb1-92"><a href="#cb1-92"></a>        <span class="co">/// </span><span class="kw">&lt;/remarks&gt;</span></span>
+<span id="cb1-93"><a href="#cb1-93"></a>        <span class="kw">public</span> <span class="kw">virtual</span> WorkerStatus <span class="fu">Start</span>(<span class="dt">string</span> executable, <span class="dt">string</span> workingdirectory, Action doevent, <span class="kw">params</span> <span class="dt">object</span>[] cmdparas)</span>
+<span id="cb1-94"><a href="#cb1-94"></a>        {</span>
+<span id="cb1-95"><a href="#cb1-95"></a>            <span class="fu">StartAsync</span>(executable, workingdirectory, cmdparas);</span>
+<span id="cb1-96"><a href="#cb1-96"></a>            System.<span class="fu">Threading</span>.<span class="fu">Thread</span>.<span class="fu">Sleep</span>(<span class="dv">100</span>);</span>
+<span id="cb1-97"><a href="#cb1-97"></a>            <span class="kw">while</span> (!WaitHandle.<span class="fu">WaitOne</span>(<span class="dv">100</span>))</span>
+<span id="cb1-98"><a href="#cb1-98"></a>            {</span>
+<span id="cb1-99"><a href="#cb1-99"></a>                <span class="fu">doevent</span>();</span>
+<span id="cb1-100"><a href="#cb1-100"></a>            }</span>
+<span id="cb1-101"><a href="#cb1-101"></a>            <span class="kw">return</span> Status;</span>
+<span id="cb1-102"><a href="#cb1-102"></a>        }</span>
+<span id="cb1-103"><a href="#cb1-103"></a></span>
+<span id="cb1-104"><a href="#cb1-104"></a>        <span class="co">//private async Task&lt;string&gt; WaitAsynchronouslyAsync(int milliseconds)</span></span>
+<span id="cb1-105"><a href="#cb1-105"></a>        <span class="co">//{</span></span>
+<span id="cb1-106"><a href="#cb1-106"></a>        <span class="co">//    await Invoker.Delay(milliseconds);</span></span>
+<span id="cb1-107"><a href="#cb1-107"></a>        <span class="co">//    return &quot;Finished&quot;;</span></span>
+<span id="cb1-108"><a href="#cb1-108"></a>        <span class="co">//}</span></span>
+<span id="cb1-109"><a href="#cb1-109"></a></span>
+<span id="cb1-110"><a href="#cb1-110"></a>        <span class="co">//private static Task Delay(double milliseconds)</span></span>
+<span id="cb1-111"><a href="#cb1-111"></a>        <span class="co">//{</span></span>
+<span id="cb1-112"><a href="#cb1-112"></a>        <span class="co">//    var tcs = new TaskCompletionSource&lt;bool&gt;();</span></span>
+<span id="cb1-113"><a href="#cb1-113"></a>        <span class="co">//    System.Timers.Timer timer = new System.Timers.Timer();</span></span>
+<span id="cb1-114"><a href="#cb1-114"></a>        <span class="co">//    timer.Elapsed += (o, e) =&gt; tcs.TrySetResult(true);</span></span>
+<span id="cb1-115"><a href="#cb1-115"></a>        <span class="co">//    timer.Interval = milliseconds;</span></span>
+<span id="cb1-116"><a href="#cb1-116"></a>        <span class="co">//    timer.AutoReset = false;</span></span>
+<span id="cb1-117"><a href="#cb1-117"></a>        <span class="co">//    timer.Start();</span></span>
+<span id="cb1-118"><a href="#cb1-118"></a>        <span class="co">//    return tcs.Task;</span></span>
+<span id="cb1-119"><a href="#cb1-119"></a>        <span class="co">//}</span></span>
+<span id="cb1-120"><a href="#cb1-120"></a></span>
+<span id="cb1-121"><a href="#cb1-121"></a>        <span class="kw">protected</span> <span class="kw">virtual</span> <span class="dt">void</span> <span class="fu">DoWork</span>(<span class="dt">object</span> sender, DoWorkEventArgs e)</span>
+<span id="cb1-122"><a href="#cb1-122"></a>        {</span>
+<span id="cb1-123"><a href="#cb1-123"></a>            <span class="kw">try</span></span>
+<span id="cb1-124"><a href="#cb1-124"></a>            {</span>
+<span id="cb1-125"><a href="#cb1-125"></a>                Tuple&lt;<span class="dt">string</span>, <span class="dt">string</span>, <span class="dt">object</span>[]&gt; tuple = e.<span class="fu">Argument</span> <span class="kw">as</span> Tuple&lt;<span class="dt">string</span>, <span class="dt">string</span>, <span class="dt">object</span>[]&gt;;</span>
+<span id="cb1-126"><a href="#cb1-126"></a>                <span class="kw">if</span> (<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(tuple.<span class="fu">Item1</span>) || !System.<span class="fu">IO</span>.<span class="fu">File</span>.<span class="fu">Exists</span>(tuple.<span class="fu">Item1</span>))</span>
+<span id="cb1-127"><a href="#cb1-127"></a>                    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Exception</span>(<span class="st">&quot;执行文件路径不存在&quot;</span>);</span>
+<span id="cb1-128"><a href="#cb1-128"></a>                ProcessStartInfo startinfo = <span class="kw">new</span> ProcessStartInfo</span>
+<span id="cb1-129"><a href="#cb1-129"></a>                {</span>
+<span id="cb1-130"><a href="#cb1-130"></a>                    FileName = tuple.<span class="fu">Item1</span>,</span>
+<span id="cb1-131"><a href="#cb1-131"></a>                    UseShellExecute = <span class="kw">false</span>,</span>
+<span id="cb1-132"><a href="#cb1-132"></a>                    ErrorDialog = <span class="kw">true</span>,</span>
+<span id="cb1-133"><a href="#cb1-133"></a>                    CreateNoWindow = <span class="kw">true</span>,</span>
+<span id="cb1-134"><a href="#cb1-134"></a>                    RedirectStandardOutput = <span class="kw">true</span>,</span>
+<span id="cb1-135"><a href="#cb1-135"></a>                    <span class="co">//RedirectStandardInput = true,</span></span>
+<span id="cb1-136"><a href="#cb1-136"></a>                    RedirectStandardError = <span class="kw">true</span></span>
+<span id="cb1-137"><a href="#cb1-137"></a></span>
+<span id="cb1-138"><a href="#cb1-138"></a>                };</span>
+<span id="cb1-139"><a href="#cb1-139"></a>                <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(tuple.<span class="fu">Item2</span>) &amp;&amp; System.<span class="fu">IO</span>.<span class="fu">Directory</span>.<span class="fu">Exists</span>(tuple.<span class="fu">Item2</span>))</span>
+<span id="cb1-140"><a href="#cb1-140"></a>                    startinfo.<span class="fu">WorkingDirectory</span> = tuple.<span class="fu">Item2</span>;</span>
+<span id="cb1-141"><a href="#cb1-141"></a>                <span class="kw">else</span></span>
+<span id="cb1-142"><a href="#cb1-142"></a>                    startinfo.<span class="fu">WorkingDirectory</span> = System.<span class="fu">IO</span>.<span class="fu">Path</span>.<span class="fu">GetDirectoryName</span>(tuple.<span class="fu">Item1</span>);</span>
+<span id="cb1-143"><a href="#cb1-143"></a>                <span class="kw">if</span> (tuple.<span class="fu">Item3</span> != <span class="kw">null</span> &amp;&amp; tuple.<span class="fu">Item3</span>.<span class="fu">Length</span> &gt; <span class="dv">0</span>)</span>
+<span id="cb1-144"><a href="#cb1-144"></a>                {</span>
+<span id="cb1-145"><a href="#cb1-145"></a>                    StringBuilder builder = <span class="kw">new</span> <span class="fu">StringBuilder</span>();</span>
+<span id="cb1-146"><a href="#cb1-146"></a>                    <span class="kw">foreach</span> (<span class="dt">object</span> para <span class="kw">in</span> tuple.<span class="fu">Item3</span>)</span>
+<span id="cb1-147"><a href="#cb1-147"></a>                    {</span>
+<span id="cb1-148"><a href="#cb1-148"></a>                        <span class="kw">if</span> (para <span class="kw">is</span> <span class="dt">string</span> ps)</span>
+<span id="cb1-149"><a href="#cb1-149"></a>                        {</span>
+<span id="cb1-150"><a href="#cb1-150"></a>                            <span class="kw">if</span> (ps.<span class="fu">Contains</span>(<span class="ch">&#39; &#39;</span>))</span>
+<span id="cb1-151"><a href="#cb1-151"></a>                            {</span>
+<span id="cb1-152"><a href="#cb1-152"></a>                                builder.<span class="fu">Append</span>(<span class="ch">&#39;&quot;&#39;</span>);</span>
+<span id="cb1-153"><a href="#cb1-153"></a>                                builder.<span class="fu">Append</span>(ps);</span>
+<span id="cb1-154"><a href="#cb1-154"></a>                                builder.<span class="fu">Append</span>(<span class="ch">&#39;&quot;&#39;</span>);</span>
+<span id="cb1-155"><a href="#cb1-155"></a>                            }</span>
+<span id="cb1-156"><a href="#cb1-156"></a>                            <span class="kw">else</span></span>
+<span id="cb1-157"><a href="#cb1-157"></a>                            {</span>
+<span id="cb1-158"><a href="#cb1-158"></a>                                builder.<span class="fu">Append</span>(ps);</span>
+<span id="cb1-159"><a href="#cb1-159"></a>                            }</span>
+<span id="cb1-160"><a href="#cb1-160"></a>                        }</span>
+<span id="cb1-161"><a href="#cb1-161"></a>                        <span class="kw">else</span></span>
+<span id="cb1-162"><a href="#cb1-162"></a>                        {</span>
+<span id="cb1-163"><a href="#cb1-163"></a>                            builder.<span class="fu">Append</span>(para);</span>
+<span id="cb1-164"><a href="#cb1-164"></a>                        }</span>
+<span id="cb1-165"><a href="#cb1-165"></a>                        builder.<span class="fu">Append</span>(<span class="ch">&#39; &#39;</span>);</span>
+<span id="cb1-166"><a href="#cb1-166"></a>                    }</span>
+<span id="cb1-167"><a href="#cb1-167"></a>                    startinfo.<span class="fu">Arguments</span> = builder.<span class="fu">ToString</span>();</span>
+<span id="cb1-168"><a href="#cb1-168"></a>                }</span>
+<span id="cb1-169"><a href="#cb1-169"></a>                Process process = <span class="kw">new</span> <span class="fu">Process</span>();</span>
+<span id="cb1-170"><a href="#cb1-170"></a>                process.<span class="fu">StartInfo</span> = startinfo;</span>
+<span id="cb1-171"><a href="#cb1-171"></a>                process.<span class="fu">OutputDataReceived</span> += (s, args) =&gt;</span>
+<span id="cb1-172"><a href="#cb1-172"></a>                {</span>
+<span id="cb1-173"><a href="#cb1-173"></a>                    <span class="dt">string</span> ss = args.<span class="fu">Data</span>;</span>
+<span id="cb1-174"><a href="#cb1-174"></a>                    _Worker.<span class="fu">ReportProgress</span>(<span class="dv">0</span>, <span class="kw">new</span> <span class="fu">OutputState</span>(OutputStateType.<span class="fu">StandardOutput</span>, ss));</span>
+<span id="cb1-175"><a href="#cb1-175"></a>                };</span>
+<span id="cb1-176"><a href="#cb1-176"></a>                process.<span class="fu">ErrorDataReceived</span> += (s, args) =&gt;</span>
+<span id="cb1-177"><a href="#cb1-177"></a>                {</span>
+<span id="cb1-178"><a href="#cb1-178"></a>                    <span class="dt">string</span> ss = args.<span class="fu">Data</span>;</span>
+<span id="cb1-179"><a href="#cb1-179"></a>                    _Worker.<span class="fu">ReportProgress</span>(<span class="dv">0</span>, <span class="kw">new</span> <span class="fu">OutputState</span>(OutputStateType.<span class="fu">StandardError</span>, ss));</span>
+<span id="cb1-180"><a href="#cb1-180"></a>                };</span>
+<span id="cb1-181"><a href="#cb1-181"></a>                process.<span class="fu">Start</span>();</span>
+<span id="cb1-182"><a href="#cb1-182"></a>                process.<span class="fu">BeginOutputReadLine</span>();</span>
+<span id="cb1-183"><a href="#cb1-183"></a>                process.<span class="fu">BeginErrorReadLine</span>();</span>
+<span id="cb1-184"><a href="#cb1-184"></a>                process.<span class="fu">WaitForExit</span>();</span>
+<span id="cb1-185"><a href="#cb1-185"></a>                <span class="dt">int</span> exitcode = process.<span class="fu">ExitCode</span>;</span>
+<span id="cb1-186"><a href="#cb1-186"></a>                process.<span class="fu">Close</span>();</span>
+<span id="cb1-187"><a href="#cb1-187"></a>                e.<span class="fu">Result</span> = exitcode;</span>
+<span id="cb1-188"><a href="#cb1-188"></a>            }</span>
+<span id="cb1-189"><a href="#cb1-189"></a>            <span class="kw">catch</span> (Exception ex)</span>
+<span id="cb1-190"><a href="#cb1-190"></a>            {</span>
+<span id="cb1-191"><a href="#cb1-191"></a>                <span class="kw">throw</span> ex;</span>
+<span id="cb1-192"><a href="#cb1-192"></a>            }</span>
+<span id="cb1-193"><a href="#cb1-193"></a>            <span class="kw">finally</span></span>
+<span id="cb1-194"><a href="#cb1-194"></a>            {</span>
+<span id="cb1-195"><a href="#cb1-195"></a></span>
+<span id="cb1-196"><a href="#cb1-196"></a>            }</span>
+<span id="cb1-197"><a href="#cb1-197"></a>        }</span>
+<span id="cb1-198"><a href="#cb1-198"></a></span>
+<span id="cb1-199"><a href="#cb1-199"></a>        <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">OnProgessChanged</span>(<span class="dt">object</span> sender, ProgressChangedEventArgs e)</span>
+<span id="cb1-200"><a href="#cb1-200"></a>        {</span>
+<span id="cb1-201"><a href="#cb1-201"></a>            <span class="kw">if</span> (e.<span class="fu">UserState</span> <span class="kw">is</span> OutputState state)</span>
+<span id="cb1-202"><a href="#cb1-202"></a>            {</span>
+<span id="cb1-203"><a href="#cb1-203"></a>                <span class="kw">if</span> (state.<span class="fu">Type</span> == OutputStateType.<span class="fu">StandardOutput</span>)</span>
+<span id="cb1-204"><a href="#cb1-204"></a>                    StandardOutputChanged?.<span class="fu">Invoke</span>(<span class="kw">this</span>, <span class="kw">new</span> <span class="fu">OutputChangedEvent</span>(state.<span class="fu">Data</span>));</span>
+<span id="cb1-205"><a href="#cb1-205"></a>                <span class="kw">else</span> <span class="kw">if</span> (state.<span class="fu">Type</span> == OutputStateType.<span class="fu">StandardError</span>)</span>
+<span id="cb1-206"><a href="#cb1-206"></a>                    StandardErrorChanged?.<span class="fu">Invoke</span>(<span class="kw">this</span>, <span class="kw">new</span> <span class="fu">OutputChangedEvent</span>(state.<span class="fu">Data</span>));</span>
+<span id="cb1-207"><a href="#cb1-207"></a>            }</span>
+<span id="cb1-208"><a href="#cb1-208"></a>        }</span>
+<span id="cb1-209"><a href="#cb1-209"></a></span>
+<span id="cb1-210"><a href="#cb1-210"></a>        <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">OnWorkerCompleted</span>(<span class="dt">object</span> sender, RunWorkerCompletedEventArgs e)</span>
+<span id="cb1-211"><a href="#cb1-211"></a>        {</span>
+<span id="cb1-212"><a href="#cb1-212"></a>            <span class="kw">if</span> (e.<span class="fu">Cancelled</span>)</span>
+<span id="cb1-213"><a href="#cb1-213"></a>            {</span>
+<span id="cb1-214"><a href="#cb1-214"></a>                Status = WorkerStatus.<span class="fu">Cancelled</span>;</span>
+<span id="cb1-215"><a href="#cb1-215"></a>            }</span>
+<span id="cb1-216"><a href="#cb1-216"></a>            <span class="kw">if</span> (e.<span class="fu">Error</span> != <span class="kw">null</span>)</span>
+<span id="cb1-217"><a href="#cb1-217"></a>            {</span>
+<span id="cb1-218"><a href="#cb1-218"></a>                Status = WorkerStatus.<span class="fu">Exception</span>;</span>
+<span id="cb1-219"><a href="#cb1-219"></a>            }</span>
+<span id="cb1-220"><a href="#cb1-220"></a>            Status = WorkerStatus.<span class="fu">Normal</span>;</span>
+<span id="cb1-221"><a href="#cb1-221"></a>            <span class="kw">if</span> (e.<span class="fu">Result</span> <span class="kw">is</span> <span class="dt">int</span> exitcode)</span>
+<span id="cb1-222"><a href="#cb1-222"></a>                ExitCode = exitcode;</span>
+<span id="cb1-223"><a href="#cb1-223"></a>            WaitHandle.<span class="fu">Set</span>();</span>
+<span id="cb1-224"><a href="#cb1-224"></a>            RunWorkerCompleted?.<span class="fu">Invoke</span>(<span class="kw">this</span>, e);</span>
+<span id="cb1-225"><a href="#cb1-225"></a>            IsCompleted = <span class="kw">true</span>;</span>
+<span id="cb1-226"><a href="#cb1-226"></a>        }</span>
+<span id="cb1-227"><a href="#cb1-227"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Stop</span>()</span>
+<span id="cb1-228"><a href="#cb1-228"></a>        {</span>
+<span id="cb1-229"><a href="#cb1-229"></a>            _Worker.<span class="fu">CancelAsync</span>();</span>
+<span id="cb1-230"><a href="#cb1-230"></a>        }</span>
+<span id="cb1-231"><a href="#cb1-231"></a></span>
+<span id="cb1-232"><a href="#cb1-232"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Dispose</span>()</span>
+<span id="cb1-233"><a href="#cb1-233"></a>        {</span>
+<span id="cb1-234"><a href="#cb1-234"></a>            _Worker.<span class="fu">Dispose</span>();</span>
+<span id="cb1-235"><a href="#cb1-235"></a>            _Worker = <span class="kw">null</span>;</span>
+<span id="cb1-236"><a href="#cb1-236"></a>        }</span>
+<span id="cb1-237"><a href="#cb1-237"></a>    }</span>
+<span id="cb1-238"><a href="#cb1-238"></a>}</span></code></pre></div>
+<p>调用者主要有两个公共方法：</p>
+<ul>
+<li>StartAsync</li>
+<li>Start</li>
+</ul>
+<p>StartAsync 是调用子进程后就返回，不等待子进程执行完毕，Start 则是等待子进程执行完毕后再返回。</p>
+<p>调用者有两个事件：</p>
+<ul>
+<li>public event EventHandler<outputchangedevent> StandardOutputChanged;</outputchangedevent></li>
+<li>public event EventHandler<outputchangedevent> StandardErrorChanged;</outputchangedevent></li>
+</ul>
+<p>监听这两个事件，即可获取子进程的输出。</p>
+<h3 id="ui代码">UI代码</h3>
+<pre class="xaml"><code>&lt;Window x:Class=&quot;Sharp.Utils.Wpf.Terminal.Demo.MainWindow&quot;
+        xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+        xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+        xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+        xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+        xmlns:local=&quot;clr-namespace:Sharp.Utils.Wpf.Terminal.Demo&quot;
+        mc:Ignorable=&quot;d&quot;
+        xmlns:smt=&quot;clr-namespace:Simple.Wpf.Terminal;assembly=Simple.Wpf.Terminal&quot;
+        Title=&quot;MainWindow&quot; Height=&quot;450&quot; Width=&quot;800&quot;&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height=&quot;*&quot;/&gt;
+            &lt;RowDefinition Height=&quot;Auto&quot;/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+        &lt;smt:Terminal ItemsSource=&quot;{Binding Path=Entries}&quot;/&gt;
+        &lt;Button Click=&quot;Button_Click&quot; Grid.Row=&quot;1&quot; Height=&quot;30&quot; Margin=&quot;10,10&quot;&gt;调用&lt;/Button&gt;
+    &lt;/Grid&gt;
+&lt;/Window&gt;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">using</span> System;</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">ObjectModel</span>;</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">using</span> System.<span class="fu">Linq</span>;</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">using</span> System.<span class="fu">Text</span>;</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">using</span> System.<span class="fu">Windows</span>;</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Controls</span>;</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Data</span>;</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Documents</span>;</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Input</span>;</span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Media</span>;</span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Media</span>.<span class="fu">Imaging</span>;</span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Navigation</span>;</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Shapes</span>;</span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">namespace</span> Sharp.<span class="fu">Utils</span>.<span class="fu">Wpf</span>.<span class="fu">Terminal</span>.<span class="fu">Demo</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>{</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="co">/// MainWindow.xaml 的交互逻辑</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> MainWindow : Window</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    {</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        <span class="kw">public</span> <span class="fu">MainWindow</span>()</span>
+<span id="cb3-25"><a href="#cb3-25"></a>        {</span>
+<span id="cb3-26"><a href="#cb3-26"></a>            <span class="fu">InitializeComponent</span>();</span>
+<span id="cb3-27"><a href="#cb3-27"></a>            DataContext = <span class="kw">this</span>;</span>
+<span id="cb3-28"><a href="#cb3-28"></a>            <span class="kw">this</span>.<span class="fu">Loaded</span> += MainWindow_Loaded;</span>
+<span id="cb3-29"><a href="#cb3-29"></a>        }</span>
+<span id="cb3-30"><a href="#cb3-30"></a></span>
+<span id="cb3-31"><a href="#cb3-31"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">MainWindow_Loaded</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
+<span id="cb3-32"><a href="#cb3-32"></a>        {</span>
+<span id="cb3-33"><a href="#cb3-33"></a>            </span>
+<span id="cb3-34"><a href="#cb3-34"></a>        }</span>
+<span id="cb3-35"><a href="#cb3-35"></a></span>
+<span id="cb3-36"><a href="#cb3-36"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Invoker_StandardOutputChanged</span>(<span class="dt">object</span> sender, OutputChangedEvent e)</span>
+<span id="cb3-37"><a href="#cb3-37"></a>        {</span>
+<span id="cb3-38"><a href="#cb3-38"></a>            Entries.<span class="fu">Add</span>(e.<span class="fu">Content</span>);            </span>
+<span id="cb3-39"><a href="#cb3-39"></a>        }</span>
+<span id="cb3-40"><a href="#cb3-40"></a></span>
+<span id="cb3-41"><a href="#cb3-41"></a>        <span class="kw">public</span> ObservableCollection&lt;<span class="dt">string</span>&gt; Entries</span>
+<span id="cb3-42"><a href="#cb3-42"></a>        {</span>
+<span id="cb3-43"><a href="#cb3-43"></a>            <span class="kw">get</span> { <span class="kw">return</span> (ObservableCollection&lt;<span class="dt">string</span>&gt;)<span class="fu">GetValue</span>(EntriesProperty); }</span>
+<span id="cb3-44"><a href="#cb3-44"></a>            <span class="kw">set</span> { <span class="fu">SetValue</span>(EntriesProperty, value); }</span>
+<span id="cb3-45"><a href="#cb3-45"></a>        }</span>
+<span id="cb3-46"><a href="#cb3-46"></a></span>
+<span id="cb3-47"><a href="#cb3-47"></a>        <span class="co">// Using a DependencyProperty as the backing store for Entries.  This enables animation, styling, binding, etc...</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty EntriesProperty =</span>
+<span id="cb3-49"><a href="#cb3-49"></a>            DependencyProperty.<span class="fu">Register</span>(<span class="st">&quot;Entries&quot;</span>, <span class="kw">typeof</span>(ObservableCollection&lt;<span class="dt">string</span>&gt;), <span class="kw">typeof</span>(MainWindow), <span class="kw">new</span> <span class="fu">PropertyMetadata</span>(<span class="kw">null</span>));</span>
+<span id="cb3-50"><a href="#cb3-50"></a></span>
+<span id="cb3-51"><a href="#cb3-51"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">Button_Click</span>(<span class="dt">object</span> sender, RoutedEventArgs e)</span>
+<span id="cb3-52"><a href="#cb3-52"></a>        {</span>
+<span id="cb3-53"><a href="#cb3-53"></a>            Invoker invoker = <span class="kw">new</span> <span class="fu">Invoker</span>();</span>
+<span id="cb3-54"><a href="#cb3-54"></a>            invoker.<span class="fu">StandardOutputChanged</span> += Invoker_StandardOutputChanged;</span>
+<span id="cb3-55"><a href="#cb3-55"></a>            Entries = <span class="kw">new</span> ObservableCollection&lt;<span class="dt">string</span>&gt;();</span>
+<span id="cb3-56"><a href="#cb3-56"></a>            invoker.<span class="fu">StartAsync</span>(@<span class="st">&quot;C:\Windows\System32\PING.EXE&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;127.0.0.1&quot;</span>);</span>
+<span id="cb3-57"><a href="#cb3-57"></a>            <span class="co">//invoker.Start(@&quot;C:\Windows\System32\PING.EXE&quot;, &quot;&quot;, () =&gt; System.Windows.Forms.Application.DoEvents(), &quot;127.0.0.1&quot;);</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a>        }</span>
+<span id="cb3-59"><a href="#cb3-59"></a>    }</span>
+<span id="cb3-60"><a href="#cb3-60"></a>}</span></code></pre></div>
 
         
     
