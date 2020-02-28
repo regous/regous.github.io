@@ -37,7 +37,7 @@
     
     <title>
         
-            Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP | 
+            WPF：右键菜单的绑定 | 
         
         生命不息，折腾不止
     </title>
@@ -49,7 +49,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="风之痕">
     <meta name="description" itemprop="description" content="你好，明天">
-    <meta name="keywords" content=",Flutter">
+    <meta name="keywords" content=",WPF">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,18 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://ithinking.cc">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP | 生命不息，折腾不止">
+    <meta property="og:title" content="WPF：右键菜单的绑定 | 生命不息，折腾不止">
     <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
     <meta property="og:description" content="你好，明天">
-    <meta property="og:article:tag" content="Flutter"> 
+    <meta property="og:article:tag" content="WPF"> 
 
     
-        <meta property="article:published_time" content="Sat Jun 29 2019 20:35:01 GMT+0800" />
-        <meta property="article:modified_time" content="Sat Jun 29 2019 20:58:45 GMT+0800" />
+        <meta property="article:published_time" content="Thu Feb 27 2020 08:48:01 GMT+0800" />
+        <meta property="article:modified_time" content="Thu Feb 27 2020 09:27:42 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP | 生命不息，折腾不止">
+    <meta name="twitter:title" content="WPF：右键菜单的绑定 | 生命不息，折腾不止">
     <meta name="twitter:description" content="你好，明天">
     <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +250,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html" />
+        <link rel="canonical" href="http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -262,10 +262,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html",
-    "headline": "Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP",
-    "datePublished": "Sat Jun 29 2019 20:35:01 GMT+0800",
-    "dateModified": "Sat Jun 29 2019 20:58:45 GMT+0800",
+    "mainEntityOfPage": "http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html",
+    "headline": "WPF：右键菜单的绑定",
+    "datePublished": "Thu Feb 27 2020 08:48:01 GMT+0800",
+    "dateModified": "Thu Feb 27 2020 09:27:42 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "风之痕",
@@ -283,7 +283,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",Flutter",
+    "keywords": ",WPF",
     "description": "你好，明天",
 }
 </script>
@@ -349,7 +349,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#flutter-一次性设置-enable_flutter_desktop"><span class="post-toc-number">1.</span> <span class="post-toc-text">Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#wpf右键菜单的绑定"><span class="post-toc-number">1.</span> <span class="post-toc-text">WPF：右键菜单的绑定</span></a></li></ol>
     </ul>
     
 
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP
+                WPF：右键菜单的绑定
             </p>
         </div>
 
@@ -400,7 +400,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>风之痕</strong>
-        <span>6月 29, 2019</span>
+        <span>2月 27, 2020</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -424,7 +424,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Flutter/">Flutter</a>
+        <a class="post_tag-link" href="/tags/WPF/">WPF</a>
     </ul>
     
 
@@ -440,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP&url=http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=WPF：右键菜单的绑定&url=http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -449,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP&url=http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html&via=风之痕" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=WPF：右键菜单的绑定&url=http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html&via=风之痕" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -458,7 +458,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -467,7 +467,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2020/WPF：右键菜单的绑定/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -491,17 +491,163 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="flutter-一次性设置-enable_flutter_desktop">Flutter 一次性设置 ENABLE_FLUTTER_DESKTOP</h1>
-<p>Flutter 配置完成之后，在 Windows 上运行需要在命令行中键入命令：</p>
-<p><code>$env:ENABLE_FLUTTER_DESKTOP="true"</code></p>
-<p><code>flutter run</code></p>
-<p>后才能运行，一次设置 ENABLE_FLUTTER_DESKTOP 仅仅对当前的 Terminal 实例有例，当重启 VS Code 后需要重新设置，而且每次都需要手动键入 <strong>flutter run</strong>，对我这个 VS 的使用者来说都太麻烦了。能不能直接 Ctrl+F5 直接在 Windows 上跑呢？毕竟我的目的就只是在 Windows 上玩玩 Flutter 而已。在 Android 虚拟机上也不是不行，只是方式太间接，感觉效率有点低而已。</p>
-<p>答案是可以的。</p>
-<p>首先是环境变量的问题：在系统变量中增加 <strong>ENABLE_FLUTTER_DESKTOP</strong>，值为 <strong>true</strong>。</p>
-<p><img src="/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/2019-06-29_204131.jpg"></p>
-<p>然后到 <strong>Debug</strong> 栏下创建一个配置</p>
-<p><img src="/2019/Flutter-一次性设置-ENABLE-FLUTTER-DESKTOP/2019-06-29_205715.jpg"></p>
-<p>这样直接按 <strong>Ctrl+F5</strong> 就可以启动 Windows 上的调试了，对于学习 Dart 编程这样的目的来说，快捷方便，需要在 Android 上跑时，再修改回原来的设置。</p>
+        <h1 id="wpf右键菜单的绑定">WPF：右键菜单的绑定</h1>
+<p>WPF 右键菜单的绑定比较麻烦，因为它不能直接绑定到控件的 DataContext，因此如果需要绑定命令需要一定的转换。</p>
+<p>首选看如果装将 ViewModel 的命令绑定到 MenuItem。</p>
+<pre class="xaml"><code>&lt;Window.Resources&gt;
+    &lt;utils:BindingProxy x:Key=&quot;proxy&quot; Data=&quot;{Binding Path=DataContext,RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=1,AncestorType={x:Type Window}}}&quot;/&gt;
+&lt;/Window.Resources&gt;
+&lt;Grid&gt;
+    &lt;ListBox ItemsSource=&quot;{Binding Path=Items}&quot;&gt;
+        &lt;ListBox.ItemContainerStyle&gt;
+            &lt;Style TargetType=&quot;ListBoxItem&quot;&gt;
+                &lt;Setter Property=&quot;ContextMenu&quot;&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;ContextMenu&gt;
+                            &lt;MenuItem Header=&quot;Info&quot; 
+                                      Command=&quot;{Binding Path=Data.InfoCommand,Source={StaticResource proxy}}&quot;
+                                      CommandParameter=&quot;{Binding Path=PlacementTarget.DataContext,RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=1,AncestorType={x:Type ContextMenu}}}&quot;/&gt;
+                        &lt;/ContextMenu&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+        &lt;/ListBox.ItemContainerStyle&gt;
+    &lt;/ListBox&gt;
+&lt;/Grid&gt;</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">using</span> System;</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">using</span> System.<span class="fu">Windows</span>;</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">using</span> System.<span class="fu">Windows</span>.<span class="fu">Input</span>;</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="kw">public</span> <span class="kw">partial</span> <span class="kw">class</span> MainWindow : Window</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    {</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="kw">public</span> <span class="fu">MainWindow</span>()</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        {</span>
+<span id="cb2-11"><a href="#cb2-11"></a>            <span class="fu">InitializeComponent</span>();</span>
+<span id="cb2-12"><a href="#cb2-12"></a>            Items = <span class="kw">new</span> List&lt;<span class="dt">string</span>&gt;()</span>
+<span id="cb2-13"><a href="#cb2-13"></a>            {</span>
+<span id="cb2-14"><a href="#cb2-14"></a>                <span class="st">&quot;A&quot;</span>,</span>
+<span id="cb2-15"><a href="#cb2-15"></a>                <span class="st">&quot;B&quot;</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>                <span class="st">&quot;C&quot;</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>            };</span>
+<span id="cb2-18"><a href="#cb2-18"></a>            DataContext = <span class="kw">this</span>;</span>
+<span id="cb2-19"><a href="#cb2-19"></a>            InfoCommand = <span class="kw">new</span> Command&lt;<span class="dt">object</span>&gt;(OnInfo);</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        }</span>
+<span id="cb2-21"><a href="#cb2-21"></a></span>
+<span id="cb2-22"><a href="#cb2-22"></a>        <span class="kw">private</span> <span class="dt">void</span> <span class="fu">OnInfo</span>(<span class="dt">object</span> obj)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>        {</span>
+<span id="cb2-24"><a href="#cb2-24"></a>            <span class="kw">if</span>(obj <span class="kw">is</span> <span class="dt">string</span> info)</span>
+<span id="cb2-25"><a href="#cb2-25"></a>            {</span>
+<span id="cb2-26"><a href="#cb2-26"></a>                MessageBox.<span class="fu">Show</span>(info);</span>
+<span id="cb2-27"><a href="#cb2-27"></a>            }</span>
+<span id="cb2-28"><a href="#cb2-28"></a>        }</span>
+<span id="cb2-29"><a href="#cb2-29"></a></span>
+<span id="cb2-30"><a href="#cb2-30"></a>        <span class="kw">public</span> List&lt;<span class="dt">string</span>&gt; Items</span>
+<span id="cb2-31"><a href="#cb2-31"></a>        {</span>
+<span id="cb2-32"><a href="#cb2-32"></a>            <span class="kw">get</span> { <span class="kw">return</span> (List&lt;<span class="dt">string</span>&gt;)<span class="fu">GetValue</span>(ItemsProperty); }</span>
+<span id="cb2-33"><a href="#cb2-33"></a>            <span class="kw">set</span> { <span class="fu">SetValue</span>(ItemsProperty, value); }</span>
+<span id="cb2-34"><a href="#cb2-34"></a>        }</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty ItemsProperty =</span>
+<span id="cb2-37"><a href="#cb2-37"></a>            DependencyProperty.<span class="fu">Register</span>(<span class="st">&quot;Items&quot;</span>, <span class="kw">typeof</span>(List&lt;<span class="dt">string</span>&gt;), <span class="kw">typeof</span>(MainWindow), <span class="kw">new</span> <span class="fu">PropertyMetadata</span>(<span class="kw">null</span>));</span>
+<span id="cb2-38"><a href="#cb2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39"></a>        <span class="kw">public</span> ICommand InfoCommand</span>
+<span id="cb2-40"><a href="#cb2-40"></a>        {</span>
+<span id="cb2-41"><a href="#cb2-41"></a>            <span class="kw">get</span> { <span class="kw">return</span> (ICommand)<span class="fu">GetValue</span>(InfoCommandProperty); }</span>
+<span id="cb2-42"><a href="#cb2-42"></a>            <span class="kw">set</span> { <span class="fu">SetValue</span>(InfoCommandProperty, value); }</span>
+<span id="cb2-43"><a href="#cb2-43"></a>        }</span>
+<span id="cb2-44"><a href="#cb2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty InfoCommandProperty =</span>
+<span id="cb2-46"><a href="#cb2-46"></a>            DependencyProperty.<span class="fu">Register</span>(<span class="st">&quot;InfoCommand&quot;</span>, <span class="kw">typeof</span>(ICommand), <span class="kw">typeof</span>(MainWindow), <span class="kw">new</span> <span class="fu">PropertyMetadata</span>(<span class="kw">null</span>));</span>
+<span id="cb2-47"><a href="#cb2-47"></a>    }</span>
+<span id="cb2-48"><a href="#cb2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49"></a>    <span class="kw">public</span> <span class="kw">class</span> Command&lt;T&gt; : ICommand</span>
+<span id="cb2-50"><a href="#cb2-50"></a>    {</span>
+<span id="cb2-51"><a href="#cb2-51"></a>        <span class="kw">private</span> <span class="kw">readonly</span> Action&lt;T&gt; execute;</span>
+<span id="cb2-52"><a href="#cb2-52"></a>        <span class="kw">private</span> <span class="kw">readonly</span> Func&lt;T, <span class="dt">bool</span>&gt; canExecute;</span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a>        <span class="kw">public</span> <span class="fu">Command</span>(Action&lt;T&gt; execute)</span>
+<span id="cb2-55"><a href="#cb2-55"></a>            : <span class="kw">this</span>(execute, <span class="kw">null</span>)</span>
+<span id="cb2-56"><a href="#cb2-56"></a>        { }</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a>        <span class="kw">public</span> <span class="fu">Command</span>(Action&lt;T&gt; execute, Func&lt;T, <span class="dt">bool</span>&gt; canExecute)</span>
+<span id="cb2-59"><a href="#cb2-59"></a>        {</span>
+<span id="cb2-60"><a href="#cb2-60"></a>            <span class="kw">this</span>.<span class="fu">execute</span> = execute;</span>
+<span id="cb2-61"><a href="#cb2-61"></a>            <span class="kw">this</span>.<span class="fu">canExecute</span> = canExecute;</span>
+<span id="cb2-62"><a href="#cb2-62"></a>        }</span>
+<span id="cb2-63"><a href="#cb2-63"></a></span>
+<span id="cb2-64"><a href="#cb2-64"></a>        <span class="dv">#region ICommand Members</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a></span>
+<span id="cb2-66"><a href="#cb2-66"></a>        <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">CanExecute</span>(<span class="dt">object</span> parameter)</span>
+<span id="cb2-67"><a href="#cb2-67"></a>        {</span>
+<span id="cb2-68"><a href="#cb2-68"></a>            <span class="fu">ValidateParameterType</span>(parameter);</span>
+<span id="cb2-69"><a href="#cb2-69"></a></span>
+<span id="cb2-70"><a href="#cb2-70"></a>            <span class="kw">return</span> (canExecute != <span class="kw">null</span>) ? <span class="fu">canExecute</span>((T)parameter) : <span class="kw">true</span>;</span>
+<span id="cb2-71"><a href="#cb2-71"></a>        }</span>
+<span id="cb2-72"><a href="#cb2-72"></a></span>
+<span id="cb2-73"><a href="#cb2-73"></a>        <span class="kw">public</span> <span class="kw">event</span> EventHandler CanExecuteChanged</span>
+<span id="cb2-74"><a href="#cb2-74"></a>        {</span>
+<span id="cb2-75"><a href="#cb2-75"></a>            add { CommandManager.<span class="fu">RequerySuggested</span> += value; }</span>
+<span id="cb2-76"><a href="#cb2-76"></a>            remove { CommandManager.<span class="fu">RequerySuggested</span> -= value; }</span>
+<span id="cb2-77"><a href="#cb2-77"></a>        }</span>
+<span id="cb2-78"><a href="#cb2-78"></a></span>
+<span id="cb2-79"><a href="#cb2-79"></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Execute</span>(<span class="dt">object</span> parameter)</span>
+<span id="cb2-80"><a href="#cb2-80"></a>        {</span>
+<span id="cb2-81"><a href="#cb2-81"></a>            <span class="fu">ValidateParameterType</span>(parameter);</span>
+<span id="cb2-82"><a href="#cb2-82"></a></span>
+<span id="cb2-83"><a href="#cb2-83"></a>            <span class="kw">if</span> (execute != <span class="kw">null</span>)</span>
+<span id="cb2-84"><a href="#cb2-84"></a>                <span class="fu">execute</span>((T)parameter);</span>
+<span id="cb2-85"><a href="#cb2-85"></a>        }</span>
+<span id="cb2-86"><a href="#cb2-86"></a></span>
+<span id="cb2-87"><a href="#cb2-87"></a>        <span class="dv">#endregion</span></span>
+<span id="cb2-88"><a href="#cb2-88"></a></span>
+<span id="cb2-89"><a href="#cb2-89"></a>        <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">ValidateParameterType</span>(<span class="dt">object</span> parameter)</span>
+<span id="cb2-90"><a href="#cb2-90"></a>        {</span>
+<span id="cb2-91"><a href="#cb2-91"></a>            <span class="kw">if</span> (parameter <span class="kw">is</span> T)</span>
+<span id="cb2-92"><a href="#cb2-92"></a>                <span class="kw">return</span>;</span>
+<span id="cb2-93"><a href="#cb2-93"></a>            <span class="dt">var</span> type = <span class="kw">typeof</span>(T);</span>
+<span id="cb2-94"><a href="#cb2-94"></a>            <span class="kw">if</span> (parameter == <span class="kw">null</span> &amp;&amp; (type.<span class="fu">IsClass</span> || (type.<span class="fu">IsGenericType</span> &amp;&amp; type.<span class="fu">GetGenericTypeDefinition</span>() == <span class="kw">typeof</span>(Nullable&lt;&gt;))))</span>
+<span id="cb2-95"><a href="#cb2-95"></a>                <span class="kw">return</span>;</span>
+<span id="cb2-96"><a href="#cb2-96"></a></span>
+<span id="cb2-97"><a href="#cb2-97"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span>(<span class="st">&quot;Command parameter must be of type &quot;</span> + type.<span class="fu">FullName</span>);</span>
+<span id="cb2-98"><a href="#cb2-98"></a>        }</span>
+<span id="cb2-99"><a href="#cb2-99"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">public</span> <span class="kw">class</span> BindingProxy : Freezable</span>
+<span id="cb3-2"><a href="#cb3-2"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dv">#region Data Property</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">readonly</span> DependencyProperty DataProperty = DependencyProperty.<span class="fu">Register</span>(</span>
+<span id="cb3-5"><a href="#cb3-5"></a>      <span class="st">&quot;Data&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>      <span class="kw">typeof</span>(<span class="dt">object</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>      <span class="kw">typeof</span>(BindingProxy),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>      <span class="kw">new</span> <span class="fu">UIPropertyMetadata</span>(<span class="kw">null</span>));</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="kw">public</span> <span class="dt">object</span> Data</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    {</span>
+<span id="cb3-12"><a href="#cb3-12"></a>        get</span>
+<span id="cb3-13"><a href="#cb3-13"></a>        {</span>
+<span id="cb3-14"><a href="#cb3-14"></a>            <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">GetValue</span>(BindingProxy.<span class="fu">DataProperty</span>);</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        }</span>
+<span id="cb3-16"><a href="#cb3-16"></a>        set</span>
+<span id="cb3-17"><a href="#cb3-17"></a>        {</span>
+<span id="cb3-18"><a href="#cb3-18"></a>            <span class="kw">this</span>.<span class="fu">SetValue</span>(BindingProxy.<span class="fu">DataProperty</span>, value);</span>
+<span id="cb3-19"><a href="#cb3-19"></a>        }</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    }</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="dv">#endregion</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="kw">protected</span> <span class="kw">override</span> Freezable <span class="fu">CreateInstanceCore</span>()</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    {</span>
+<span id="cb3-25"><a href="#cb3-25"></a>        <span class="kw">return</span> <span class="kw">new</span> <span class="fu">BindingProxy</span>();</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    }</span>
+<span id="cb3-27"><a href="#cb3-27"></a></span>
+<span id="cb3-28"><a href="#cb3-28"></a>    <span class="kw">protected</span> <span class="kw">sealed</span> <span class="kw">override</span> <span class="dt">bool</span> <span class="fu">FreezeCore</span>(<span class="dt">bool</span> isChecking)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>    {</span>
+<span id="cb3-30"><a href="#cb3-30"></a>        <span class="co">// Only derived from Freezable to have DataContext and ElementName binding.</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>        <span class="co">// So we don&#39;t want to be freezable.</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a>        <span class="kw">return</span> <span class="kw">false</span>;</span>
+<span id="cb3-33"><a href="#cb3-33"></a>    }</span>
+<span id="cb3-34"><a href="#cb3-34"></a>}</span></code></pre></div>
+<p>ContextMenu 并不是 Window 的下级控件，因此并不能直接访问到 Window 的 DataContext，因此必须通过绑定代理的方式，将 DataContext 的命令绑定到 MenuItem；CommandParameter 绑定的是 ContextMenu 的 PlacementTarget 的数据对象（DataContext），如果 ContextMenu 作为 ListBox 的右键菜，那么 PlacementTarget 就是 ListBoxItem，那就可以把该项的数据传递给 ICommand。</p>
 
         
     
@@ -522,21 +668,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2019/objectarx-xdata-扩展属性最大长度测试/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2019/利用proxifier加快sdk的更新/" id="post_nav-older" class="next-content">
+        <a href="/2020/WPF：ContentPresenter-根据不同的-Content-采用不同的-Template/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
