@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.0 -->
+    <script>
+        window.materialVersion = "1.5.0"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Title -->
+    
+    <title>
+        
+            Determine which .NET Framework versions are installed | 
+        
+        生命不息，折腾不止
+    </title>
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="风之痕">
+    <meta name="description" itemprop="description" content="Use code, regedit.exe, or PowerShell to detect which versions of .NET Framework are installed on a machine by querying the Windows registry.">
+    <meta name="keywords" content="">
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="生命不息，折腾不止">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icon -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://ithinking.cc">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Determine which .NET Framework versions are installed | 生命不息，折腾不止">
+    <meta property="og:image" content="http://ithinking.cc/img/favicon.png" />
+    <meta property="og:description" content="Use code, regedit.exe, or PowerShell to detect which versions of .NET Framework are installed on a machine by querying the Windows registry.">
+    
+
+    
+        <meta property="article:published_time" content="Fri Mar 05 2021 11:29:47 GMT+0800" />
+        <meta property="article:modified_time" content="Fri Mar 05 2021 11:29:47 GMT+0800" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Determine which .NET Framework versions are installed | 生命不息，折腾不止">
+    <meta name="twitter:description" content="Use code, regedit.exe, or PowerShell to detect which versions of .NET Framework are installed on a machine by querying the Windows registry.">
+    <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://ithinking.cc" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html",
+    "headline": "Determine which .NET Framework versions are installed",
+    "datePublished": "Fri Mar 05 2021 11:29:47 GMT+0800",
+    "dateModified": "Fri Mar 05 2021 11:29:47 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "风之痕",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "生命不息，折腾不止",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "Use code, regedit.exe, or PowerShell to detect which versions of .NET Framework are installed on a machine by querying the Windows registry.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#how-to-determine-which-.net-framework-versions-are-installed"><span class="post-toc-number">1.</span> <span class="post-toc-text">How to: Determine which .NET Framework versions are installed</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#determine-which-.net-implementation-and-version-an-app-is-running-on"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Determine which .NET implementation and version an app is running on</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#detect-.net-framework-4.5-and-later-versions"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Detect .NET Framework 4.5 and later versions</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#minimum-version"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">Minimum version</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#use-registry-editor"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Use Registry Editor</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#use-powershell-to-check-for-a-minimum-version"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">Use PowerShell to check for a minimum version</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#query-the-registry-using-code"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">Query the registry using code</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#detect-.net-framework-1.0-through-4.0"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Detect .NET Framework 1.0 through 4.0</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#use-registry-editor-older-framework-versions"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">Use Registry Editor (older framework versions)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#query-the-registry-using-code-older-framework-versions"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">Query the registry using code (older framework versions)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#find-clr-versions"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Find CLR versions</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#see-also"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">See also</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Determine which .NET Framework versions are installed
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>风之痕</strong>
+        <span>3月 05, 2021</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Determine which .NET Framework versions are installed&url=http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Determine which .NET Framework versions are installed&url=http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html&via=风之痕" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2021/how-to-determine-which-versions-are-installed/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="how-to-determine-which-.net-framework-versions-are-installed">How to: Determine which .NET Framework versions are installed</h1>
+<p>Users can <a href="../install/index.md">install</a> and run multiple versions of .NET Framework on their computers. When you develop or deploy your app, you might need to know which .NET Framework versions are installed on the user's computer. The registry contains a list of the versions of .NET Framework installed on the computer.</p>
+<blockquote>
+<p>[!NOTE] This article is specific to .NET Framework. To determine which .NET Core and .NET 5+ SDKs and runtimes are installed, see <a href="../../core/install/how-to-detect-installed-versions.md">How to check that .NET is already installed</a>.</p>
+</blockquote>
+<p>.NET Framework consists of two main components, which are versioned separately:</p>
+<ul>
+<li><p>A set of assemblies, which are collections of types and resources that provide the functionality for your apps. .NET Framework and the assemblies share the same version number. For example, .NET Framework versions include 4.5, 4.6.1, and 4.7.2.</p></li>
+<li><p>The common language runtime (CLR), which manages and executes your app's code. A single CLR version typically supports multiple .NET Framework versions. For example, CLR version 4.0.30319.<em>xxxxx</em> where <em>xxxxx</em> is less than 42000, supports .NET Framework versions 4 through 4.5.2. CLR version greater than or equal to 4.0.30319.42000 supports .NET Framework versions starting with .NET Framework 4.6.</p></li>
+</ul>
+<p>Community-maintained tools are available to help detect which .NET Framework versions are installed:</p>
+<ul>
+<li><p><a href="https://github.com/jmalarcon/DotNetVersions" target="_blank" rel="external">https://github.com/jmalarcon/DotNetVersions</a></p>
+<p>A .NET Framework 2.0 command-line tool.</p></li>
+<li><p><a href="https://github.com/EliteLoser/DotNetVersionLister" target="_blank" rel="external">https://github.com/EliteLoser/DotNetVersionLister</a></p>
+<p>A PowerShell 2.0 module.</p></li>
+</ul>
+<p>For information about detecting the installed updates for each version of .NET Framework, see <a href="how-to-determine-which-net-framework-updates-are-installed.md">How to: Determine which .NET Framework updates are installed</a>.</p>
+<h2 id="determine-which-.net-implementation-and-version-an-app-is-running-on">Determine which .NET implementation and version an app is running on</h2>
+<p>You can use the &lt;xref:System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription?displayProperty=nameWithType&gt; property to query for which .NET implementation and version your app is running on. If the app is running on .NET Framework, the output will be similar to:</p>
+<pre class="output"><code>.NET Framework 4.8.4250.0</code></pre>
+<p>By comparison, if the app is running on .NET Core or .NET 5+, the output will be similar to:</p>
+<pre class="output"><code>.NET Core 3.1.9
+.NET 5.0.0</code></pre>
+<h2 id="detect-.net-framework-4.5-and-later-versions">Detect .NET Framework 4.5 and later versions</h2>
+<p>The version of .NET Framework (4.5 and later) installed on a machine is listed in the registry at <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</strong>. If the <strong>Full</strong> subkey is missing, then .NET Framework 4.5 or above isn't installed.</p>
+<blockquote>
+<p>[!NOTE] The <strong>NET Framework Setup</strong> subkey in the registry path does <em>not</em> begin with a period.</p>
+</blockquote>
+<p>The <strong>Release</strong> REG_DWORD value in the registry represents the version of .NET Framework installed.</p>
+<p><a name="version_table"></a></p>
+<table>
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>.NET Framework version</th>
+<th>Value of <strong>Release</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.NET Framework 4.5</td>
+<td>All Windows operating systems: 378389</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.5.1</td>
+<td>On Windows 8.1 and Windows Server 2012 R2: 378675<br>On all other Windows operating systems: 378758</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.5.2</td>
+<td>All Windows operating systems: 379893</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.6</td>
+<td>On Windows 10: 393295<br>On all other Windows operating systems: 393297</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.6.1</td>
+<td>On Windows 10 November Update systems: 394254<br>On all other Windows operating systems (including Windows 10): 394271</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.6.2</td>
+<td>On Windows 10 Anniversary Update and Windows Server 2016: 394802<br>On all other Windows operating systems (including other Windows 10 operating systems): 394806</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.7</td>
+<td>On Windows 10 Creators Update: 460798<br>On all other Windows operating systems (including other Windows 10 operating systems): 460805</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.7.1</td>
+<td>On Windows 10 Fall Creators Update and Windows Server, version 1709: 461308<br>On all other Windows operating systems (including other Windows 10 operating systems): 461310</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.7.2</td>
+<td>On Windows 10 April 2018 Update and Windows Server, version 1803: 461808<br>On all Windows operating systems other than Windows 10 April 2018 Update and Windows Server, version 1803: 461814</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.8</td>
+<td>On Windows 10 May 2019 Update and Windows 10 November 2019 Update: 528040<br>On Windows 10 May 2020 Update and Windows 10 October 2020 Update: 528372<br>On all other Windows operating systems (including other Windows 10 operating systems): 528049</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minimum-version">Minimum version</h3>
+<p>To determine whether a <em>minimum</em> version of .NET Framework is present, check for a <strong>Release</strong> REG_DWORD value that's greater than or equal to the corresponding value listed in the following table. For example, if your application runs under .NET Framework 4.8 or a later version, test for a <strong>Release</strong> REG_DWORD value that's <em>greater than or equal to</em> 528040.</p>
+<table>
+<thead>
+<tr class="header">
+<th>.NET Framework version</th>
+<th>Minimum value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.NET Framework 4.5</td>
+<td>378389</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.5.1</td>
+<td>378675</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.5.2</td>
+<td>379893</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.6</td>
+<td>393295</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.6.1</td>
+<td>394254</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.6.2</td>
+<td>394802</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.7</td>
+<td>460798</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.7.1</td>
+<td>461308</td>
+</tr>
+<tr class="odd">
+<td>.NET Framework 4.7.2</td>
+<td>461808</td>
+</tr>
+<tr class="even">
+<td>.NET Framework 4.8</td>
+<td>528040</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-registry-editor">Use Registry Editor</h3>
+<ol type="1">
+<li><p>From the <strong>Start</strong> menu, choose <strong>Run</strong>, enter <em>regedit</em>, and then select <strong>OK</strong>.</p>
+<p>(You must have administrative credentials to run regedit.)</p></li>
+<li><p>In the Registry Editor, open the following subkey: <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</strong>. If the <strong>Full</strong> subkey isn't present, then you don't have .NET Framework 4.5 or later installed.</p></li>
+<li><p>Check for a REG_DWORD entry named <strong>Release</strong>. If it exists, then you have .NET Framework 4.5 or later installed. Its value corresponds to a particular version of .NET Framework. In the following figure, for example, the value of the <strong>Release</strong> entry is 528040, which is the release key for .NET Framework 4.8.</p>
+<figure>
+<img src="/2021/how-to-determine-which-versions-are-installed/./media/clr-installdir.png" alt=""><figcaption>Registry entry for .NET Framework 4.5</figcaption>
+</figure></li>
+</ol>
+<h3 id="use-powershell-to-check-for-a-minimum-version">Use PowerShell to check for a minimum version</h3>
+<p>Use PowerShell commands to check the value of the <strong>Release</strong> entry of the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</strong> subkey.</p>
+<p>The following examples check the value of the <strong>Release</strong> entry to determine whether .NET Framework 4.6.2 or later is installed. This code returns <code>True</code> if it's installed and <code>False</code> otherwise.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1"></a>(<span class="fu">Get-ItemProperty</span> <span class="st">&quot;HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full&quot;</span>).<span class="fu">Release</span> -ge 394802</span></code></pre></div>
+<h3 id="query-the-registry-using-code">Query the registry using code</h3>
+<ol type="1">
+<li><p>Use the &lt;xref:Microsoft.Win32.RegistryKey.OpenBaseKey%2A?displayProperty=nameWithType&gt; and &lt;xref:Microsoft.Win32.RegistryKey.OpenSubKey%2A?displayProperty=nameWithType&gt; methods to access the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</strong> subkey in the Windows registry.</p>
+<blockquote>
+<p>[!IMPORTANT] If the app you're running is 32-bit and running in 64-bit Windows, the registry paths will be different than previously listed. The 64-bit registry is available in the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\</strong> subkey. For example, the registry subkey for .NET Framework 4.5 is <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\v4\Full</strong>.</p>
+</blockquote></li>
+<li><p>Check the <strong>Release</strong> REG_DWORD value to determine the installed version. To be forward-compatible, check for a value greater than or equal to the value listed in the <a href="#version_table">.NET Framework version table</a>.</p></li>
+</ol>
+<p>The following example checks the value of the <strong>Release</strong> entry in the registry to find the versions of .NET Framework 4.5-4.8 that are installed:</p>
+<p>:::code language="csharp" source="snippets/csharp/versions-installed.cs" id="2":::</p>
+<p>:::code language="vb" source="snippets/visual-basic/versions-installed.vb" id="2":::</p>
+<p>The example displays output like the following:</p>
+<pre class="output"><code>.NET Framework Version: 4.6.1</code></pre>
+<p>This example follows the recommended practice for version checking:</p>
+<ul>
+<li>It checks whether the value of the <strong>Release</strong> entry is <em>greater than or equal to</em> the value of the known release keys.</li>
+<li>It checks in order from most recent version to earliest version.</li>
+</ul>
+<h2 id="detect-.net-framework-1.0-through-4.0">Detect .NET Framework 1.0 through 4.0</h2>
+<p>Each version of .NET Framework from 1.1 to 4.0 is listed as a subkey at <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP</strong>. The following table lists the path to each .NET Framework version. For most versions, there's an <strong>Install</strong> REG_DWORD value of <code>1</code> to indicate this version is installed. In these subkeys, there's also a <strong>Version</strong> REG_SZ value that contains a version string.</p>
+<blockquote>
+<p>[!NOTE] The <strong>NET Framework Setup</strong> subkey in the registry path does <em>not</em> begin with a period.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 47%">
+<col style="width: 39%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Framework Version</th>
+<th>Registry Subkey</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td><strong>HKLM\Software\Microsoft\.NETFramework\Policy\v1.0\3705</strong></td>
+<td><strong>Install</strong> REG_SZ equals <code>1</code></td>
+</tr>
+<tr class="even">
+<td>1.1</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v1.1.4322</strong></td>
+<td><strong>Install</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v2.0.50727</strong></td>
+<td><strong>Install</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v3.0\Setup</strong></td>
+<td><strong>InstallSuccess</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+<tr class="odd">
+<td>3.5</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v3.5</strong></td>
+<td><strong>Install</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+<tr class="even">
+<td>4.0 Client Profile</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Client</strong></td>
+<td><strong>Install</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+<tr class="odd">
+<td>4.0 Full Profile</td>
+<td><strong>HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Full</strong></td>
+<td><strong>Install</strong> REG_DWORD equals <code>1</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!IMPORTANT] If the app you're running is 32-bit and running in 64-bit Windows, the registry paths will be different than previously listed. The 64-bit registry is available in the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\</strong> subkey. For example, the registry subkey for .NET Framework 3.5 is <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\v3.5</strong>.</p>
+</blockquote>
+<p>Notice that the registry path to the .NET Framework 1.0 subkey is different from the others.</p>
+<h3 id="use-registry-editor-older-framework-versions">Use Registry Editor (older framework versions)</h3>
+<ol type="1">
+<li><p>From the <strong>Start</strong> menu, choose <strong>Run</strong>, enter <em>regedit</em>, and then select <strong>OK</strong>.</p>
+<p>You must have administrative credentials to run regedit.</p></li>
+<li><p>Open the subkey that matches the version you want to check. Use the table in the <a href="#detect-net-framework-10-through-40">Detect .NET Framework 1.0 through 4.0</a> section.</p>
+<p>The following figure shows the subkey and its <strong>Version</strong> value for .NET Framework 3.5.</p>
+<figure>
+<img src="/2021/how-to-determine-which-versions-are-installed/./media/net-4-and-earlier.png" title=".NET Framework 3.5 and earlier versions" alt=""><figcaption>The registry entry for .NET Framework 3.5.</figcaption>
+</figure></li>
+</ol>
+<h3 id="query-the-registry-using-code-older-framework-versions">Query the registry using code (older framework versions)</h3>
+<p>Use the &lt;xref:Microsoft.Win32.RegistryKey?displayProperty=nameWithType&gt; class to access the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP</strong> subkey in the Windows registry.</p>
+<blockquote>
+<p>[!IMPORTANT] If the app you're running is 32-bit and running in 64-bit Windows, the registry paths will be different than previously listed. The 64-bit registry is available in the <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\</strong> subkey. For example, the registry subkey for .NET Framework 3.5 is <strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\v3.5</strong>.</p>
+</blockquote>
+<p>The following example finds the versions of .NET Framework 1-4 that are installed:</p>
+<p>:::code language="csharp" source="snippets/csharp/versions-installed.cs" id="1":::</p>
+<p>:::code language="vb" source="snippets/visual-basic/versions-installed.vb" id="1":::</p>
+<p>The example displays output similar to the following:</p>
+<pre class="output"><code>v2.0.50727  2.0.50727.4927  SP2
+v3.0  3.0.30729.4926  SP2
+v3.5  3.5.30729.4926  SP1
+v4.0
+  Client  4.0.0.0</code></pre>
+<h2 id="find-clr-versions">Find CLR versions</h2>
+<p>The .NET Framework CLR installed with .NET Framework is versioned separately. There are two ways to detect the version of the .NET Framework CLR:</p>
+<ul>
+<li><p><strong>The Clrver.exe tool</strong></p>
+<p>Use the <a href="../tools/clrver-exe-clr-version-tool.md">CLR Version tool (Clrver.exe)</a> to determine which versions of the CLR are installed on a computer. Open the <a href="../tools/developer-command-prompt-for-vs.md">Developer Command Prompt for Visual Studio</a> and enter <code>clrver</code>.</p>
+<p>Sample output:</p>
+<pre class="console"><code>Versions installed on the machine:
+v2.0.50727
+v4.0.30319</code></pre></li>
+<li><p><strong>The <code>Environment</code> class</strong></p>
+<blockquote>
+<p>[!IMPORTANT] For .NET Framework 4.5 and later versions, don't use the &lt;xref:System.Environment.Version%2A?displayProperty=nameWithType&gt; property to detect the version of the CLR. Instead, query the registry as described in <a href="#detect-net-framework-45-and-later-versions">Detect .NET Framework 4.5 and later versions</a>.</p>
+</blockquote>
+<ol type="1">
+<li><p>Query the &lt;xref:System.Environment.Version?displayProperty=nameWithType&gt; property to retrieve a &lt;xref:System.Version&gt; object.</p>
+<p>The returned <code>System.Version</code> object identifies the version of the runtime that's currently executing the code. It doesn't return assembly versions or other versions of the runtime that may have been installed on the computer.</p>
+<p>For .NET Framework versions 4, 4.5, 4.5.1, and 4.5.2, the string representation of the returned &lt;xref:System.Version&gt; object has the form 4.0.30319.<em>xxxxx</em>, where <em>xxxxx</em> is less than 42000. For .NET Framework 4.6 and later versions, it has the form 4.0.30319.42000.</p></li>
+<li><p>After you have the <strong>Version</strong> object, query it as follows:</p>
+<ul>
+<li><p>For the major release identifier (for example, <em>4</em> for version 4.0), use the &lt;xref:System.Version.Major%2A?displayProperty=nameWithType&gt; property.</p></li>
+<li><p>For the minor release identifier (for example, <em>0</em> for version 4.0), use the &lt;xref:System.Version.Minor%2A?displayProperty=nameWithType&gt; property.</p></li>
+<li><p>For the entire version string (for example, <em>4.0.30319.18010</em>), use the &lt;xref:System.Version.ToString%2A?displayProperty=nameWithType&gt; method. This method returns a single value that reflects the version of the runtime that's executing the code. It doesn't return assembly versions or other runtime versions that may be installed on the computer.</p></li>
+</ul></li>
+</ol>
+<p>The following example uses the &lt;xref:System.Environment.Version%2A?displayProperty=nameWithType&gt; property to retrieve CLR version information:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode csharp"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1"></a>Console.<span class="fu">WriteLine</span>($<span class="st">&quot;Version: {Environment.Version}&quot;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode vb"><code class="sourceCode monobasic"><span id="cb8-1"><a href="#cb8-1"></a>Console.WriteLine($<span class="st">&quot;Version: {Environment.Version}&quot;</span>)</span></code></pre></div>
+<p>The example displays output similar to the following:</p>
+<pre class="output"><code>Version: 4.0.30319.18010</code></pre></li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="how-to-determine-which-net-framework-updates-are-installed.md">How to: Determine which .NET Framework updates are installed</a></li>
+<li><a href="../install/guide-for-developers.md">Install .NET Framework for developers</a></li>
+<li><a href="versions-and-dependencies.md">.NET Framework versions and dependencies</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2021/Advanced-Installer：自动安装-Net-Framework-4-5-2/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2021/How-to-Determine-which-NET-Framework-versions-are-installed/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="风之痕's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/02/">二月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/09/">九月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/03/">三月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/01/">一月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/12/">十二月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>生命不息，折腾不止
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+        </body>
+    
+</html>
