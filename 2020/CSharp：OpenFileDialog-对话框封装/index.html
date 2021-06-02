@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.0 -->
+    <script>
+        window.materialVersion = "1.5.0"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Title -->
+    
+    <title>
+        
+            C#：OpenFileDialog 对话框封装 | 
+        
+        生命不息，折腾不止
+    </title>
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="风之痕">
+    <meta name="description" itemprop="description" content="你好，明天">
+    <meta name="keywords" content="">
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="生命不息，折腾不止">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icon -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://ithinking.cc">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="C#：OpenFileDialog 对话框封装 | 生命不息，折腾不止">
+    <meta property="og:image" content="http://ithinking.cc/img/favicon.png">
+    <meta property="og:description" content="你好，明天">
+    
+
+    
+        <meta property="article:published_time" content="Fri Mar 06 2020 08:45:26 GMT+0800">
+        <meta property="article:modified_time" content="Fri Mar 06 2020 13:59:19 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="C#：OpenFileDialog 对话框封装 | 生命不息，折腾不止">
+    <meta name="twitter:description" content="你好，明天">
+    <meta name="twitter:image" content="http://ithinking.cc/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="http://ithinking.cc">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html",
+    "headline": "C#：OpenFileDialog 对话框封装",
+    "datePublished": "Fri Mar 06 2020 08:45:26 GMT+0800",
+    "dateModified": "Fri Mar 06 2020 13:59:19 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "风之痕",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "生命不息，折腾不止",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "你好，明天",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<link rel="stylesheet" href="/css/prism-duotone-sea.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#copenfiledialog-对话框封装"><span class="post-toc-number">1.</span> <span class="post-toc-text">C#：OpenFileDialog 对话框封装</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                C#：OpenFileDialog 对话框封装
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>风之痕</strong>
+        <span>3月 06, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C#：OpenFileDialog 对话框封装&url=http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html&pic=http://ithinking.cc/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C#：OpenFileDialog 对话框封装&url=http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html&via=风之痕" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://ithinking.cc/2020/CSharp：OpenFileDialog-对话框封装/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="copenfiledialog-对话框封装">C#：OpenFileDialog 对话框封装</h1>
+<p>打开对话框让用户选择文件、保存文件，是常用的功能，用法也不是很简单的，最主要的就是文件过滤器需要手写。因此封装一个类来专门完成这项工作。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="co">/// 一些文件相关的操作</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">class</span> Browser</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="co">/// 选择文件</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">PickFile</span>(<span class="dt">string</span> Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>        {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>            Microsoft.<span class="fu">Win32</span>.<span class="fu">OpenFileDialog</span> dlg = <span class="kw">new</span> Microsoft.<span class="fu">Win32</span>.<span class="fu">OpenFileDialog</span>();</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Filter))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>                dlg.<span class="fu">Filter</span> = Filter;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(InitialDirectory))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>                dlg.<span class="fu">InitialDirectory</span> = InitialDirectory;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Title))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>                dlg.<span class="fu">Title</span> = Title;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>            dlg.<span class="fu">Multiselect</span> = <span class="kw">false</span>;</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>            dlg.<span class="fu">CheckFileExists</span> = <span class="kw">true</span>;</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>            <span class="kw">if</span> (dlg.<span class="fu">ShowDialog</span>() == <span class="kw">true</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>                <span class="kw">return</span> dlg.<span class="fu">FileName</span>;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>                <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>        }</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>        <span class="co">/// 选择文件</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">PickFile</span>(FileFilter Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>        {</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>            <span class="dt">string</span> filefilter = <span class="st">&quot;&quot;</span>;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>            <span class="kw">if</span> (Filter != <span class="kw">null</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>                filefilter = Filter.<span class="fu">ToString</span>();</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">PickFile</span>(filefilter, InitialDirectory, Title);</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>        }</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>        <span class="co">/// 选择文件</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">PickFile</span>(FilenameExtension extension, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>        {</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">PickFile</span>(FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(extension), InitialDirectory, Title);</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>        }</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">PickFile</span>(MultiFilenameExtension extension, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>        {</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">PickFile</span>(FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(extension), InitialDirectory, Title);</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a>        }</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>        <span class="co">/// 选择多个文件</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span>[] <span class="fu">PickFiles</span>(<span class="dt">string</span> Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true"></a>        {</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true"></a>            Microsoft.<span class="fu">Win32</span>.<span class="fu">OpenFileDialog</span> dlg = <span class="kw">new</span> Microsoft.<span class="fu">Win32</span>.<span class="fu">OpenFileDialog</span>();</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Filter))</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true"></a>                dlg.<span class="fu">Filter</span> = Filter;</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(InitialDirectory))</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true"></a>                dlg.<span class="fu">InitialDirectory</span> = InitialDirectory;</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Title))</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true"></a>                dlg.<span class="fu">Title</span> = Title;</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true"></a>            dlg.<span class="fu">Multiselect</span> = <span class="kw">true</span>;</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true"></a>            dlg.<span class="fu">CheckFileExists</span> = <span class="kw">true</span>;</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true"></a>            <span class="kw">if</span> (dlg.<span class="fu">ShowDialog</span>() == <span class="kw">true</span>)</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true"></a>            {</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true"></a>                <span class="kw">return</span> dlg.<span class="fu">FileNames</span>;</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true"></a>            }</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true"></a>                <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true"></a>        }</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true"></a>        <span class="co">/// 选择多个文件</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span>[] <span class="fu">PickFiles</span>(FileFilter Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true"></a>        {</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true"></a>            <span class="dt">string</span> filefilter = <span class="st">&quot;&quot;</span>;</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true"></a>            <span class="kw">if</span> (Filter != <span class="kw">null</span>)</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true"></a>                filefilter = Filter.<span class="fu">ToString</span>();</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">PickFiles</span>(filefilter, InitialDirectory, Title);</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true"></a>        }</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true"></a>        <span class="co">/// 选择多个文件</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true"></a>        <span class="co">/// </span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span>[] <span class="fu">PickFiles</span>(FilenameExtension extension, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true"></a>        {</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">PickFiles</span>(FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(extension), InitialDirectory, Title);</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true"></a>        }</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true"></a>        <span class="co">/// 保存文件</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Filter&quot;</span><span class="kw">&gt;</span><span class="co">文件扩展名过滤器</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;DefaultName&quot;</span><span class="kw">&gt;</span><span class="co">默认名称</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">SaveFile</span>(<span class="dt">string</span> Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title, <span class="dt">string</span> DefaultName = <span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true"></a>        {</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true"></a>            Microsoft.<span class="fu">Win32</span>.<span class="fu">SaveFileDialog</span> dlg = <span class="kw">new</span> Microsoft.<span class="fu">Win32</span>.<span class="fu">SaveFileDialog</span>();</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Filter))</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true"></a>                dlg.<span class="fu">Filter</span> = Filter;</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(InitialDirectory))</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true"></a>                dlg.<span class="fu">InitialDirectory</span> = InitialDirectory;</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Title))</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true"></a>                dlg.<span class="fu">Title</span> = Title;</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(DefaultName))</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true"></a>                dlg.<span class="fu">FileName</span> = DefaultName;</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true"></a>            <span class="kw">if</span> (dlg.<span class="fu">ShowDialog</span>() == <span class="kw">true</span>)</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true"></a>                <span class="kw">return</span> dlg.<span class="fu">FileName</span>;</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true"></a>                <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true"></a>        }</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">SaveFile</span>(FileFilter Filter, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true"></a>        {</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true"></a>            <span class="dt">string</span> filefilter = <span class="st">&quot;&quot;</span>;</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true"></a>            <span class="kw">if</span> (Filter != <span class="kw">null</span>)</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true"></a>                filefilter = Filter.<span class="fu">ToString</span>();</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">SaveFile</span>(filefilter, InitialDirectory, Title);</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true"></a>        }</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">SaveFile</span>(FilenameExtension extension, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true"></a>        {</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">SaveFile</span>(FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(extension), InitialDirectory, Title);</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true"></a>        }</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true"></a></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">SaveFile</span>(MultiFilenameExtension extension, <span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true"></a>        {</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">SaveFile</span>(FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(extension), InitialDirectory, Title);</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true"></a>        }</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true"></a>        <span class="co">/// 选择文件夹</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;InitialDirectory&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框初始目录&lt;/param&gt;</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;Title&quot;</span><span class="kw">&gt;</span><span class="co">文件选择对话框标题</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">PickFolder</span>(<span class="dt">string</span> InitialDirectory, <span class="dt">string</span> Title)</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true"></a>        {</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true"></a>            Microsoft.<span class="fu">WindowsAPICodePack</span>.<span class="fu">Dialogs</span>.<span class="fu">CommonOpenFileDialog</span> dlg = <span class="kw">new</span> Microsoft.<span class="fu">WindowsAPICodePack</span>.<span class="fu">Dialogs</span>.<span class="fu">CommonOpenFileDialog</span>();</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true"></a>            dlg.<span class="fu">IsFolderPicker</span> = <span class="kw">true</span>; <span class="co">//set to false if need to select files</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(Title))</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true"></a>                dlg.<span class="fu">Title</span> = Title;</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true"></a>                dlg.<span class="fu">Title</span> = <span class="st">&quot;选择文件夹&quot;</span>;</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true"></a>            <span class="kw">if</span> (!<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(InitialDirectory))</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true"></a>                dlg.<span class="fu">InitialDirectory</span> = InitialDirectory;</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true"></a>            dlg.<span class="fu">EnsurePathExists</span> = <span class="kw">true</span>;</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true"></a>            dlg.<span class="fu">AddToMostRecentlyUsedList</span> = <span class="kw">true</span>;</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true"></a>            <span class="co">//d.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true"></a>            Microsoft.<span class="fu">WindowsAPICodePack</span>.<span class="fu">Dialogs</span>.<span class="fu">CommonFileDialogResult</span> result = dlg.<span class="fu">ShowDialog</span>(Wpf.<span class="fu">Win32WindowExtension</span>.<span class="fu">GetActiveWindow</span>());</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true"></a>            <span class="kw">if</span> (result == Microsoft.<span class="fu">WindowsAPICodePack</span>.<span class="fu">Dialogs</span>.<span class="fu">CommonFileDialogResult</span>.<span class="fu">Ok</span>)</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true"></a>            {</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true"></a>                <span class="kw">return</span> dlg.<span class="fu">FileName</span>;</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true"></a>            }</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true"></a>            <span class="kw">else</span></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true"></a>            {</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true"></a>                <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true"></a>            }</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true"></a>        }</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true"></a>        <span class="co">/// 打开资源管理器，并选中高亮指定文件</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;sFile&quot;</span><span class="kw">&gt;</span><span class="co">文件全路径&lt;/param&gt;</span></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">SelectFileInExplorer</span>(<span class="dt">string</span> sFile)</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true"></a>        {</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true"></a>            <span class="kw">if</span> (sFile.<span class="fu">Contains</span>(<span class="st">&quot; &quot;</span>))</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true"></a>                sFile = $<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">{sFile}</span><span class="sc">\&quot;</span><span class="st">&quot;</span>;</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true"></a>            System.<span class="fu">Diagnostics</span>.<span class="fu">Process</span>.<span class="fu">Start</span>(<span class="st">&quot;explorer.exe&quot;</span>, <span class="st">&quot;/select, &quot;</span> + sFile);</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true"></a>        }</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true"></a>        <span class="co">/// 打开资源管理器，并进入指定目录</span></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;sFolder&quot;</span><span class="kw">&gt;</span><span class="co">目录全路径&lt;/param&gt;</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">OpenFolder</span>(<span class="dt">string</span> sFolder)</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true"></a>        {</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true"></a>            <span class="kw">if</span> (!System.<span class="fu">IO</span>.<span class="fu">Directory</span>.<span class="fu">Exists</span>(sFolder))</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true"></a>                <span class="kw">return</span>;</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true"></a>            <span class="co">// opens the folder in explorer</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true"></a>            System.<span class="fu">Diagnostics</span>.<span class="fu">Process</span>.<span class="fu">Start</span>(sFolder);</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true"></a>            <span class="co">// opens the folder in explorer</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true"></a>            <span class="co">//System.Diagnostics.Process.Start(&quot;explorer.exe&quot;, sFolder);</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true"></a>            <span class="co">//int len = sFolder.Length;</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true"></a>            <span class="co">//if (!(sFolder[len - 1] == &#39;\\&#39; || sFolder[len - 1] == &#39;/&#39;))</span></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true"></a>            <span class="co">//{</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true"></a>            <span class="co">//    sFolder = sFolder + System.IO.Path.DirectorySeparatorChar;</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true"></a>            <span class="co">//}</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true"></a>            <span class="co">//System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true"></a>            <span class="co">//{</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true"></a>            <span class="co">//    FileName = sFolder,</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true"></a>            <span class="co">//    UseShellExecute = true,</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true"></a>            <span class="co">//    Verb = &quot;open&quot;</span></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true"></a>            <span class="co">//});</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true"></a>        }</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true"></a>        <span class="co">/// 使用默认程序打开指定文件</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;sFile&quot;</span><span class="kw">&gt;</span><span class="co">文件全路径&lt;/param&gt;</span></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">OpenFile</span>(<span class="dt">string</span> sFile)</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true"></a>        {</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true"></a>            <span class="kw">if</span> (!System.<span class="fu">IO</span>.<span class="fu">File</span>.<span class="fu">Exists</span>(sFile))</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true"></a>                <span class="kw">return</span>;</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true"></a>            <span class="co">// opens the folder in explorer</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true"></a>            System.<span class="fu">Diagnostics</span>.<span class="fu">Process</span>.<span class="fu">Start</span>(sFile);</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true"></a>        }</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="co">/// 构建 Filter </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;remarks&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="co">///</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;/remarks&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;example&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="co">/// FileFilter.Create().Add(&quot;Excel 工作簿&quot;,&quot;.xlsx&quot;).Add(&quot;Excel 2000 文档&quot;,&quot;xls&quot;).ToString() -&gt; &quot;Excel 文档|*.xlsx&quot;|Excel 2000 文档|*.xls</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="co">/// 配合Browser使用</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="co">/// </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    <span class="co">/// Browser.PickFile(FileFilter.Add(&quot;Excel 文档&quot;,&quot;.xlsx&quot;).ToString(),null,null);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;/example&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">class</span> FileFilter</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>        <span class="dv">#region 常用的类型</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter AllFiles =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">AllFiles</span>);</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Xlsx =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Xlsx</span>);</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Xls =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Xls</span>);</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Docx =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Docx</span>);</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Doc =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Doc</span>);</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Csv =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Csv</span>);</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Txt =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Txt</span>);</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Text =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Text</span>);</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter TxtOrText =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>            FilenameExtension.<span class="fu">MergeAll</span>(</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>                <span class="st">&quot;文本文件&quot;</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Txt</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Text</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>            );</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Jpg =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Jpg</span>);</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Jpeg =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Jpeg</span>);</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter JpgOrJpeg =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>            FilenameExtension.<span class="fu">MergeAll</span>(</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>                <span class="st">&quot;Jpg 图片&quot;</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Jpg</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Jpeg</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>            );</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Png =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Png</span>);</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Gif =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Gif</span>);</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Zip =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Zip</span>);</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Rar =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Rar</span>);</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter _7z =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE._7z);</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Mdb =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Mdb</span>);</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Accdb =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">Accdb</span>);</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter MdbOrAccdb =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>            FilenameExtension.<span class="fu">MergeAll</span>(</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>                <span class="st">&quot;Access 数据库&quot;</span>,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Mdb</span>,</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>                FilenameExtension.<span class="fu">Accdb</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>            );</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter SqliteDb =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">SqliteDb</span>);</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter SqliteDb3 =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">SqliteDb3</span>);</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter SqliteSqlite =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FNE.<span class="fu">SqliteSqlite</span>);</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter Sqlite =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(FilenameExtension.<span class="fu">MergeAll</span>(<span class="st">&quot;Sqlite 数据库&quot;</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true"></a>            FilenameExtension.<span class="fu">SqliteDb</span>, FilenameExtension.<span class="fu">SqliteDb3</span>, FilenameExtension.<span class="fu">SqliteSqlite</span>));</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true"></a>        <span class="dv">#endregion</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="fu">Create</span>() =&gt; <span class="kw">new</span> <span class="fu">FileFilter</span>();</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="fu">Create</span>(<span class="dt">string</span> name, <span class="dt">string</span> extension) =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(name, extension);</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="fu">Create</span>(FilenameExtension fne) =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(fne);</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="fu">Create</span>(MultiFilenameExtension mfne) =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(mfne);</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="fu">Create</span>(FNE fne) =&gt; FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(fne);</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter I =&gt; <span class="kw">new</span> <span class="fu">FileFilter</span>();</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="kw">implicit</span> <span class="kw">operator</span> <span class="dt">string</span>(FileFilter ff) =&gt; ff.<span class="fu">ToString</span>();</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true"></a>        <span class="kw">private</span> List&lt;FilenameExtension&gt; Extensions = <span class="kw">new</span> List&lt;FilenameExtension&gt;();</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true"></a>        <span class="co">/// 添加一种类型</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;name&quot;</span><span class="kw">&gt;</span><span class="co">类型名，如（jpeg 图片）&lt;/param&gt;</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;extension&quot;</span><span class="kw">&gt;</span><span class="co">类型扩展名，如(jpg 或 .jpg 或 *.jpg 或 jpeg...)</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(<span class="dt">string</span> name, <span class="dt">string</span> extension)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true"></a>        {</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">Add</span>(<span class="kw">new</span> <span class="fu">FilenameExtension</span>(name, extension));</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true"></a>        }</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(<span class="dt">string</span> name, <span class="kw">params</span> <span class="dt">string</span>[] extensions)</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true"></a>        {</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true"></a>            <span class="kw">if</span> (extensions == <span class="kw">null</span> || extensions.<span class="fu">Length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">Add</span>(name, FilenameExtension.<span class="fu">CombineWildcardExpression</span>(extensions));</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true"></a>        }</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(FilenameExtension ext)</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true"></a>        {</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true"></a>            Extensions.<span class="fu">Add</span>(ext);</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true"></a>        }</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(MultiFilenameExtension ext)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true"></a>        {</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true"></a>            Extensions.<span class="fu">AddRange</span>(ext.<span class="fu">FilenameExtensions</span>);</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true"></a>        }</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(FNE fne)</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true"></a>        {</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true"></a>            FilenameExtension fe = FilenameExtension.<span class="fu">GetFilenameExtension</span>(fne);</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true"></a>            <span class="kw">if</span> (fe != <span class="kw">null</span>)</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true"></a>                <span class="kw">this</span>.<span class="fu">Add</span>(fe);</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true"></a>        }</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">Add</span>(FileFilter filter)</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true"></a>        {</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true"></a>            <span class="kw">if</span> (filter == <span class="kw">null</span>) <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true"></a>            <span class="kw">foreach</span>(<span class="dt">var</span> ext <span class="kw">in</span> filter.<span class="fu">Extensions</span>)</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true"></a>            {</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true"></a>                <span class="fu">Add</span>(ext);</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true"></a>            }</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true"></a>        }</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true"></a>        <span class="kw">private</span> <span class="dt">bool</span> AllFile = <span class="kw">false</span>;</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">SetAll</span>()</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true"></a>        {</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true"></a>            AllFile = <span class="kw">true</span>;</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true"></a>        }</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true"></a>        <span class="kw">public</span> FileFilter <span class="fu">AddAll</span>()</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true"></a>        {</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true"></a>            FilenameExtension fe = FilenameExtension.<span class="fu">GetFilenameExtension</span>(FNE.<span class="fu">AllFiles</span>);</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true"></a>            <span class="kw">if</span> (fe != <span class="kw">null</span>)</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true"></a>                <span class="kw">this</span>.<span class="fu">Add</span>(fe);</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true"></a>        }</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">override</span> <span class="dt">string</span> <span class="fu">ToString</span>()</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true"></a>        {</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true"></a>            StringBuilder aStringBuilder = <span class="kw">new</span> <span class="fu">StringBuilder</span>();</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true"></a>            <span class="kw">foreach</span> (<span class="dt">var</span> item <span class="kw">in</span> Extensions)</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true"></a>            {</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true"></a>                aStringBuilder.<span class="fu">Append</span>(item.<span class="fu">Name</span>);</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true"></a>                aStringBuilder.<span class="fu">Append</span>(<span class="ch">&#39;|&#39;</span>);</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true"></a>                <span class="kw">if</span> (item.<span class="fu">Extension</span>[<span class="dv">0</span>] == <span class="ch">&#39;*&#39;</span>)</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true"></a>                    aStringBuilder.<span class="fu">Append</span>(item.<span class="fu">Extension</span>);</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true"></a>                <span class="kw">else</span> <span class="kw">if</span> (item.<span class="fu">Extension</span>[<span class="dv">0</span>] == <span class="ch">&#39;.&#39;</span>)</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true"></a>                    aStringBuilder.<span class="fu">Append</span>($<span class="st">&quot;*{item.Extension}&quot;</span>);</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true"></a>                <span class="kw">else</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true"></a>                    aStringBuilder.<span class="fu">Append</span>($<span class="st">&quot;*.{item.Extension}&quot;</span>);</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true"></a>                aStringBuilder.<span class="fu">Append</span>(<span class="ch">&#39;|&#39;</span>);</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true"></a>            }</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true"></a>            <span class="kw">if</span> (AllFile || Extensions.<span class="fu">Count</span> == <span class="dv">0</span>)</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true"></a>                aStringBuilder.<span class="fu">Append</span>(<span class="st">&quot;所有文件|*.*|&quot;</span>);</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true"></a>            aStringBuilder.<span class="fu">Remove</span>(aStringBuilder.<span class="fu">Length</span> - <span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true"></a>            <span class="kw">return</span> aStringBuilder.<span class="fu">ToString</span>();</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true"></a>        }</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true"></a></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FileFilter <span class="kw">operator</span> +(FileFilter left, FileFilter right)</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true"></a>        {</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true"></a>            <span class="kw">return</span> FileFilter.<span class="fu">Create</span>().<span class="fu">Add</span>(left).<span class="fu">Add</span>(right);</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true"></a>        }</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">enum</span> FNE</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        AllFiles=<span class="dv">0</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        Xlsx=<span class="dv">1</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        Xls=<span class="dv">2</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        Docx=<span class="dv">4</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        Doc=<span class="dv">8</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        Csv=<span class="dv">16</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        Txt=<span class="dv">32</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        Text=<span class="dv">64</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>        Jpg=<span class="dv">128</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        Jpeg=<span class="dv">256</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>        Png=<span class="dv">512</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        Gif=<span class="dv">1024</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>        Zip=<span class="dv">2048</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>        Rar=<span class="dv">4096</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>        Dat=<span class="dv">8172</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        _7z,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>        Mdb,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>        Accdb,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>        SqliteDb,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>        SqliteDb3,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>        SqliteSqlite</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    }</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>    <span class="co">/// 文件扩展名</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    [<span class="fu">DebuggerDisplay</span>(<span class="st">&quot;{Name} {Extension}&quot;</span>)]</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">class</span> FilenameExtension</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>    {</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>        <span class="dv">#region 常用的文件类型</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension AllFiles =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;所有文件&quot;</span>, <span class="st">&quot;.*&quot;</span>);</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Xlsx =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Excel 工作簿&quot;</span>, <span class="st">&quot;.xlsx&quot;</span>);</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Xls =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Excel 97-2000 工作簿&quot;</span>, <span class="st">&quot;.xls&quot;</span>);</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Docx =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Word 文档&quot;</span>, <span class="st">&quot;.docx&quot;</span>);</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Doc =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Word 97-2000 文档&quot;</span>, <span class="st">&quot;.doc&quot;</span>);</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Dat =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;文本数据文件&quot;</span>, <span class="st">&quot;.dat&quot;</span>);</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Csv =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;CSV (逗号分割符)&quot;</span>, <span class="st">&quot;.csv&quot;</span>);</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Txt =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;文本文件&quot;</span>, <span class="st">&quot;.txt&quot;</span>);</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Text =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;文本文件&quot;</span>, <span class="st">&quot;.text&quot;</span>);</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Jpg =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;JPEG 图片&quot;</span>, <span class="st">&quot;.jpg&quot;</span>);</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Jpeg =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;JPEG 图片&quot;</span>, <span class="st">&quot;.jpeg&quot;</span>);</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Png =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;PNG 图片&quot;</span>, <span class="st">&quot;.png&quot;</span>);</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Gif =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;GIF 格式&quot;</span>, <span class="st">&quot;.gif&quot;</span>);</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Zip =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;ZIP 压缩文件&quot;</span>, <span class="st">&quot;.zip&quot;</span>);</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Rar =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;RAR 压缩文件&quot;</span>, <span class="st">&quot;.rar&quot;</span>);</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension _7z =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;7z 压缩文件&quot;</span>, <span class="st">&quot;.7z&quot;</span>);</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Mdb =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Access 2000 数据库&quot;</span>, <span class="st">&quot;.mdb&quot;</span>);</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension Accdb =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Access 数据库&quot;</span>, <span class="st">&quot;.accdb&quot;</span>);</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension SqliteDb =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Sqlite 数据库&quot;</span>, <span class="st">&quot;.db&quot;</span>);</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension SqliteDb3 =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Sqlite 数据库&quot;</span>, <span class="st">&quot;.db3&quot;</span>);</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension SqliteSqlite =&gt; <span class="kw">new</span> <span class="fu">FilenameExtension</span>(<span class="st">&quot;Sqlite 数据库&quot;</span>, <span class="st">&quot;.sqlite&quot;</span>);</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="fu">GetFilenameExtension</span>(FNE fne)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>        {</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>            <span class="kw">switch</span> (fne)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>            {</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">AllFiles</span>: <span class="kw">return</span> AllFiles;</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Xlsx</span>: <span class="kw">return</span> Xlsx;</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Xls</span>: <span class="kw">return</span> Xls;</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Docx</span>: <span class="kw">return</span> Docx;</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Doc</span>: <span class="kw">return</span> Doc;</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Csv</span>: <span class="kw">return</span> Csv;</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Txt</span>: <span class="kw">return</span> Txt;</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Text</span>: <span class="kw">return</span> Text;</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Jpg</span>: <span class="kw">return</span> Jpg;</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Jpeg</span>: <span class="kw">return</span> Jpeg;</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Png</span>: <span class="kw">return</span> Png;</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Gif</span>: <span class="kw">return</span> Gif;</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Zip</span>: <span class="kw">return</span> Zip;</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Rar</span>: <span class="kw">return</span> Rar;</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true"></a>                <span class="kw">case</span> FNE._7z: <span class="kw">return</span> _7z;</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Mdb</span>: <span class="kw">return</span> Mdb;</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Accdb</span>: <span class="kw">return</span> Accdb;</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">SqliteDb</span>: <span class="kw">return</span> SqliteDb;</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">SqliteDb3</span>: <span class="kw">return</span> SqliteDb3;</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">SqliteSqlite</span>: <span class="kw">return</span> SqliteSqlite;</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true"></a>                <span class="kw">case</span> FNE.<span class="fu">Dat</span>:<span class="kw">return</span> Dat;</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true"></a>                <span class="kw">default</span>:</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true"></a>                    <span class="kw">break</span>;</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true"></a>            }</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true"></a>        }</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true"></a>        <span class="dv">#endregion</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true"></a>        <span class="kw">public</span> <span class="fu">FilenameExtension</span>(<span class="dt">string</span> name, <span class="dt">string</span> extension)</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true"></a>        {</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true"></a>            Name = name;</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true"></a>            Extension = extension;</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true"></a>        }</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true"></a>        <span class="co">/// 文件类型名</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true"></a>        <span class="kw">public</span> <span class="dt">string</span> Name { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; }</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true"></a>        <span class="co">/// 文件扩展名</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true"></a>        <span class="kw">public</span> <span class="dt">string</span> Extension { <span class="kw">get</span>; <span class="kw">private</span> <span class="kw">set</span>; }</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true"></a>        <span class="co">/// 获取通配符表达式</span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true"></a>        <span class="co">/// 形如 *.jpg 或 *.jpg;*.png</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true"></a>        <span class="kw">public</span> <span class="dt">string</span> <span class="fu">GetWildcardExpression</span>() =&gt; <span class="fu">GetWildcardExpression</span>(Extension);</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true"></a></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true"></a>        <span class="co">/// 连接两个文件扩展名</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;left&quot;</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;right&quot;</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="kw">operator</span> +(FilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true"></a>        {</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">Combine</span>(left, right);</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true"></a>        }</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true"></a></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="kw">operator</span> |(FilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true"></a>        {</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">Combine</span>(left, right);</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true"></a>        }</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true"></a></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="fu">Combine</span>(FilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true"></a>        {</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true"></a>            MultiFilenameExtension mfe = <span class="kw">new</span> <span class="fu">MultiFilenameExtension</span>();</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">Add</span>(left);</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">Add</span>(right);</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true"></a>            <span class="kw">return</span> mfe;</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true"></a>        }</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true"></a></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true"></a></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="fu">Combine</span>(FilenameExtension left, MultiFilenameExtension right)</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true"></a>        {</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true"></a>            MultiFilenameExtension mfe = <span class="kw">new</span> <span class="fu">MultiFilenameExtension</span>();</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">Add</span>(left);</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">AddRange</span>(right.<span class="fu">FilenameExtensions</span>);</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true"></a>            <span class="kw">return</span> mfe;</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true"></a>        }</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true"></a></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="kw">operator</span> *(FilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true"></a>        {</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">MergeAll</span>(left.<span class="fu">Name</span>, left, right);</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true"></a>        }</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="kw">operator</span> &amp;(FilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true"></a>        {</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">MergeAll</span>(left.<span class="fu">Name</span>, left, right);</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true"></a>        }</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="kw">operator</span> *(<span class="dt">string</span> name, FilenameExtension right)</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true"></a>        {</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">MergeAll</span>(name, right);</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true"></a>        }</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true"></a></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="kw">operator</span> &amp;(<span class="dt">string</span> name, FilenameExtension right)</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true"></a>        {</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true"></a>            <span class="kw">return</span> FilenameExtension.<span class="fu">MergeAll</span>(name, right);</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true"></a>        }</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true"></a>        <span class="co">/// 连接另外一个文件扩展名对象</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;right&quot;</span><span class="kw">&gt;</span><span class="co">另外文件扩展名对象</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">&quot;name&quot;</span><span class="kw">&gt;</span><span class="co">连接后显示文件类型名</span><span class="kw">&lt;/param&gt;</span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">连接后的文件扩展对象</span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true"></a>        <span class="kw">public</span> FilenameExtension <span class="fu">Merge</span>(<span class="dt">string</span> name, <span class="kw">params</span> FilenameExtension[] fnes)</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true"></a>        {</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true"></a>            List&lt;FilenameExtension&gt; fes = <span class="kw">new</span> List&lt;FilenameExtension&gt;() { <span class="kw">this</span> };</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true"></a>            fes.<span class="fu">AddRange</span>(fnes);</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true"></a>            <span class="kw">return</span> <span class="fu">MergeAll</span>(name, fnes);</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true"></a>        }</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true"></a></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> FilenameExtension <span class="fu">MergeAll</span>(<span class="dt">string</span> name, <span class="kw">params</span> FilenameExtension[] fnes)</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true"></a>        {</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true"></a>            <span class="kw">if</span> (fnes.<span class="fu">Length</span> == <span class="dv">1</span>) <span class="kw">return</span> <span class="kw">new</span> <span class="fu">FilenameExtension</span>(name, fnes[<span class="dv">0</span>].<span class="fu">Extension</span>);</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true"></a>            StringBuilder builder = <span class="kw">new</span> <span class="fu">StringBuilder</span>();</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true"></a>            <span class="kw">foreach</span> (<span class="dt">var</span> fne <span class="kw">in</span> fnes)</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true"></a>            {</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true"></a>                <span class="kw">if</span> (fne == <span class="kw">null</span>) <span class="kw">continue</span>;</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true"></a>                builder.<span class="fu">Append</span>(fne.<span class="fu">GetWildcardExpression</span>());</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true"></a>                builder.<span class="fu">Append</span>(<span class="ch">&#39;;&#39;</span>);</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true"></a>            }</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true"></a>            <span class="kw">if</span> (builder.<span class="fu">Length</span> &gt; <span class="dv">0</span>) builder.<span class="fu">Remove</span>(builder.<span class="fu">Length</span> - <span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true"></a>            <span class="kw">else</span> <span class="kw">return</span> <span class="kw">null</span>;</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true"></a>            <span class="kw">if</span> (name == <span class="kw">null</span>)</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true"></a>            {</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true"></a>                <span class="dt">var</span> dfne = fnes.<span class="fu">FirstOrDefault</span>(x =&gt; x != <span class="kw">null</span>);</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true"></a>                <span class="kw">if</span> (dfne != <span class="kw">null</span>)</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true"></a>                    name = dfne.<span class="fu">Name</span>;</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true"></a>            }</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true"></a>            <span class="kw">if</span> (name == <span class="kw">null</span>) name = <span class="st">&quot;文件&quot;</span>;</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true"></a>            <span class="kw">return</span> <span class="kw">new</span> <span class="fu">FilenameExtension</span>(name, builder.<span class="fu">ToString</span>());</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true"></a>        }</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true"></a></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true"></a>        <span class="co">/// 获取通配符表达式</span></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true"></a>        <span class="co">/// 形如 *.jpg</span></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true"></a>        <span class="co">/// </span><span class="kw">&lt;/returns&gt;</span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">GetWildcardExpression</span>(<span class="dt">string</span> extension)</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true"></a>        {</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true"></a>            <span class="kw">if</span> (<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(extension)) <span class="kw">return</span> <span class="st">&quot;*.*&quot;</span>;</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true"></a>            <span class="kw">if</span> (extension == <span class="st">&quot;*&quot;</span> || extension == <span class="st">&quot;.&quot;</span>) <span class="kw">return</span> <span class="st">&quot;*.*&quot;</span>;</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true"></a>            <span class="kw">if</span> (extension.<span class="fu">Length</span> == <span class="dv">1</span>) <span class="kw">return</span> $<span class="st">&quot;*.{extension}&quot;</span>;</span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true"></a>            <span class="kw">if</span> (extension[<span class="dv">0</span>] == <span class="ch">&#39;*&#39;</span> &amp;&amp; extension[<span class="dv">1</span>] == <span class="ch">&#39;.&#39;</span>) <span class="kw">return</span> extension;</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true"></a>            <span class="kw">if</span> (extension[<span class="dv">0</span>] == <span class="ch">&#39;.&#39;</span>) <span class="kw">return</span> $<span class="st">&quot;*{extension}&quot;</span>;</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true"></a>            <span class="kw">return</span> $<span class="st">&quot;*.{extension}&quot;</span>;</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true"></a>        }</span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true"></a></span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">string</span> <span class="fu">CombineWildcardExpression</span>(<span class="kw">params</span> <span class="dt">string</span>[] extensions)</span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true"></a>        {</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true"></a>            <span class="kw">if</span> (extensions == <span class="kw">null</span> || extensions.<span class="fu">Length</span> == <span class="dv">0</span>) <span class="kw">return</span> <span class="st">&quot;&quot;</span>;</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true"></a>            StringBuilder builder = <span class="kw">new</span> <span class="fu">StringBuilder</span>();</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true"></a>            <span class="kw">foreach</span> (<span class="dt">string</span> extension <span class="kw">in</span> extensions)</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true"></a>            {</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true"></a>                <span class="kw">if</span> (<span class="dt">string</span>.<span class="fu">IsNullOrEmpty</span>(extension)) <span class="kw">continue</span>;</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true"></a>                builder.<span class="fu">Append</span>(<span class="fu">GetWildcardExpression</span>(extension));</span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true"></a>                builder.<span class="fu">Append</span>(<span class="ch">&#39;;&#39;</span>);</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true"></a>            }</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true"></a>            <span class="kw">if</span> (builder.<span class="fu">Length</span> != <span class="dv">0</span>)</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true"></a>                builder.<span class="fu">Remove</span>(builder.<span class="fu">Length</span> - <span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true"></a>            <span class="kw">return</span> builder.<span class="fu">ToString</span>();</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true"></a>        }</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true"></a>    }</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true"></a></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true"></a>    <span class="kw">public</span> <span class="kw">class</span> MultiFilenameExtension</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true"></a>    {</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true"></a>        <span class="kw">internal</span> <span class="fu">MultiFilenameExtension</span>()</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true"></a>        {</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true"></a></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true"></a>        }</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true"></a>        <span class="kw">public</span> IReadOnlyList&lt;FilenameExtension&gt; FilenameExtensions =&gt; _FilenameExtensions;</span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true"></a>        <span class="kw">internal</span> List&lt;FilenameExtension&gt; _FilenameExtensions = <span class="kw">new</span> List&lt;FilenameExtension&gt;();</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="fu">Merge</span>(MultiFilenameExtension left, MultiFilenameExtension right)</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true"></a>        {</span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true"></a>            MultiFilenameExtension mfe = <span class="kw">new</span> <span class="fu">MultiFilenameExtension</span>();</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">AddRange</span>(left._FilenameExtensions);</span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">AddRange</span>(right._FilenameExtensions);</span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true"></a>            <span class="kw">return</span> mfe;</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true"></a>        }</span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true"></a>        <span class="kw">public</span> <span class="kw">static</span> MultiFilenameExtension <span class="fu">Merge</span>(MultiFilenameExtension left, FilenameExtension right)</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true"></a>        {</span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true"></a>            MultiFilenameExtension mfe = <span class="kw">new</span> <span class="fu">MultiFilenameExtension</span>();</span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">AddRange</span>(left._FilenameExtensions);</span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true"></a>            mfe._FilenameExtensions.<span class="fu">Add</span>(right);</span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true"></a>            <span class="kw">return</span> mfe;</span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true"></a>        }</span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true"></a>    }</span></code></pre></div>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2020/WPF：解决Loaded事件绑定不了的问题/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2020/AutoCAD：添加字体到-shx-文件/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="风之痕's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/02/">二月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/09/">九月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/06/">六月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/05/">五月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/03/">三月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/01/">一月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/12/">十二月 2019<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/11/">十一月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/10/">十月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/09/">九月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">八月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">4</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>生命不息，折腾不止
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+        </body>
+    
+</html>
